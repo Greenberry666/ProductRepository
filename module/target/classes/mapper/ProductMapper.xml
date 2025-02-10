@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.multi.module.mapper.ProductMapper">
+    <!-- <insert id="insert"
+             parameterType="com.example.multi.module.entity.Product">
+         insert into product(name,title,images,info,price,detailed_title,detailed,create_time,update_time,is_deleted)
+         values (#{product.name},#{product.title},#{product.images},#{product.info},
+                 #{product.price},#{product.detailedTitle},#{product.detailed},
+                 #{product.createTime},#{product.updateTime},#{product.isDeleted})
+     </insert>
+     -->
+     <!--<insert id="insert"
+             parameterType="com.example.multi.module.entity.Product">
+         insert into product
+             (
+                  <if test="product.id != null">id,</if>
+                  <if test="product.title != null and product.title !=''">title,</if>
+                  <if test="product.name != null and product.name !=''">name,</if>
+                  <if test="product.images!= null and product.images !=''">images,</if>
+                  <if test="product.info!= null and product.info !=''">info,</if>
+                  <if test="product.price!= null">price,</if>
+                  <if test="product.detailedTitle!= null and product.detailedTitle !=''">detailed_title,</if>
+                  <if test="product.detailed != null and product.detailed !=''">detailed,</if>
+                  <if test="product.createTime != null">create_time,</if>
+                  <if test="product.updateTime != null">update_time,</if>
+                  is_deleted
+         )values
+             (
+                  <if test="product.id != null">#{product.id},</if>
+                  <if test="product.name != null">#{product.name},</if>
+                  <if test="product.title != null">#{product.title},</if>
+                  <if test="product.images != null">#{product.images},</if>
+                  <if test="product.info != null">#{product.info},</if>
+                  <if test="product.price != null">#{product.price},</if>
+                  <if test="product.detailedTitle != null">#{product.detailedTitle},</if>
+                  <if test="product.detailed != null">#{product.detailed},</if>
+                  <if test="product.createTime != null">#{product.createTime},</if>
+                  <if test="product.updateTime != null">#{product.updateTime},</if>
+                  #{product.isDeleted}
+         )
+
+     </insert>
+     -->
+
+
+    <!--
+    mybatis如何返回insert自增id
+    方法一：使用 useGeneratedKeys 和 keyProperty
+这是最常用的方法。你可以在Mapper XML文件中配置useGeneratedKeys="true"和keyProperty来指定哪个属性应该接收生成的主键。
+    方法二：使用 @Options 注解
+如果你使用的是MyBatis的注解方式而不是XML配置，你可以使用@Options注解来实现相同的功能。
+@Options(useGeneratedKeys = true, keyProperty = "id")
+
+     -->
+    <insert id="insert"
+            parameterType="com.example.multi.module.entity.Product" useGeneratedKeys="true" keyProperty="id">
+     insert into product
+         <trim prefix="(" suffixOverrides=",">
+             <if test="product.id != null">id,</if>
+             <if test="product.title != null and product.title !=''">title,</if>
+             <if test="product.name != null and product.name !=''">name,</if>
+             <if test="product.images!= null and product.images !=''">images,</if>
+             <if test="product.info!= null and product.info !=''">info,</if>
+             <if test="product.price!= null">price,</if>
+             <if test="product.detailedTitle!= null and product.detailedTitle !=''">detailed_title,</if>
+             <if test="product.detailed != null and product.detailed !=''">detailed,</if>
+             <if test="product.createTime != null">create_time,</if>
+             <if test="product.updateTime != null">update_time,</if>
+             is_deleted
+         </trim>
+
+         <trim prefix=")values(" suffixOverrides=",">
+             <if test="product.id != null">#{product.id},</if>
+             <if test="product.name != null">#{product.name},</if>
+             <if test="product.title != null">#{product.title},</if>
+             <if test="product.images != null">#{product.images},</if>
+             <if test="product.info != null">#{product.info},</if>
+             <if test="product.price != null">#{product.price},</if>
+             <if test="product.detailedTitle != null">#{product.detailedTitle},</if>
+             <if test="product.detailed != null">#{product.detailed},</if>
+             <if test="product.createTime != null">#{product.createTime},</if>
+             <if test="product.updateTime != null">#{product.updateTime},</if>
+             #{product.isDeleted}
+         </trim>
+        )
+    </insert>
+
+
+
+     <!--
+     <update id="update"
+             parameterType="com.example.multi.module.entity.Product">
+         update  product set name = #{product.name},
+                             title= #{product.title},
+                             update_time=#{product.updateTime}
+         where id = #{product.id}
+
+     </update>
+     -->
+     <update id="update"
+             parameterType="com.example.multi.module.entity.Product">
+         UPDATE product
+        <trim prefix="set" suffixOverrides=",">
+             update_time = #{product.updateTime},
+             <if test="product.title != null ">title = #{product.title},</if>
+             <if test="product.name != null ">name = #{product.name},</if>
+             <if test="product.images != null  ">images = #{product.images},</if>
+             <if test="product.info != null   ">info = #{product.info},</if>
+             <if test="product.price != 0" >price = #{product.price},</if>
+             <if test="product.detailedTitle != null ">detailed_title =#{product.detailedTitle},</if>
+             <if test="product.detailed != null ">detailed =#{product.detailed}</if>
+
+        </trim>
+             where id = #{product.id}
+     </update>
+
+    <!--<update id="update"
+            parameterType="com.example.multi.module.entity.Product">
+    UPDATE product
+    <trim prefix="Set" suffixOverrides=",">
+        <if test="product.title != null ">title = #{product.title},</if>
+        <if test="product.name != null ">name = #{product.name},</if>
+        <if test="product.images != null">images = #{product.images},</if>
+        <if test="product.info != null">info = #{product.info},</if>
+        <if test="product.price != null">price = #{product.price},</if>
+        <if test="product.detailedTitle != null">detailed_title =#{product.detailedTitle},</if>
+        <if test="product.detailed != null">detailed =#{product.detailed}</if>
+    </trim>
+    </update>
+    -->
+    <select id="select"
+            resultType="com.example.multi.module.entity.Product">
+        select product.*,category.name as category_name from product
+        left join category  on product.category_id = category.id
+        where product.is_deleted = 0
+        <if test="keyword != null ">
+           and product.title like concat("%",#{keyword},"%")
+        </if>
+        ORDER BY product.id ASC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="getById"
+            resultType="com.example.multi.module.entity.Product">
+        select product.*,category.name as category_name ,category.image as category_image from product
+        left join category  on product.category_id = category.id
+        where product.id = #{id}
+        and product.is_deleted = 0
+    </select>
+
+
+
+
+
+
+
+ </mapper>
