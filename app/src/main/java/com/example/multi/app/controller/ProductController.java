@@ -1,11 +1,11 @@
 package com.example.multi.app.controller;
 
 
-import com.example.multi.app.category.entity.Category;
-import com.example.multi.app.category.service.CategoryService;
+import com.example.multi.category.entity.Category;
+import com.example.multi.category.service.CategoryService;
 import com.example.multi.app.domain.*;
-import com.example.multi.module.entity.Product;
-import com.example.multi.module.service.ProductService;
+import com.example.multi.product.entity.Product;
+import com.example.multi.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

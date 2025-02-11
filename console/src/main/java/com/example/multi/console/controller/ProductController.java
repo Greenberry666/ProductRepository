@@ -1,8 +1,8 @@
 package com.example.multi.console.controller;
 
 import com.example.multi.console.domain.*;
-import com.example.multi.module.entity.Product;
-import com.example.multi.module.service.ProductService;
+import com.example.multi.product.entity.Product;
+import com.example.multi.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

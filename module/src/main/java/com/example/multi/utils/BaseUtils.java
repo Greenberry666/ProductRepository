@@ -1,4 +1,4 @@
-package com.example.multi.module.entity;
+package com.example.multi.utils;
 
 public class BaseUtils {
     public static boolean isBlank(String str) {

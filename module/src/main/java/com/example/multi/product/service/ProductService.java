@@ -1,7 +1,7 @@
-package com.example.multi.module.service;
-import com.example.multi.module.entity.BaseUtils;
-import com.example.multi.module.entity.Product;
-import com.example.multi.module.mapper.ProductMapper;
+package com.example.multi.product.service;
+import com.example.multi.utils.BaseUtils;
+import com.example.multi.product.entity.Product;
+import com.example.multi.product.mapper.ProductMapper;
 
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;

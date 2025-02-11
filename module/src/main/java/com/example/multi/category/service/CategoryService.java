@@ -1,7 +1,7 @@
-package com.example.multi.app.category.service;
+package com.example.multi.category.service;
 
-import com.example.multi.app.category.entity.Category;
-import com.example.multi.app.category.mapper.CategoryMapper;
+import com.example.multi.category.entity.Category;
+import com.example.multi.category.mapper.CategoryMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 

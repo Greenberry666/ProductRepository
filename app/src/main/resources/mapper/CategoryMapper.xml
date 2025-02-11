@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.multi.app.category.mapper.CategoryMapper">
+<mapper namespace="com.example.multi.category.mapper.CategoryMapper">
 
     <insert id="insert"
             useGeneratedKeys="true"
             keyProperty="id"
-            parameterType="com.example.multi.app.category.entity.Category">
+            parameterType="com.example.multi.category.entity.Category">
         insert into category(
                         <if test=" name  != null and name != ''"> `name` ,</if>
                         <if test=" image  != null and image != ''"> `image` ,</if>
@@ -22,7 +22,7 @@
     </insert>
 
     <!-- 更新操作 -->
-    <update id="update" parameterType="com.example.multi.app.category.entity.Category">
+    <update id="update" parameterType="com.example.multi.category.entity.Category">
         UPDATE category
         <set>
                     `category_id` = #{categoryId},
@@ -46,7 +46,7 @@
     </update>
 
     <select id="getCategoryName"
-            resultType="com.example.multi.app.category.entity.Category">
+            resultType="com.example.multi.category.entity.Category">
         SELECT * from category
         where is_deleted = 0
         <if test="categoryName != null and categoryName != ''">

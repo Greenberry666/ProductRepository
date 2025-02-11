@@ -1,6 +1,5 @@
-package com.example.multi.module.mapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.multi.module.entity.Product;
+package com.example.multi.product.mapper;
+import com.example.multi.product.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

@@ -1,9 +1,7 @@
 
-package com.example.multi.app.category.mapper;
+package com.example.multi.category.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.multi.app.category.entity.Category;
-import com.example.multi.module.entity.Product;
+import com.example.multi.category.entity.Category;
 import org.apache.ibatis.annotations.*;
 import java.math.BigInteger;
 import java.util.List;

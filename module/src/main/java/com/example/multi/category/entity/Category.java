@@ -1,4 +1,4 @@
-package com.example.multi.app.category.entity;
+package com.example.multi.category.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

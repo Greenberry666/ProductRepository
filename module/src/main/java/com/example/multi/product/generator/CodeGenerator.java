@@ -1,4 +1,4 @@
-package com.example.multi.module.entity;
+package com.example.multi.product.generator;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
