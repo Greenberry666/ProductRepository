@@ -1,5 +1,8 @@
-com\example\multi\module\entity\CodeGenerator.class
-com\example\multi\module\entity\BaseUtils.class
-com\example\multi\module\entity\Product.class
-com\example\multi\module\mapper\ProductMapper.class
-com\example\multi\module\service\ProductService.class
+com\example\multi\module\generator\CodeGenerator.class
+com\example\multi\module\product\entity\Product.class
+com\example\multi\module\utils\BaseUtils.class
+com\example\multi\module\product\mapper\ProductMapper.class
+com\example\multi\module\category\entity\Category.class
+com\example\multi\module\category\service\CategoryService.class
+com\example\multi\module\category\mapper\CategoryMapper.class
+com\example\multi\module\product\service\ProductService.class

@@ -1,7 +1,4 @@
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\AppApplication.java
-C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\category\entity\Category.java
-C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\category\mapper\CategoryMapper.java
-C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\category\service\CategoryService.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\ProductController.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\EnhanceException.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\ProductCateCellVO.java

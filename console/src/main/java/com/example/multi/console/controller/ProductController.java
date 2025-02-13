@@ -1,8 +1,10 @@
 package com.example.multi.console.controller;
 
 import com.example.multi.console.domain.*;
-import com.example.multi.product.entity.Product;
-import com.example.multi.product.service.ProductService;
+import com.example.multi.module.category.entity.Category;
+import com.example.multi.module.category.service.CategoryService;
+import com.example.multi.module.product.entity.Product;
+import com.example.multi.module.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService service;
+    @Autowired
+    private CategoryService category;
 
 
     @RequestMapping("/product/list")
@@ -100,10 +104,11 @@ public class ProductController {
                                                          @RequestParam(name = "info") String info,
                                                          @RequestParam(name = "price") Integer price,
                                                          @RequestParam(name = "detailedTitle") String detailedTitle,
-                                                         @RequestParam(name = "detailed") String detailed) {
+                                                         @RequestParam(name = "detailed") String detailed,
+                                                         @RequestParam(name = "categoryId")BigInteger categoryId) {
         ConsoleCreateVO consoleCreateVO = new ConsoleCreateVO();
         try {
-            BigInteger result = service.edit(null, name, title, images, info, price, detailedTitle, detailed);
+            BigInteger result = service.edit(null, name, title, images, info, price, detailedTitle, detailed,categoryId);
             consoleCreateVO.setTips(result != null ? "成功" : "失败");
             consoleCreateVO.setId(result);
         } catch (Exception exception) {
@@ -120,10 +125,11 @@ public class ProductController {
                                   @RequestParam(name = "info") String info,
                                   @RequestParam(name = "price") Integer price,
                                   @RequestParam(name = "detailedTitle") String detailedTitle,
-                                  @RequestParam(name = "detailed") String detailed) {
+                                  @RequestParam(name = "detailed") String detailed,
+                                  @RequestParam(name = "categoryId") BigInteger categoryId){
         ConsoleUpdateVO consoleUpdateVO = new ConsoleUpdateVO();
         try {
-            BigInteger result = service.edit(id, name, title, images, info, price, detailedTitle, detailed);
+            BigInteger result = service.edit(id, name, title, images, info, price, detailedTitle, detailed,categoryId);
             consoleUpdateVO.setTips(result != null ? "成功" : "失败");
             consoleUpdateVO.setId(id);
         } catch (Exception exception) {
@@ -139,22 +145,61 @@ public class ProductController {
         consoleDeleteVO.setTips(result  == 1  ? "成功" : "失败");
         return  consoleDeleteVO;
     }
-    @RequestMapping("/product/edit")
-    public ResponseEntity<?> editProduct(@RequestParam(name = "id") BigInteger id,
-                                         @RequestParam(name = "name") String name,
-                                         @RequestParam(name = "title") String title,
-                                         @RequestParam(name = "images") String images,
-                                         @RequestParam(name = "info") String info,
-                                         @RequestParam(name = "price") Integer price,
-                                         @RequestParam(name = "detailedTitle") String detailedTitle,
-                                         @RequestParam(name = "detailed") String detailed){
+
+
+    @RequestMapping("/category/create")
+    public CategoryCreateVO categoryCreate(@RequestParam(name = "name") String name,
+                                         @RequestParam(name = "image") String image) {
+        CategoryCreateVO categoryCreateVO = new CategoryCreateVO();
         try {
-            BigInteger result = service.edit(id,name,title,images,info,price,detailedTitle,detailed);
-            return  ResponseEntity.ok(result);
-        }catch (RuntimeException exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+            BigInteger result = category.insert( null,name,  image);
+            categoryCreateVO.setTips(result!= null ? "成功" : "失败");
+            categoryCreateVO.setId(result);
+        } catch (Exception exception) {
+            categoryCreateVO.setTips(exception.getMessage());
         }
+        return categoryCreateVO;
     }
+
+    @RequestMapping("/category/update")
+    public CategoryUpdateVO categoryUpdate(
+            @RequestParam(name = "id") BigInteger id,
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "image") String image) {
+        CategoryUpdateVO categoryUpdateVO = new CategoryUpdateVO();
+        try {
+            BigInteger result = category.update(id, name, image);
+            categoryUpdateVO.setTips(result != null ? "成功" : "失败");
+            categoryUpdateVO.setId(result);
+        } catch (Exception exception) {
+            categoryUpdateVO.setTips(exception.getMessage());
+        }
+        return categoryUpdateVO;
+    }
+
+    @RequestMapping("/category/delete")
+    public CategoryDeleteVO categoryDeleted(@RequestParam(name = "id") BigInteger id){
+        int result = category.delete(id);
+        CategoryDeleteVO categoryDeleteVO = new CategoryDeleteVO();
+        categoryDeleteVO.setTips(result  == 1  ? "成功" : "失败");
+        return  categoryDeleteVO;
+    }
+
+    @RequestMapping("/category/info")
+    public CategoryInfoVO categoryInfoVO(@RequestParam(name = "id")BigInteger id){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Category category1 = category.getById(id);
+        CategoryInfoVO categoryInfoVO = new CategoryInfoVO();
+        categoryInfoVO .setName(category1.getName());
+        categoryInfoVO.setImage(category1.getImage());
+        categoryInfoVO .setCreateTime(dateFormat.format(category1.getCreateTime()* 1000l));
+        categoryInfoVO .setUpdateTime(dateFormat.format(category1.getUpdateTime()* 1000l));
+
+        return categoryInfoVO ;
+
+    }
+
 
 
 

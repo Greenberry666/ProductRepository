@@ -1,8 +1,12 @@
-com\example\multi\console\domain\ConsoleDeleteVO.class
-com\example\multi\console\domain\ConsoleCreateVO.class
 com\example\multi\console\domain\ProductConCellVO.class
 com\example\multi\console\ConsoleApplication.class
 com\example\multi\console\domain\ConsoleUpdateVO.class
+com\example\multi\console\domain\ConsoleDeleteVO.class
+com\example\multi\console\domain\CategoryCreateVO.class
+com\example\multi\console\domain\CategoryDeleteVO.class
+com\example\multi\console\domain\CategoryInfoVO.class
+com\example\multi\console\domain\ConsoleCreateVO.class
+com\example\multi\console\domain\CategoryUpdateVO.class
 com\example\multi\console\domain\ProductConInfoVO.class
 com\example\multi\console\domain\ProductConListVO.class
 com\example\multi\console\controller\ProductController.class

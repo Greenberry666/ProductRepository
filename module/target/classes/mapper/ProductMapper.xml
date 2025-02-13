@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.multi.module.mapper.ProductMapper">
+<mapper namespace="com.example.multi.module.product.mapper.ProductMapper">
     <!-- <insert id="insert"
-             parameterType="com.example.multi.module.entity.Product">
+             parameterType="com.example.multi.module.product.entity.Product">
          insert into product(name,title,images,info,price,detailed_title,detailed,create_time,update_time,is_deleted)
          values (#{product.name},#{product.title},#{product.images},#{product.info},
                  #{product.price},#{product.detailedTitle},#{product.detailed},
@@ -10,7 +10,7 @@
      </insert>
      -->
      <!--<insert id="insert"
-             parameterType="com.example.multi.module.entity.Product">
+             parameterType="com.example.multi.module.product.entity.Product">
          insert into product
              (
                   <if test="product.id != null">id,</if>
@@ -53,7 +53,7 @@
 
      -->
     <insert id="insert"
-            parameterType="com.example.multi.module.entity.Product" useGeneratedKeys="true" keyProperty="id">
+            parameterType="com.example.multi.module.product.entity.Product" useGeneratedKeys="true" keyProperty="id">
      insert into product
          <trim prefix="(" suffixOverrides=",">
              <if test="product.id != null">id,</if>
@@ -66,6 +66,7 @@
              <if test="product.detailed != null and product.detailed !=''">detailed,</if>
              <if test="product.createTime != null">create_time,</if>
              <if test="product.updateTime != null">update_time,</if>
+             <if test="product.categoryId != null">category_id,</if>
              is_deleted
          </trim>
 
@@ -80,6 +81,7 @@
              <if test="product.detailed != null">#{product.detailed},</if>
              <if test="product.createTime != null">#{product.createTime},</if>
              <if test="product.updateTime != null">#{product.updateTime},</if>
+             <if test="product.categoryId != null">#{product.categoryId},</if>
              #{product.isDeleted}
          </trim>
         )
@@ -89,7 +91,7 @@
 
      <!--
      <update id="update"
-             parameterType="com.example.multi.module.entity.Product">
+             parameterType="com.example.multi.module.product.entity.Product">
          update  product set name = #{product.name},
                              title= #{product.title},
                              update_time=#{product.updateTime}
@@ -98,7 +100,7 @@
      </update>
      -->
      <update id="update"
-             parameterType="com.example.multi.module.entity.Product">
+             parameterType="com.example.multi.module.product.entity.Product">
          UPDATE product
         <trim prefix="set" suffixOverrides=",">
              update_time = #{product.updateTime},
@@ -115,7 +117,7 @@
      </update>
 
     <!--<update id="update"
-            parameterType="com.example.multi.module.entity.Product">
+            parameterType="com.example.multi.module.product.entity.Product">
     UPDATE product
     <trim prefix="Set" suffixOverrides=",">
         <if test="product.title != null ">title = #{product.title},</if>
@@ -129,7 +131,7 @@
     </update>
     -->
     <select id="select"
-            resultType="com.example.multi.module.entity.Product">
+            resultType="com.example.multi.module.product.entity.Product">
         select product.*,category.name as category_name from product
         left join category  on product.category_id = category.id
         where product.is_deleted = 0
@@ -141,7 +143,7 @@
     </select>
 
     <select id="getById"
-            resultType="com.example.multi.module.entity.Product">
+            resultType="com.example.multi.module.product.entity.Product">
         select product.*,category.name as category_name ,category.image as category_image from product
         left join category  on product.category_id = category.id
         where product.id = #{id}

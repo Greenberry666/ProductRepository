@@ -8,4 +8,6 @@ import java.math.BigInteger;
 public class ConsoleCreateVO {
     private String tips;
     private BigInteger id;
+
+
 }

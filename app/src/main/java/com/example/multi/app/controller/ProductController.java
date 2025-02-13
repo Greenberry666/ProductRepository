@@ -1,11 +1,11 @@
 package com.example.multi.app.controller;
 
 
-import com.example.multi.category.entity.Category;
-import com.example.multi.category.service.CategoryService;
+import com.example.multi.module.category.entity.Category;
+import com.example.multi.module.category.service.CategoryService;
 import com.example.multi.app.domain.*;
-import com.example.multi.product.entity.Product;
-import com.example.multi.product.service.ProductService;
+import com.example.multi.module.product.entity.Product;
+import com.example.multi.module.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +58,7 @@ public class ProductController {
         productInfoVO.setTitle(product.getTitle());
         String[]  image = product.getImages().split("\\$");
         List<String> imageList = Arrays.asList(image);
+        productInfoVO.setCreateTime(product.getCreateTime());
         productInfoVO.setImages(imageList);
         productInfoVO.setName(product.getName());
         productInfoVO.setInfo(product.getInfo());

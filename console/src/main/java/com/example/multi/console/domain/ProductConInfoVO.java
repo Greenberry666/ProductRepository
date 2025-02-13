@@ -2,6 +2,7 @@ package com.example.multi.console.domain;
 
 import lombok.Data;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Data
@@ -15,4 +16,5 @@ public class ProductConInfoVO {
     private String detailed;
     private String createTime;
     private String updateTime;
+    private BigInteger categoryId;
 }

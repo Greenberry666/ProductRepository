@@ -10,11 +10,11 @@ import java.math.BigInteger;
 public interface ${className} {
 
 // 根据ID查询操作
-@Select("SELECT * FROM ${table.name} WHERE id =  <#noparse>#{</#noparse>$Id<#noparse>}</#noparse> AND is_deleted=0")
+@Select("SELECT * FROM ${table.name} WHERE id =  <#noparse>#{</#noparse>id<#noparse>}</#noparse> AND is_deleted=0")
 ${entity} getById(BigInteger id);
 
 // 根据ID提取操作
-@Select("SELECT * FROM ${table.name} WHERE id =  <#noparse>#{</#noparse>$Id<#noparse>}</#noparse>")
+@Select("SELECT * FROM ${table.name} WHERE id =  <#noparse>#{</#noparse>id<#noparse>}</#noparse>")
 ${entity} extractById(BigInteger id);
 
 // 插入操作
