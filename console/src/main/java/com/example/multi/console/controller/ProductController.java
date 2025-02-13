@@ -21,8 +21,6 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService service;
-    @Autowired
-    private CategoryService category;
 
 
     @RequestMapping("/product/list")
@@ -54,25 +52,29 @@ public class ProductController {
 
 
     @RequestMapping("/product/info")
-    public ProductConInfoVO getInfo(@RequestParam(name = "id") BigInteger id){
+    public ProductConInfoVO getInfo(@RequestParam(name = "id") BigInteger id) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Product product = service.getById(id);
         ProductConInfoVO productConInfoVO = new ProductConInfoVO();
-        productConInfoVO .setTitle(product.getTitle());
-        String[]  image = product.getImages().split("\\$");
-        List<String> imageList = Arrays.asList(image);
-        productConInfoVO .setImages(imageList);
-        productConInfoVO .setName(product.getName());
-        productConInfoVO .setInfo(product.getInfo());
-        productConInfoVO .setPrice(product.getPrice());
-        productConInfoVO .setDetailedTitle(product.getDetailedTitle());
-        productConInfoVO .setDetailed(product.getDetailed());
-        productConInfoVO .setCreateTime(dateFormat.format(product.getCreateTime()* 1000l));
-        productConInfoVO .setUpdateTime(dateFormat.format(product.getUpdateTime()* 1000l));
 
-
-        return productConInfoVO ;
+            try {
+                Product product = service.getById(id);
+                productConInfoVO.setTitle(product.getTitle());
+                String[] image = product.getImages().split("\\$");
+                List<String> imageList = Arrays.asList(image);
+                productConInfoVO.setImages(imageList);
+                productConInfoVO.setName(product.getName());
+                productConInfoVO.setInfo(product.getInfo());
+                productConInfoVO.setPrice(product.getPrice());
+                productConInfoVO.setDetailedTitle(product.getDetailedTitle());
+                productConInfoVO.setDetailed(product.getDetailed());
+                productConInfoVO.setCreateTime(dateFormat.format(product.getCreateTime() * 1000l));
+                productConInfoVO.setUpdateTime(dateFormat.format(product.getUpdateTime() * 1000l));
+                productConInfoVO.setCategoryId(product.getCategoryId());
+                productConInfoVO.setTips("成功");
+            }catch (Exception e){
+                productConInfoVO.setTips(e.getMessage());
+            }
+        return productConInfoVO;
     }
 
     @RequestMapping("/product/infoid")
@@ -112,6 +114,7 @@ public class ProductController {
             consoleCreateVO.setTips(result != null ? "成功" : "失败");
             consoleCreateVO.setId(result);
         } catch (Exception exception) {
+
             consoleCreateVO.setTips(exception.getMessage());
         }
         return consoleCreateVO;
@@ -147,58 +150,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping("/category/create")
-    public CategoryCreateVO categoryCreate(@RequestParam(name = "name") String name,
-                                         @RequestParam(name = "image") String image) {
-        CategoryCreateVO categoryCreateVO = new CategoryCreateVO();
-        try {
-            BigInteger result = category.insert( null,name,  image);
-            categoryCreateVO.setTips(result!= null ? "成功" : "失败");
-            categoryCreateVO.setId(result);
-        } catch (Exception exception) {
-            categoryCreateVO.setTips(exception.getMessage());
-        }
-        return categoryCreateVO;
-    }
 
-    @RequestMapping("/category/update")
-    public CategoryUpdateVO categoryUpdate(
-            @RequestParam(name = "id") BigInteger id,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "image") String image) {
-        CategoryUpdateVO categoryUpdateVO = new CategoryUpdateVO();
-        try {
-            BigInteger result = category.update(id, name, image);
-            categoryUpdateVO.setTips(result != null ? "成功" : "失败");
-            categoryUpdateVO.setId(result);
-        } catch (Exception exception) {
-            categoryUpdateVO.setTips(exception.getMessage());
-        }
-        return categoryUpdateVO;
-    }
-
-    @RequestMapping("/category/delete")
-    public CategoryDeleteVO categoryDeleted(@RequestParam(name = "id") BigInteger id){
-        int result = category.delete(id);
-        CategoryDeleteVO categoryDeleteVO = new CategoryDeleteVO();
-        categoryDeleteVO.setTips(result  == 1  ? "成功" : "失败");
-        return  categoryDeleteVO;
-    }
-
-    @RequestMapping("/category/info")
-    public CategoryInfoVO categoryInfoVO(@RequestParam(name = "id")BigInteger id){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Category category1 = category.getById(id);
-        CategoryInfoVO categoryInfoVO = new CategoryInfoVO();
-        categoryInfoVO .setName(category1.getName());
-        categoryInfoVO.setImage(category1.getImage());
-        categoryInfoVO .setCreateTime(dateFormat.format(category1.getCreateTime()* 1000l));
-        categoryInfoVO .setUpdateTime(dateFormat.format(category1.getUpdateTime()* 1000l));
-
-        return categoryInfoVO ;
-
-    }
 
 
 

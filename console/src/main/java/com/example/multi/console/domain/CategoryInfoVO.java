@@ -10,5 +10,5 @@ public class CategoryInfoVO {
     private String image;
     private String createTime;
     private String updateTime;
-
+    private String tips;
 }
