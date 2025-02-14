@@ -31,21 +31,22 @@ public class ProductController {
 
 
         List<Product> products = service.getPage(page, pageSize, keyword);
-        List<ProductCellVO> productOnlyVOS = new ArrayList<>();
+        List<ProductCellVO> productCellVOS = new ArrayList<>();
         for (Product product : products) {
-            ProductCellVO productOnlyVO = new ProductCellVO();
-            productOnlyVO.setId(product.getId());
+            ProductCellVO productCellVO = new ProductCellVO();
+            productCellVO.setId(product.getId());
             String[] image = product.getImages().split("\\$");
-            productOnlyVO.setImage(image[0]);
-            productOnlyVO.setInfo(product.getInfo());
-            productOnlyVO.setPrice(product.getPrice());
-            productOnlyVO.setCategoryName(product.getCategoryName());
-
-            productOnlyVOS.add(productOnlyVO);
+            productCellVO.setImage(image[0]);
+            productCellVO.setInfo(product.getInfo());
+            productCellVO.setPrice(product.getPrice());
+            BigInteger categoryId = product.getCategoryId();
+            Category category = categoryservice.getById(categoryId);
+            productCellVO.setCategoryName(category.getName());
+            productCellVOS.add(productCellVO);
         }
         ProductListVO productListVO = new ProductListVO();
-        productListVO.setList(productOnlyVOS);
-        boolean result = productOnlyVOS.size() < pageSize;
+        productListVO.setList(productCellVOS);
+        boolean result = productCellVOS.size() < pageSize;
         productListVO.setIsEnd(result);
         return productListVO;
         //return productListVO;
@@ -75,8 +76,8 @@ public class ProductController {
         productInfoVO.setPrice(product.getPrice());
         productInfoVO.setDetailedTitle(product.getDetailedTitle());
         productInfoVO.setDetailed(product.getDetailed());
-        productInfoVO.setCategoryName(product.getCategoryName());
-        productInfoVO.setCategoryImage(product.getCategoryImage());
+        productInfoVO.setCategoryName(category.getName());
+        productInfoVO.setCategoryImage(category.getImage());
         productInfoVO.setTips("成功");
 
         return productInfoVO;

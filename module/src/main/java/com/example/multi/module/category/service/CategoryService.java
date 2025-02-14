@@ -18,17 +18,7 @@ public class CategoryService {
 private CategoryMapper mapper;
 
 // 根据ID查询操作
-public Category getById(BigInteger id) {
-    Category category = mapper.extractById(id);
-    if (category  == null) {
-        throw new RuntimeException("未找到 ID 为 " + id + " 的分类");
-    }
-    if (category .getIsDeleted() == 1) {
-        throw new RuntimeException("分类已被删除，无法获取详情");
-    }
-
-    return mapper.getById(id);
-}
+public Category getById(BigInteger id) {return mapper.getById(id);}
 
 // 根据ID提取操作
 public Category extractById(BigInteger id) {

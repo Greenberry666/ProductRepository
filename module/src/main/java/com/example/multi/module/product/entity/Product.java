@@ -29,8 +29,6 @@ public class Product {
     private Integer updateTime;
     @TableField("is_deleted")
     private Integer isDeleted;
-    private String categoryName;
-    private String categoryImage;
     private BigInteger categoryId;
 }
 

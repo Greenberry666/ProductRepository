@@ -144,10 +144,9 @@
 
     <select id="getById"
             resultType="com.example.multi.module.product.entity.Product">
-        select product.*,category.name as category_name ,category.image as category_image from product
-        left join category  on product.category_id = category.id
-        where product.id = #{id}
-        and product.is_deleted = 0
+        select * from product
+        where id = #{id}
+        and is_deleted = 0
     </select>
 
 
