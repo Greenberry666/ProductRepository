@@ -52,11 +52,21 @@ public class ProductController {
     }
 
     @RequestMapping("product/info")
-    public ProductInfoVO getInfo(@RequestParam(name = "id") BigInteger id){
-        Product product = service.getById(id);
+    public ProductInfoVO getInfo(@RequestParam(name = "id") BigInteger id) {
         ProductInfoVO productInfoVO = new ProductInfoVO();
+
+        Product product = service.getById(id);
+        if (product == null) {
+            productInfoVO.setTips("未找到对应的产品信息");
+            return productInfoVO;
+        }
+        Category category = categoryservice.getById(product.getCategoryId());
+        if (category == null) {
+            productInfoVO.setTips("未找到对应的分类信息");
+            return productInfoVO;
+        }
         productInfoVO.setTitle(product.getTitle());
-        String[]  image = product.getImages().split("\\$");
+        String[] image = product.getImages().split("\\$");
         List<String> imageList = Arrays.asList(image);
         productInfoVO.setCreateTime(product.getCreateTime());
         productInfoVO.setImages(imageList);
@@ -67,7 +77,7 @@ public class ProductController {
         productInfoVO.setDetailed(product.getDetailed());
         productInfoVO.setCategoryName(product.getCategoryName());
         productInfoVO.setCategoryImage(product.getCategoryImage());
-
+        productInfoVO.setTips("成功");
 
         return productInfoVO;
     }

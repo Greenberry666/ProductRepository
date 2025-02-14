@@ -1,4 +1,7 @@
 package com.example.multi.module.product.service;
+import com.example.multi.module.category.entity.Category;
+import com.example.multi.module.category.mapper.CategoryMapper;
+import com.example.multi.module.category.service.CategoryService;
 import com.example.multi.module.utils.BaseUtils;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.mapper.ProductMapper;
@@ -16,18 +19,10 @@ import java.util.List;
 public class ProductService {
      @Resource
      private ProductMapper mapper;
+     //@Resource
+     //private CategoryService service;
 
-     public Product getById(BigInteger id){
-          Product product = mapper.extractById(id);
-          if (product == null) {
-               throw new RuntimeException("未找到 ID 为 " + id + " 的产品");
-          }
-          if (product.getIsDeleted() == 1) {
-               throw new RuntimeException("产品已被删除，无法获取详情");
-          }
-
-          return product;
-     }
+     public Product getById(BigInteger id){return  mapper.getById(id);}
 
      public Product extractById(BigInteger id){
           return mapper.extractById(id);

@@ -16,5 +16,6 @@ public class ProductInfoVO {
     private String detailed;
     private String categoryImage;
     private String categoryName;
+    private String tips;
 
 }

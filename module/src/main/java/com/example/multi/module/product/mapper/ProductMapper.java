@@ -13,7 +13,7 @@ public interface ProductMapper{
     //@Select("select * from product where id=#{id} and is_deleted = 0")
     Product getById(@Param("id") BigInteger id);
 
-    @Select("select * from product where id = #{id} and is_deleted = 0")
+    @Select("select * from product where id = #{id} ")
     Product extractById(@Param("id") BigInteger id);
 
     int update(@Param("product") Product product);

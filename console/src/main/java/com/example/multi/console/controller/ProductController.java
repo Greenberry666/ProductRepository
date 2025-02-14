@@ -21,7 +21,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService service;
-
+    @Autowired
+    private CategoryService categoryservice;
 
     @RequestMapping("/product/list")
     public ProductConListVO page(@RequestParam("page") Integer page,
@@ -56,8 +57,17 @@ public class ProductController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ProductConInfoVO productConInfoVO = new ProductConInfoVO();
 
-            try {
+
                 Product product = service.getById(id);
+        if (product == null) {
+            productConInfoVO.setTips("未找到对应的产品信息");
+            return productConInfoVO;
+        }
+        Category category = categoryservice.getById(product.getCategoryId());
+        if (category == null) {
+            productConInfoVO.setTips("未找到对应的分类信息");
+            return productConInfoVO;
+        }
                 productConInfoVO.setTitle(product.getTitle());
                 String[] image = product.getImages().split("\\$");
                 List<String> imageList = Arrays.asList(image);
@@ -71,9 +81,7 @@ public class ProductController {
                 productConInfoVO.setUpdateTime(dateFormat.format(product.getUpdateTime() * 1000l));
                 productConInfoVO.setCategoryId(product.getCategoryId());
                 productConInfoVO.setTips("成功");
-            }catch (Exception e){
-                productConInfoVO.setTips(e.getMessage());
-            }
+
         return productConInfoVO;
     }
 
