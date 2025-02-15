@@ -39,8 +39,7 @@ public class ProductController {
             productCellVO.setImage(image[0]);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
-            BigInteger categoryId = product.getCategoryId();
-            Category category = categoryservice.getById(categoryId);
+            Category category = categoryservice.getById(product.getCategoryId());
             productCellVO.setCategoryName(category.getName());
             productCellVOS.add(productCellVO);
         }

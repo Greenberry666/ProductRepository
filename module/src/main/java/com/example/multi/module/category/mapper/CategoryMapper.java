@@ -28,7 +28,7 @@ int update(@Param("category") Category category);
 Integer delete(@Param("updateTime") Integer updateTime, @Param("id")  BigInteger id);
 
 
-List<Category> getCategoryName(@Param("offset") Integer offset,
+List<Category> getListByCategoryName(@Param("offset") Integer offset,
                                @Param("pageSize") Integer pageSize,
                                @Param("categoryName") String categoryName);
 

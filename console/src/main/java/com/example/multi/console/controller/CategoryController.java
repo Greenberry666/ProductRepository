@@ -23,7 +23,7 @@ public class CategoryController {
                                            @RequestParam(name = "image") String image) {
         CategoryCreateVO categoryCreateVO = new CategoryCreateVO();
         try {
-            BigInteger result = category.insert( null,name,  image);
+            BigInteger result = category.edit( null,name,  image);
             categoryCreateVO.setTips(result!= null ? "成功" : "失败");
             categoryCreateVO.setId(result);
         } catch (Exception exception) {
@@ -39,7 +39,7 @@ public class CategoryController {
             @RequestParam(name = "image") String image) {
         CategoryUpdateVO categoryUpdateVO = new CategoryUpdateVO();
         try {
-            BigInteger result = category.update(id, name, image);
+            BigInteger result = category.edit(id, name, image);
             categoryUpdateVO.setTips(result != null ? "成功" : "失败");
             categoryUpdateVO.setId(result);
         } catch (Exception exception) {
