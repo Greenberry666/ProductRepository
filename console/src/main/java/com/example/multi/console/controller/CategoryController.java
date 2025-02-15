@@ -18,13 +18,14 @@ import java.text.SimpleDateFormat;
 public class CategoryController {
     @Autowired
     private CategoryService category;
+
     @RequestMapping("/category/create")
     public CategoryCreateVO categoryCreate(@RequestParam(name = "name") String name,
                                            @RequestParam(name = "image") String image) {
         CategoryCreateVO categoryCreateVO = new CategoryCreateVO();
         try {
-            BigInteger result = category.edit( null,name,  image);
-            categoryCreateVO.setTips(result!= null ? "成功" : "失败");
+            BigInteger result = category.edit(null, name, image);
+            categoryCreateVO.setTips(result != null ? "成功" : "失败");
             categoryCreateVO.setId(result);
         } catch (Exception exception) {
             categoryCreateVO.setTips(exception.getMessage());
@@ -49,28 +50,28 @@ public class CategoryController {
     }
 
     @RequestMapping("/category/delete")
-    public CategoryDeleteVO categoryDeleted(@RequestParam(name = "id") BigInteger id){
+    public CategoryDeleteVO categoryDeleted(@RequestParam(name = "id") BigInteger id) {
         int result = category.delete(id);
         CategoryDeleteVO categoryDeleteVO = new CategoryDeleteVO();
-        categoryDeleteVO.setTips(result  == 1  ? "成功" : "失败");
-        return  categoryDeleteVO;
+        categoryDeleteVO.setTips(result == 1 ? "成功" : "失败");
+        return categoryDeleteVO;
     }
 
     @RequestMapping("/category/info")
-    public CategoryInfoVO categoryInfoVO(@RequestParam(name = "id")BigInteger id){
+    public CategoryInfoVO categoryInfoVO(@RequestParam(name = "id") BigInteger id) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         CategoryInfoVO categoryInfoVO = new CategoryInfoVO();
         try {
-        Category categoryInfo = category.getById(id);
-        categoryInfoVO .setName(categoryInfo.getName());
-        categoryInfoVO.setImage(categoryInfo.getImage());
-        categoryInfoVO .setCreateTime(dateFormat.format(categoryInfo.getCreateTime()* 1000l));
-        categoryInfoVO .setUpdateTime(dateFormat.format(categoryInfo.getUpdateTime()* 1000l));
-        categoryInfoVO.setTips("成功");
-        }catch (Exception e){
+            Category categoryInfo = category.getById(id);
+            categoryInfoVO.setName(categoryInfo.getName());
+            categoryInfoVO.setImage(categoryInfo.getImage());
+            categoryInfoVO.setCreateTime(dateFormat.format(categoryInfo.getCreateTime() * 1000l));
+            categoryInfoVO.setUpdateTime(dateFormat.format(categoryInfo.getUpdateTime() * 1000l));
+            categoryInfoVO.setTips("成功");
+        } catch (Exception e) {
             categoryInfoVO.setTips(e.getMessage());
         }
-        return categoryInfoVO ;
+        return categoryInfoVO;
 
     }
 }

@@ -1,4 +1,5 @@
 package com.example.multi.module.product.mapper;
+
 import com.example.multi.module.product.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -9,8 +10,9 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Mapper
-public interface ProductMapper{
-    //@Select("select * from product where id=#{id} and is_deleted = 0")
+public interface ProductMapper {
+
+    @Select("select * from product where id = #{id} and is_deleted = 0")
     Product getById(@Param("id") BigInteger id);
 
     @Select("select * from product where id = #{id} ")
@@ -33,6 +35,6 @@ public interface ProductMapper{
 
     List<Product> select(@Param("offset") Integer offset,
                          @Param("pageSize") Integer pageSize,
-                         @Param("keyword")String keyword);
+                         @Param("keyword") String keyword);
 
 }

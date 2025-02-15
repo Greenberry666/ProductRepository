@@ -19,6 +19,8 @@ import java.util.List;
 public class ProductService {
     @Resource
     private ProductMapper mapper;
+    @Resource
+    private CategoryMapper categoryMapper;
 
     public Product getById(BigInteger id) {
         return mapper.getById(id);
@@ -49,6 +51,9 @@ public class ProductService {
         }
         if (BaseUtils.isBlank(images)) {
             throw new IllegalArgumentException("产品样图至少上传一张");
+        }
+        if (categoryMapper.getById(categoryId)==null) {
+            throw new IllegalArgumentException("产品分类 ID 无效，未找到对应的分类");
         }
         int timestamp = (int) (System.currentTimeMillis() / 1000);
         Product product = new Product()

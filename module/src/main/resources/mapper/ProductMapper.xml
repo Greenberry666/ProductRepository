@@ -9,38 +9,38 @@
                  #{product.createTime},#{product.updateTime},#{product.isDeleted})
      </insert>
      -->
-     <!--<insert id="insert"
-             parameterType="com.example.multi.module.product.entity.Product">
-         insert into product
-             (
-                  <if test="product.id != null">id,</if>
-                  <if test="product.title != null and product.title !=''">title,</if>
-                  <if test="product.name != null and product.name !=''">name,</if>
-                  <if test="product.images!= null and product.images !=''">images,</if>
-                  <if test="product.info!= null and product.info !=''">info,</if>
-                  <if test="product.price!= null">price,</if>
-                  <if test="product.detailedTitle!= null and product.detailedTitle !=''">detailed_title,</if>
-                  <if test="product.detailed != null and product.detailed !=''">detailed,</if>
-                  <if test="product.createTime != null">create_time,</if>
-                  <if test="product.updateTime != null">update_time,</if>
-                  is_deleted
-         )values
-             (
-                  <if test="product.id != null">#{product.id},</if>
-                  <if test="product.name != null">#{product.name},</if>
-                  <if test="product.title != null">#{product.title},</if>
-                  <if test="product.images != null">#{product.images},</if>
-                  <if test="product.info != null">#{product.info},</if>
-                  <if test="product.price != null">#{product.price},</if>
-                  <if test="product.detailedTitle != null">#{product.detailedTitle},</if>
-                  <if test="product.detailed != null">#{product.detailed},</if>
-                  <if test="product.createTime != null">#{product.createTime},</if>
-                  <if test="product.updateTime != null">#{product.updateTime},</if>
-                  #{product.isDeleted}
-         )
+    <!--<insert id="insert"
+            parameterType="com.example.multi.module.product.entity.Product">
+        insert into product
+            (
+                 <if test="product.id != null">id,</if>
+                 <if test="product.title != null and product.title !=''">title,</if>
+                 <if test="product.name != null and product.name !=''">name,</if>
+                 <if test="product.images!= null and product.images !=''">images,</if>
+                 <if test="product.info!= null and product.info !=''">info,</if>
+                 <if test="product.price!= null">price,</if>
+                 <if test="product.detailedTitle!= null and product.detailedTitle !=''">detailed_title,</if>
+                 <if test="product.detailed != null and product.detailed !=''">detailed,</if>
+                 <if test="product.createTime != null">create_time,</if>
+                 <if test="product.updateTime != null">update_time,</if>
+                 is_deleted
+        )values
+            (
+                 <if test="product.id != null">#{product.id},</if>
+                 <if test="product.name != null">#{product.name},</if>
+                 <if test="product.title != null">#{product.title},</if>
+                 <if test="product.images != null">#{product.images},</if>
+                 <if test="product.info != null">#{product.info},</if>
+                 <if test="product.price != null">#{product.price},</if>
+                 <if test="product.detailedTitle != null">#{product.detailedTitle},</if>
+                 <if test="product.detailed != null">#{product.detailed},</if>
+                 <if test="product.createTime != null">#{product.createTime},</if>
+                 <if test="product.updateTime != null">#{product.updateTime},</if>
+                 #{product.isDeleted}
+        )
 
-     </insert>
-     -->
+    </insert>
+    -->
 
 
     <!--
@@ -54,105 +54,68 @@
      -->
     <insert id="insert"
             parameterType="com.example.multi.module.product.entity.Product" useGeneratedKeys="true" keyProperty="id">
-     insert into product
-         <trim prefix="(" suffixOverrides=",">
-             <if test="product.id != null">id,</if>
-             <if test="product.title != null and product.title !=''">title,</if>
-             <if test="product.name != null and product.name !=''">name,</if>
-             <if test="product.images!= null and product.images !=''">images,</if>
-             <if test="product.info!= null and product.info !=''">info,</if>
-             <if test="product.price!= null">price,</if>
-             <if test="product.detailedTitle!= null and product.detailedTitle !=''">detailed_title,</if>
-             <if test="product.detailed != null and product.detailed !=''">detailed,</if>
-             <if test="product.createTime != null">create_time,</if>
-             <if test="product.updateTime != null">update_time,</if>
-             <if test="product.categoryId != null">category_id,</if>
-             is_deleted
-         </trim>
+        insert into product
+        <trim prefix="(" suffixOverrides=",">
+            <if test="product.id != null">id,</if>
+            <if test="product.title != null and product.title !=''">title,</if>
+            <if test="product.name != null and product.name !=''">name,</if>
+            <if test="product.images!= null and product.images !=''">images,</if>
+            <if test="product.info!= null and product.info !=''">info,</if>
+            <if test="product.price!= null">price,</if>
+            <if test="product.detailedTitle!= null and product.detailedTitle !=''">detailed_title,</if>
+            <if test="product.detailed != null and product.detailed !=''">detailed,</if>
+            <if test="product.createTime != null">create_time,</if>
+            <if test="product.updateTime != null">update_time,</if>
+            <if test="product.categoryId != null">category_id,</if>
+            is_deleted
+        </trim>
 
-         <trim prefix=")values(" suffixOverrides=",">
-             <if test="product.id != null">#{product.id},</if>
-             <if test="product.name != null">#{product.name},</if>
-             <if test="product.title != null">#{product.title},</if>
-             <if test="product.images != null">#{product.images},</if>
-             <if test="product.info != null">#{product.info},</if>
-             <if test="product.price != null">#{product.price},</if>
-             <if test="product.detailedTitle != null">#{product.detailedTitle},</if>
-             <if test="product.detailed != null">#{product.detailed},</if>
-             <if test="product.createTime != null">#{product.createTime},</if>
-             <if test="product.updateTime != null">#{product.updateTime},</if>
-             <if test="product.categoryId != null">#{product.categoryId},</if>
-             #{product.isDeleted}
-         </trim>
+        <trim prefix=")values(" suffixOverrides=",">
+            <if test="product.id != null">#{product.id},</if>
+            <if test="product.name != null">#{product.name},</if>
+            <if test="product.title != null">#{product.title},</if>
+            <if test="product.images != null">#{product.images},</if>
+            <if test="product.info != null">#{product.info},</if>
+            <if test="product.price != null">#{product.price},</if>
+            <if test="product.detailedTitle != null">#{product.detailedTitle},</if>
+            <if test="product.detailed != null">#{product.detailed},</if>
+            <if test="product.createTime != null">#{product.createTime},</if>
+            <if test="product.updateTime != null">#{product.updateTime},</if>
+            <if test="product.categoryId != null">#{product.categoryId},</if>
+            #{product.isDeleted}
+        </trim>
         )
     </insert>
 
 
-
-     <!--
-     <update id="update"
-             parameterType="com.example.multi.module.product.entity.Product">
-         update  product set name = #{product.name},
-                             title= #{product.title},
-                             update_time=#{product.updateTime}
-         where id = #{product.id}
-
-     </update>
-     -->
-     <update id="update"
-             parameterType="com.example.multi.module.product.entity.Product">
-         UPDATE product
+    <update id="update"
+            parameterType="com.example.multi.module.product.entity.Product">
+        UPDATE product
         <trim prefix="set" suffixOverrides=",">
-             update_time = #{product.updateTime},
-             <if test="product.title != null ">title = #{product.title},</if>
-             <if test="product.name != null ">name = #{product.name},</if>
-             <if test="product.images != null  ">images = #{product.images},</if>
-             <if test="product.info != null   ">info = #{product.info},</if>
-             <if test="product.price != 0" >price = #{product.price},</if>
-             <if test="product.detailedTitle != null ">detailed_title =#{product.detailedTitle},</if>
-             <if test="product.detailed != null ">detailed =#{product.detailed}</if>
+            update_time = #{product.updateTime},
+            <if test="product.title != null ">title = #{product.title},</if>
+            <if test="product.name != null ">name = #{product.name},</if>
+            <if test="product.images != null  ">images = #{product.images},</if>
+            <if test="product.info != null   ">info = #{product.info},</if>
+            <if test="product.price != 0">price = #{product.price},</if>
+            <if test="product.detailedTitle != null ">detailed_title =#{product.detailedTitle},</if>
+            <if test="product.detailed != null ">detailed =#{product.detailed}</if>
 
         </trim>
-             where id = #{product.id}
-     </update>
-
-    <!--<update id="update"
-            parameterType="com.example.multi.module.product.entity.Product">
-    UPDATE product
-    <trim prefix="Set" suffixOverrides=",">
-        <if test="product.title != null ">title = #{product.title},</if>
-        <if test="product.name != null ">name = #{product.name},</if>
-        <if test="product.images != null">images = #{product.images},</if>
-        <if test="product.info != null">info = #{product.info},</if>
-        <if test="product.price != null">price = #{product.price},</if>
-        <if test="product.detailedTitle != null">detailed_title =#{product.detailedTitle},</if>
-        <if test="product.detailed != null">detailed =#{product.detailed}</if>
-    </trim>
+        where id = #{product.id}
     </update>
-    -->
+
     <select id="select"
             resultType="com.example.multi.module.product.entity.Product">
         select product.*,category.name as category_name from product
-        left join category  on product.category_id = category.id
+        left join category on product.category_id = category.id
         where product.is_deleted = 0
         <if test="keyword != null ">
-           and product.title like concat("%",#{keyword},"%")
+            and product.title like concat("%",#{keyword},"%")
         </if>
         ORDER BY product.id ASC
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="getById"
-            resultType="com.example.multi.module.product.entity.Product">
-        select * from product
-        where id = #{id}
-        and is_deleted = 0
-    </select>
 
-
-
-
-
-
-
- </mapper>
+</mapper>

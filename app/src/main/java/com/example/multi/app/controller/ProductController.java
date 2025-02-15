@@ -82,25 +82,7 @@ public class ProductController {
         return productInfoVO;
     }
 
-    @RequestMapping("product/category")
-    public ProductCategoryVO getCategory(@RequestParam("page") Integer page,
-                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                         @RequestParam(value = "categoryName", defaultValue = "") String categoryName) {
-        List<Category> categorys = categoryservice.getCategory(page,pageSize,categoryName);
-        List<ProductCateCellVO> productCateCellVOS = new ArrayList<>();
-        for (Category category : categorys) {
-            ProductCateCellVO productCateCellVO = new ProductCateCellVO();
-            productCateCellVO.setCategoryName(category.getName());
-            productCateCellVO.setCategoryImage(category.getImage());
-            productCateCellVOS.add(productCateCellVO);
-        }
-        ProductCategoryVO productCategoryVO = new ProductCategoryVO();
-        productCategoryVO.setList(productCateCellVOS);
-        boolean result = productCateCellVOS.size() < pageSize;
-        productCategoryVO.setIsEnd(result);
-        return productCategoryVO;
 
-    }
 
 
 }
