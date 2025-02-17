@@ -34,18 +34,17 @@ public class ProductController {
         List<Product> products = service.getPage(page, pageSize, keyword);
         List<ProductCellVO> productCellVOS = new ArrayList<>();
         for (Product product : products) {
+            Category category = categoryservice.getById(product.getCategoryId());
+            if (category == null) {
+                continue;
+            }
             ProductCellVO productCellVO = new ProductCellVO();
             productCellVO.setId(product.getId());
             String[] image = product.getImages().split("\\$");
             productCellVO.setImage(image[0]);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
-            Category category = categoryservice.getById(product.getCategoryId());
-            if (category == null) {
-                productCellVO.setCategoryName("未找到对应的分类信息");
-            } else {
-                productCellVO.setCategoryName(category.getName());
-            }
+            productCellVO.setCategoryName(category.getName());
             productCellVOS.add(productCellVO);
         }
         ProductListVO productListVO = new ProductListVO();
