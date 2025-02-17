@@ -60,12 +60,12 @@ public class ProductController {
 
                 Product product = service.getById(id);
         if (product == null) {
-            productConInfoVO.setTips("未找到对应的产品信息");
+            productConInfoVO.setTitle("未找到对应的产品信息");
             return productConInfoVO;
         }
         Category category = categoryservice.getById(product.getCategoryId());
         if (category == null) {
-            productConInfoVO.setTips("未找到对应的分类信息");
+            productConInfoVO.setTitle("未找到对应的分类信息");
             return productConInfoVO;
         }
                 productConInfoVO.setTitle(product.getTitle());
@@ -80,32 +80,30 @@ public class ProductController {
                 productConInfoVO.setCreateTime(dateFormat.format(product.getCreateTime() * 1000l));
                 productConInfoVO.setUpdateTime(dateFormat.format(product.getUpdateTime() * 1000l));
                 productConInfoVO.setCategoryId(product.getCategoryId());
-                productConInfoVO.setTips("成功");
-
         return productConInfoVO;
     }
 
-    @RequestMapping("/product/infoid")
-    public ProductConInfoVO getInfoId(@RequestParam(name = "id") BigInteger id) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Product product = service.extractById(id);
-        ProductConInfoVO productConInfoVO = new ProductConInfoVO();
-        productConInfoVO.setTitle(product.getTitle());
-        String[] image = product.getImages().split("\\$");
-        List<String> imageList = Arrays.asList(image);
-        productConInfoVO.setImages(imageList);
-        productConInfoVO.setName(product.getName());
-        productConInfoVO.setInfo(product.getInfo());
-        productConInfoVO.setPrice(product.getPrice());
-        productConInfoVO.setDetailedTitle(product.getDetailedTitle());
-        productConInfoVO.setDetailed(product.getDetailed());
-        productConInfoVO.setCreateTime(dateFormat.format(product.getCreateTime() * 1000l));
-        productConInfoVO.setUpdateTime(dateFormat.format(product.getUpdateTime() * 1000l));
-
-
-        return productConInfoVO;
-    }
+//    @RequestMapping("/product/infoid")
+//    public ProductConInfoVO getInfoId(@RequestParam(name = "id") BigInteger id) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//
+//        Product product = service.extractById(id);
+//        ProductConInfoVO productConInfoVO = new ProductConInfoVO();
+//        productConInfoVO.setTitle(product.getTitle());
+//        String[] image = product.getImages().split("\\$");
+//        List<String> imageList = Arrays.asList(image);
+//        productConInfoVO.setImages(imageList);
+//        productConInfoVO.setName(product.getName());
+//        productConInfoVO.setInfo(product.getInfo());
+//        productConInfoVO.setPrice(product.getPrice());
+//        productConInfoVO.setDetailedTitle(product.getDetailedTitle());
+//        productConInfoVO.setDetailed(product.getDetailed());
+//        productConInfoVO.setCreateTime(dateFormat.format(product.getCreateTime() * 1000l));
+//        productConInfoVO.setUpdateTime(dateFormat.format(product.getUpdateTime() * 1000l));
+//
+//
+//        return productConInfoVO;
+//    }
 
     @RequestMapping("/product/create")
     public ConsoleCreateVO productCreate(@RequestParam(name = "name") String name,

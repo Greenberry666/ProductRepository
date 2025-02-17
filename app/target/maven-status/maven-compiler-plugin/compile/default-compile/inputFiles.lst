@@ -1,8 +1,9 @@
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\AppApplication.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\CategoryController.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\ProductController.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\CategoryListCellVO.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\CategoryListVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\EnhanceException.java
-C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\ProductCateCellVO.java
-C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\ProductCategoryVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\ProductCellVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\ProductInfoVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\ProductListVO.java

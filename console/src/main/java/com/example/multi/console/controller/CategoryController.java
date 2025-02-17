@@ -61,16 +61,16 @@ public class CategoryController {
     public CategoryInfoVO categoryInfoVO(@RequestParam(name = "id") BigInteger id) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         CategoryInfoVO categoryInfoVO = new CategoryInfoVO();
-        try {
+
             Category categoryInfo = category.getById(id);
+        if (categoryInfo == null) {
+            categoryInfoVO.setName("未找到对应的分类信息");
+            return categoryInfoVO;
+        }
             categoryInfoVO.setName(categoryInfo.getName());
             categoryInfoVO.setImage(categoryInfo.getImage());
             categoryInfoVO.setCreateTime(dateFormat.format(categoryInfo.getCreateTime() * 1000l));
             categoryInfoVO.setUpdateTime(dateFormat.format(categoryInfo.getUpdateTime() * 1000l));
-            categoryInfoVO.setTips("成功");
-        } catch (Exception e) {
-            categoryInfoVO.setTips(e.getMessage());
-        }
         return categoryInfoVO;
 
     }

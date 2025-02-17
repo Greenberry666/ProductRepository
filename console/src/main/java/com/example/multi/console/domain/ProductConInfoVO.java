@@ -17,8 +17,4 @@ public class ProductConInfoVO {
     private String createTime;
     private String updateTime;
     private BigInteger categoryId;
-    private String tips;
-
-
-
 }

@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 @Slf4j
 @RestController
 public class ProductController {
@@ -26,8 +27,8 @@ public class ProductController {
 
     @RequestMapping("/product/list")
     public ProductListVO productAll(@RequestParam("page") Integer page,
-                                             @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize,
-                                             @RequestParam(value = "keyword",defaultValue = "" )String keyword) {
+                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                    @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
 
         List<Product> products = service.getPage(page, pageSize, keyword);
@@ -40,7 +41,11 @@ public class ProductController {
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
             Category category = categoryservice.getById(product.getCategoryId());
-            productCellVO.setCategoryName(category.getName());
+            if (category == null) {
+                productCellVO.setCategoryName("未找到对应的分类信息");
+            } else {
+                productCellVO.setCategoryName(category.getName());
+            }
             productCellVOS.add(productCellVO);
         }
         ProductListVO productListVO = new ProductListVO();
@@ -48,7 +53,6 @@ public class ProductController {
         boolean result = productCellVOS.size() < pageSize;
         productListVO.setIsEnd(result);
         return productListVO;
-        //return productListVO;
     }
 
     @RequestMapping("product/info")
@@ -57,13 +61,16 @@ public class ProductController {
 
         Product product = service.getById(id);
         if (product == null) {
-            productInfoVO.setTips("未找到对应的产品信息");
+            productInfoVO.setTitle("未找到对应的产品信息");
             return productInfoVO;
         }
         Category category = categoryservice.getById(product.getCategoryId());
         if (category == null) {
-            productInfoVO.setTips("未找到对应的分类信息");
-            return productInfoVO;
+            productInfoVO.setCategoryName("未找到对应的分类信息");
+            productInfoVO.setCategoryImage("未找到对应的分类信息");
+        } else {
+            productInfoVO.setCategoryName(category.getName());
+            productInfoVO.setCategoryImage(category.getImage());
         }
         productInfoVO.setTitle(product.getTitle());
         String[] image = product.getImages().split("\\$");
@@ -75,14 +82,8 @@ public class ProductController {
         productInfoVO.setPrice(product.getPrice());
         productInfoVO.setDetailedTitle(product.getDetailedTitle());
         productInfoVO.setDetailed(product.getDetailed());
-        productInfoVO.setCategoryName(category.getName());
-        productInfoVO.setCategoryImage(category.getImage());
-        productInfoVO.setTips("成功");
-
         return productInfoVO;
     }
-
-
 
 
 }
