@@ -46,6 +46,7 @@ public class ProductController {
             productCellVO.setPrice(product.getPrice());
             productCellVO.setCategoryName(category.getName());
             productCellVOS.add(productCellVO);
+
         }
         ProductListVO productListVO = new ProductListVO();
         productListVO.setList(productCellVOS);
