@@ -1,8 +1,10 @@
 package com.example.multi.module.category.entity;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.math.BigInteger;
+import java.util.List;
 
 
 @Data
@@ -10,6 +12,8 @@ import java.math.BigInteger;
 public class Category {
     //
     private BigInteger id;
+    //
+    private BigInteger parentId;
     //
     private String name;
     //
@@ -20,4 +24,5 @@ public class Category {
     private Integer updateTime;
     //
     private Integer isDeleted;
+    private List<Category> children;
 }

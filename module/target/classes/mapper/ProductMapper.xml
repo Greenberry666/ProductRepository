@@ -105,6 +105,7 @@
         where id = #{product.id}
     </update>
 
+
     <select id="select"
             resultType="com.example.multi.module.product.entity.Product">
         select * from product
@@ -122,6 +123,8 @@
         ORDER BY id ASC
         LIMIT #{offset}, #{pageSize}
     </select>
+
+
 
 
 </mapper>

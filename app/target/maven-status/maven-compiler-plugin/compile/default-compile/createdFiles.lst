@@ -1,5 +1,6 @@
 com\example\multi\app\controller\ProductController.class
 com\example\multi\app\domain\ProductCellVO.class
+com\example\multi\app\domain\CategoryGeneralListVO.class
 com\example\multi\app\domain\CategoryListVO.class
 com\example\multi\app\domain\CategoryListCellVO.class
 com\example\multi\app\domain\EnhanceException.class
@@ -7,3 +8,4 @@ com\example\multi\app\AppApplication.class
 com\example\multi\app\domain\ProductListVO.class
 com\example\multi\app\controller\CategoryController.class
 com\example\multi\app\domain\ProductInfoVO.class
+com\example\multi\app\controller\TestController.class

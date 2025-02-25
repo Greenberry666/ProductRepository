@@ -2,10 +2,13 @@ package com.example.multi.app.domain;
 
 import lombok.Data;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Data
 public class CategoryListVO {
     private List<CategoryListCellVO> list;
-    private Boolean isEnd;
+    private BigInteger categoryId;
+    private String categoryName;
+    private String categoryImage;
 }

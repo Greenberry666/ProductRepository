@@ -52,7 +52,7 @@ public class ProductService {
         if (BaseUtils.isBlank(images)) {
             throw new IllegalArgumentException("产品样图至少上传一张");
         }
-        if (categoryMapper.getById(categoryId)==null) {
+        if (categoryMapper.getById(categoryId) == null) {
             throw new IllegalArgumentException("产品分类 ID 无效，未找到对应的分类");
         }
         int timestamp = (int) (System.currentTimeMillis() / 1000);
@@ -87,11 +87,33 @@ public class ProductService {
     }
 
 
+    //    public List<Product> getPage(Integer page, Integer pageSize, String keyword) {
+//        int offset = (page - 1) * pageSize;
+//        return mapper.select(offset, pageSize, keyword);
+//    }
+//    public List<Product> getPage(Integer page, Integer pageSize, String keyword) {
+//        List<Integer> categoryIds = mapper.selectIdByCategory(keyword);
+//
+//        int offset = (page - 1) * pageSize;
+//        return mapper.selectProducts(keyword, offset, categoryIds, pageSize);
+//
+//    }
     public List<Product> getPage(Integer page, Integer pageSize, String keyword) {
+        List<Integer> categoryIds = mapper.getProductIds(keyword);
+
+        StringBuilder idList = new StringBuilder();
+        for (int i = 0; i < categoryIds.size(); i++) {
+            idList.append(categoryIds.get(i));
+            if (i < categoryIds.size() - 1) {
+                idList.append(",");
+            }
+        }
+        String ids = idList.toString();
+
         int offset = (page - 1) * pageSize;
-        //return mapper.getProductPage(offset,pageSize,keyword);
-        return mapper.select(offset, pageSize, keyword);
+        return mapper.getProducts(keyword,ids,offset, pageSize);
     }
+
 
     public int pageCount(String keyword) {
         return mapper.pageCount(keyword);
