@@ -124,6 +124,19 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+    <select id="getProducts"
+            resultType="com.example.multi.module.product.entity.Product">
+        select * from product
+        where
+        <if test='keyword != null '>
+            title like concat('%',#{keyword},'%')
+            OR category_id IN (#{ids}) and
+        </if>
+        is_deleted = 0
+        ORDER BY id ASC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
 
 
 

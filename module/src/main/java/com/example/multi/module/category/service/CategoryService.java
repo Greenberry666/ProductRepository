@@ -93,6 +93,10 @@ public List<Category> getCategory(Integer page, Integer pageSize, String categor
     return mapper.getCategoryName(categoryName,ids,offset, pageSize);
 }
 
+public List<Category> getCategorys(){return  mapper.getParentCategorys();}
+    public List<Category> getChildrenCategorys(){return  mapper.getChildrenCategorys();}
+
+
 
 }
 

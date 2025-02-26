@@ -99,7 +99,7 @@ public class ProductService {
 //
 //    }
     public List<Product> getPage(Integer page, Integer pageSize, String keyword) {
-        List<Integer> categoryIds = mapper.getProductIds(keyword);
+        List<BigInteger> categoryIds = mapper.getCategoryIds(keyword);
 
         StringBuilder idList = new StringBuilder();
         for (int i = 0; i < categoryIds.size(); i++) {

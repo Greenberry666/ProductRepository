@@ -8,5 +8,4 @@ import java.util.List;
 @Data
 public class CategoryGeneralListVO {
     private List<CategoryListVO> list;
-    private Boolean isEnd;
 }

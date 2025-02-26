@@ -36,7 +36,7 @@ public interface ProductMapper {
                          @Param("keyword") String keyword);
 
     @Select("select id from category where name LIKE CONCAT('%', #{keyword}, '%') and is_deleted = 0")
-    List<Integer> getProductIds(@Param("keyword") String keyword);
+    List<BigInteger> getCategoryIds(@Param("keyword") String keyword);
 
 
 //    @Select("SELECT * FROM product " +
@@ -44,11 +44,11 @@ public interface ProductMapper {
 //            "AND is_deleted = 0" +
 //            "ORDER BY id ASC" +
 //            "LIMIT #{offset}, #{pageSize}")
-    @Select("<script> select * from product where " +
-            "<if test= 'keyword != null '>  title like concat('%',#{keyword},'%') OR category_id IN (#{ids}) and </if> " +
-            " is_deleted = 0 " +
-            " ORDER BY id ASC" +
-            " LIMIT #{offset}, #{pageSize} </script>")
+//    @Select("<script> select * from product where " +
+//            "<if test= 'keyword != null '>  title like concat('%',#{keyword},'%') OR category_id IN (#{ids}) and </if> " +
+//            " is_deleted = 0 " +
+//            " ORDER BY id ASC" +
+//            " LIMIT #{offset}, #{pageSize} </script>")
     List<Product> getProducts(
             @Param("keyword") String keyword,
             @Param("ids") String ids,

@@ -24,5 +24,5 @@ public class Category {
     private Integer updateTime;
     //
     private Integer isDeleted;
-    private List<Category> children;
+
 }

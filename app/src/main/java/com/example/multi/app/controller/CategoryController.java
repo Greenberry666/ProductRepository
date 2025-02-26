@@ -20,64 +20,37 @@ public class CategoryController {
     private CategoryService service;
 
     @RequestMapping("/category/list")
-    public CategoryGeneralListVO getCategory(@RequestParam("page") Integer page,
-                                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                             @RequestParam(value = "categoryName", defaultValue = "") String categoryName) {
+    public CategoryGeneralListVO getCategory() {
+        List<Category> parentCategorys = service.getCategorys();
+        List<Category> childrenCategorys = service.getChildrenCategorys();
 
 
-        List<Category> categorys = service.getCategory(page, pageSize, categoryName);
+        List<CategoryListVO> parentList = new ArrayList<>();
+        for (Category parentCategory : parentCategorys) {
+            CategoryListVO parentVO = new CategoryListVO();
+            parentVO.setCategoryId(parentCategory.getId());
+            parentVO.setCategoryName(parentCategory.getName());
+            parentVO.setCategoryImage(parentCategory.getImage());
 
-        List<CategoryListVO> categoryListVOS = new ArrayList<>();
-        for (Category generalcategory : categorys){
-            CategoryListVO categoryListVO = new CategoryListVO();
-            categoryListVO.setCategoryId(generalcategory.getId());
-            categoryListVO.setCategoryName(generalcategory.getName());
-            categoryListVO.setCategoryImage(generalcategory.getImage());
+            List<CategoryListCellVO> childrenList = new ArrayList<>();
+            for (Category childrenCategory : childrenCategorys) {
+                CategoryListCellVO childrenVO = new CategoryListCellVO();
+                if (childrenCategory.getParentId().equals(parentCategory.getId())) {
+                    childrenVO.setCategoryId(childrenCategory.getId());
+                    childrenVO.setCategoryName(childrenCategory.getName());
+                    childrenVO.setCategoryImage(childrenCategory.getImage());
+                    childrenList.add(childrenVO);
+                }
 
-            List<CategoryListCellVO> productCateCellVOS = new ArrayList<>();
-            for (Category category : categorys) {
-                CategoryListCellVO productCateCellVO = new CategoryListCellVO();
-                productCateCellVO.setCategoryId(category.getId());
-                productCateCellVO.setCategoryName(category.getName());
-                productCateCellVO.setCategoryImage(category.getImage());
-                productCateCellVOS.add(productCateCellVO);
             }
-            categoryListVO.setList(productCateCellVOS);
-            categoryListVOS.add(categoryListVO);
+            parentVO.setChildrenlist(childrenList);
+            parentList.add(parentVO);
 
         }
-        CategoryGeneralListVO categoryGeneralListVO = new CategoryGeneralListVO();
-        categoryGeneralListVO.setList(categoryListVOS);
+        CategoryGeneralListVO parentListVO = new CategoryGeneralListVO();
+        parentListVO.setList(parentList);
 
-        boolean result = categoryListVOS.size() < pageSize;
-        categoryGeneralListVO.setIsEnd(result);
-        return categoryGeneralListVO;
-
-
-//        List<CategoryListVO> categoryListVOS = new ArrayList<>();
-//        for (Category generalCategory : categorys) {
-//            CategoryListVO categoryListVO = new CategoryListVO();
-//            categoryListVO.setCategoryId(generalCategory.getId());
-//            categoryListVO.setCategoryName(generalCategory.getName());
-//            categoryListVO.setCategoryImage(generalCategory.getImage());
-//
-//            // 获取子分类并封装
-//            List<CategoryListCellVO> childrenList = new ArrayList<>();
-//            for (Category child : generalCategory.getChildren()) {
-//                CategoryListCellVO childVO = new CategoryListCellVO();
-//                childVO.setCategoryId(child.getId());
-//                childVO.setCategoryName(child.getName());
-//                childVO.setCategoryImage(child.getImage());
-//                childrenList.add(childVO);
-//            }
-//            categoryListVO.setList(childrenList);
-//            categoryListVOS.add(categoryListVO);
-//        }
-//        CategoryGeneralListVO categoryGeneralListVO = new CategoryGeneralListVO();
-//        categoryGeneralListVO.setList(categoryListVOS);
-//        categoryGeneralListVO.setIsEnd(categoryListVOS.size() < pageSize);
-//
-//        return categoryGeneralListVO;
+        return parentListVO;
 
 
     }
