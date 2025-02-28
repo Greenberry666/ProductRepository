@@ -8,4 +8,5 @@ import java.util.List;
 public class ProductListVO {
     private List<ProductCellVO> list;
     private Boolean isEnd;
+    private String code;
 }

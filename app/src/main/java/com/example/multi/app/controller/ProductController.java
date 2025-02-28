@@ -98,6 +98,9 @@ public class ProductController {
         ProductListVO productListVO = new ProductListVO();
         productListVO.setIsEnd(productCellVOS.size() < pageSize);
         productListVO.setList(productCellVOS);
+        String jsonInput = "{"+"page:"+page+","+"pageSize:"+pageSize+"}";
+        String base64Encoded = Base64.getEncoder().encodeToString(jsonInput.getBytes());
+        productListVO.setCode(base64Encoded);
         return productListVO;
 
     }
