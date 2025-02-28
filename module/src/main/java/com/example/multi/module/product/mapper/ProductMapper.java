@@ -55,6 +55,12 @@ public interface ProductMapper {
             @Param("offset") int offset,
             @Param("pageSize") int pageSize);
 
+    List<Product> testgetProducts(
+            @Param("keyword") String keyword,
+            @Param("ids") String ids,
+            @Param("offset") int offset,
+            @Param("pageSize") int pageSize);
+
 
 
 

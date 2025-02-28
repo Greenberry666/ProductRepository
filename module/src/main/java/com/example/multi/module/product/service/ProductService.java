@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -100,7 +101,6 @@ public class ProductService {
 //    }
     public List<Product> getPage(Integer page, Integer pageSize, String keyword) {
         List<BigInteger> categoryIds = mapper.getCategoryIds(keyword);
-
         StringBuilder idList = new StringBuilder();
         for (int i = 0; i < categoryIds.size(); i++) {
             idList.append(categoryIds.get(i));
@@ -113,6 +113,7 @@ public class ProductService {
         int offset = (page - 1) * pageSize;
         return mapper.getProducts(keyword,ids,offset, pageSize);
     }
+
 
 
     public int pageCount(String keyword) {

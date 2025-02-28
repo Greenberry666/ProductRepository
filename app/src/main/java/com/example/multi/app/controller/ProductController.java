@@ -1,20 +1,25 @@
 package com.example.multi.app.controller;
 
-
+import com.alibaba.fastjson.JSON;
+import java.util.Base64;
 import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.service.CategoryService;
 import com.example.multi.app.domain.*;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.service.ProductService;
+import com.example.multi.module.wp.Wp;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import java.util.List;
 
 @Slf4j
@@ -54,6 +59,47 @@ public class ProductController {
         productListVO.setIsEnd(result);
         return productListVO;
     }
+
+    @SneakyThrows
+    @RequestMapping("/product/testlist")
+    public ProductListVO testproductAll(@RequestParam(value = "wp") String wp,
+                                        @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+
+
+
+            // Base64 解码
+            String decodedWpBase = new String(Base64.getDecoder().decode(wp),"UTF-8");
+            // JSON 解码
+            Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
+            Integer page = decodedWpJSON.getPage();
+            Integer pageSize = decodedWpJSON.getPageSize();
+
+        List<Product> products = service.getPage(page, pageSize, keyword);
+
+        List<ProductCellVO> productCellVOS = new ArrayList<>();
+
+        for (Product product : products) {
+            Category category = categoryservice.getById(product.getCategoryId());
+            if (category == null) {
+                continue;
+            }
+            ProductCellVO productCellVO = new ProductCellVO();
+            productCellVO.setId(product.getId());
+            String[] image = product.getImages().split("\\$");
+            productCellVO.setImage(image[0]);
+            productCellVO.setInfo(product.getInfo());
+            productCellVO.setPrice(product.getPrice());
+            productCellVO.setCategoryName(category.getName());
+            productCellVOS.add(productCellVO);
+
+        }
+        ProductListVO productListVO = new ProductListVO();
+        productListVO.setIsEnd(productCellVOS.size() < pageSize);
+        productListVO.setList(productCellVOS);
+        return productListVO;
+
+    }
+
 
     @RequestMapping("product/info")
     public ProductInfoVO getInfo(@RequestParam(name = "id") BigInteger id) {
