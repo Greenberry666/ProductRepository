@@ -62,17 +62,19 @@ public class ProductController {
 
     @SneakyThrows
     @RequestMapping("/product/testlist")
-    public ProductListVO testproductAll(@RequestParam(value = "wp") String wp,
+    public ProductListVO testproductAll(@RequestParam(value = "wp",defaultValue = "") String wp,
                                         @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
+        Integer page = 1;
+        Integer pageSize = 5;
 
-
+        if (wp != null && !wp.isEmpty() ) {
             // Base64 解码
             String decodedWpBase = new String(Base64.getDecoder().decode(wp),"UTF-8");
             // JSON 解码
-            Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
-            Integer page = decodedWpJSON.getPage();
-            Integer pageSize = decodedWpJSON.getPageSize();
+             Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
+             page = decodedWpJSON.getPage();
+             pageSize = decodedWpJSON.getPageSize();}
 
         List<Product> products = service.getPage(page, pageSize, keyword);
 
