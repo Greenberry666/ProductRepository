@@ -1,7 +1,11 @@
 package com.example.multi.app.controller;
 
 import com.alibaba.fastjson.JSON;
+
+import java.net.URLEncoder;
 import java.util.Base64;
+import java.net.URLDecoder;
+
 import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.service.CategoryService;
 import com.example.multi.app.domain.*;
@@ -62,19 +66,22 @@ public class ProductController {
 
     @SneakyThrows
     @RequestMapping("/product/testlist")
-    public ProductListVO testproductAll(@RequestParam(value = "wp",defaultValue = "") String wp,
-                                        @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    public ProductListVO testproductAll(@RequestParam(value = "wp", defaultValue = "") String wp,
+                                        @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                        @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
 
-        Integer page = 1;
-        Integer pageSize = 5;
-
-        if (wp != null && !wp.isEmpty() ) {
+//        Integer page = 1;
+//        Integer pageSize = 5;
+        if (wp != null && !wp.isEmpty()) {
             // Base64 解码
-            String decodedWpBase = new String(Base64.getDecoder().decode(wp),"UTF-8");
+            String decodedWpBase = new String(Base64.getDecoder().decode(wp), "UTF-8");
             // JSON 解码
-             Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
-             page = decodedWpJSON.getPage();
-             pageSize = decodedWpJSON.getPageSize();}
+            Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
+            page = decodedWpJSON.getPage();
+            pageSize = decodedWpJSON.getPageSize();
+            keyword = decodedWpJSON.getKeyword();
+        }
 
         List<Product> products = service.getPage(page, pageSize, keyword);
 
@@ -98,9 +105,16 @@ public class ProductController {
         ProductListVO productListVO = new ProductListVO();
         productListVO.setIsEnd(productCellVOS.size() < pageSize);
         productListVO.setList(productCellVOS);
-        String jsonInput = "{"+"page:"+page+","+"pageSize:"+pageSize+"}";
-        String base64Encoded = Base64.getEncoder().encodeToString(jsonInput.getBytes());
-        productListVO.setCode(base64Encoded);
+        Wp codeByWp = new Wp();
+        codeByWp.setPage(page+1);
+        codeByWp.setPageSize(pageSize);
+//        keyword = URLEncoder.encode(keyword, "UTF-8");
+        codeByWp.setKeyword(keyword);
+        String jsonInput = JSON.toJSONString(codeByWp);
+//        String jsonInput = "{" + "page:" + page + "," + "pageSize:" + pageSize + "}";
+//        String base64Encoded = Base64.getEncoder().encodeToString(jsonInput.getBytes());
+        String base64Encoded = URLEncoder.encode(Base64.getEncoder().encodeToString(jsonInput.getBytes()));
+        productListVO.setWp(base64Encoded);
         return productListVO;
 
     }

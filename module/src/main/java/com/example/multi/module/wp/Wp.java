@@ -6,4 +6,5 @@ import lombok.Data;
 public class Wp {
     private Integer page;
     private Integer pageSize;
+    private String keyword;
 }
