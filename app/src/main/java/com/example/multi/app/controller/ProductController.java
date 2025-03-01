@@ -67,12 +67,10 @@ public class ProductController {
     @SneakyThrows
     @RequestMapping("/product/testlist")
     public ProductListVO testproductAll(@RequestParam(value = "wp", defaultValue = "") String wp,
-                                        @RequestParam(value = "keyword", defaultValue = "") String keyword,
-                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                        @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+                                        @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
-//        Integer page = 1;
-//        Integer pageSize = 5;
+        Integer page = 1;
+        Integer pageSize = 5;
         if (wp != null && !wp.isEmpty()) {
             // Base64 解码
             String decodedWpBase = new String(Base64.getDecoder().decode(wp), "UTF-8");
