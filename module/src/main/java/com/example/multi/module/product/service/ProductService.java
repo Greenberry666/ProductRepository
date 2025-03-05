@@ -1,8 +1,7 @@
 package com.example.multi.module.product.service;
 
-import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.mapper.CategoryMapper;
-import com.example.multi.module.category.service.CategoryService;
+import com.example.multi.module.dto.ProductDTO;
 import com.example.multi.module.utils.BaseUtils;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.mapper.ProductMapper;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigInteger;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -119,6 +117,12 @@ public class ProductService {
     public int pageCount(String keyword) {
         return mapper.pageCount(keyword);
     }
+
+        public List<ProductDTO> getDTO(Integer page, Integer pageSize, String keyword) {
+        int offset = (page - 1) * pageSize;
+        return mapper.getProductDTO(offset, pageSize, keyword);
+    }
+
 
 
 }

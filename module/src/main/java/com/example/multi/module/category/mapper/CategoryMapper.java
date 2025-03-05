@@ -2,7 +2,6 @@
 package com.example.multi.module.category.mapper;
 
 import com.example.multi.module.category.entity.Category;
-import com.example.multi.module.product.entity.Product;
 import org.apache.ibatis.annotations.*;
 
 import java.math.BigInteger;
@@ -57,6 +56,14 @@ public interface CategoryMapper {
 
     @Select("select * from category where parent_id is not null and is_deleted = 0")
     List<Category> getChildrenCategorys();
+
+   @Select("SELECT * FROM category WHERE id in (${tagIds})  ")
+    List<Category> getIds(@Param("tagIds") String tagIds);
+
+   @Select("select id from category where parent_id is not null and is_deleted = 0")
+    List<BigInteger> getCategoryAll();
+
+
 
 
 }

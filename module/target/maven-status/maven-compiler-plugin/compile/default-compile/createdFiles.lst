@@ -1,4 +1,5 @@
 com\example\multi\module\generator\CodeGenerator.class
+com\example\multi\module\dto\ProductDTO.class
 com\example\multi\module\product\entity\Product.class
 com\example\multi\module\utils\BaseUtils.class
 com\example\multi\module\wp\Wp.class

@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.multi.module.product.mapper.ProductMapper">
-    <!-- <insert id="insert"
-             parameterType="com.example.multi.module.product.entity.Product">
-         insert into product(name,title,images,info,price,detailed_title,detailed,create_time,update_time,is_deleted)
-         values (#{product.name},#{product.title},#{product.images},#{product.info},
-                 #{product.price},#{product.detailedTitle},#{product.detailed},
-                 #{product.createTime},#{product.updateTime},#{product.isDeleted})
-     </insert>
-     -->
-    <!--<insert id="insert"
-            parameterType="com.example.multi.module.product.entity.Product">
-        insert into product
-            (
-                 <if test="product.id != null">id,</if>
-                 <if test="product.title != null and product.title !=''">title,</if>
-                 <if test="product.name != null and product.name !=''">name,</if>
-                 <if test="product.images!= null and product.images !=''">images,</if>
-                 <if test="product.info!= null and product.info !=''">info,</if>
-                 <if test="product.price!= null">price,</if>
-                 <if test="product.detailedTitle!= null and product.detailedTitle !=''">detailed_title,</if>
-                 <if test="product.detailed != null and product.detailed !=''">detailed,</if>
-                 <if test="product.createTime != null">create_time,</if>
-                 <if test="product.updateTime != null">update_time,</if>
-                 is_deleted
-        )values
-            (
-                 <if test="product.id != null">#{product.id},</if>
-                 <if test="product.name != null">#{product.name},</if>
-                 <if test="product.title != null">#{product.title},</if>
-                 <if test="product.images != null">#{product.images},</if>
-                 <if test="product.info != null">#{product.info},</if>
-                 <if test="product.price != null">#{product.price},</if>
-                 <if test="product.detailedTitle != null">#{product.detailedTitle},</if>
-                 <if test="product.detailed != null">#{product.detailed},</if>
-                 <if test="product.createTime != null">#{product.createTime},</if>
-                 <if test="product.updateTime != null">#{product.updateTime},</if>
-                 #{product.isDeleted}
-        )
-
-    </insert>
-    -->
-
-
     <!--
     mybatis如何返回insert自增id
     方法一：使用 useGeneratedKeys 和 keyProperty
@@ -50,7 +8,6 @@
     方法二：使用 @Options 注解
 如果你使用的是MyBatis的注解方式而不是XML配置，你可以使用@Options注解来实现相同的功能。
 @Options(useGeneratedKeys = true, keyProperty = "id")
-
      -->
     <insert id="insert"
             parameterType="com.example.multi.module.product.entity.Product" useGeneratedKeys="true" keyProperty="id">
@@ -136,6 +93,33 @@
         ORDER BY id ASC
         LIMIT #{offset}, #{pageSize}
     </select>
+
+    <resultMap id="productDTO" type="com.example.multi.module.dto.ProductDTO">
+        <id property="id" column="product_id"/>
+        <result property="images" column="images"/>
+        <result property="info" column="info"/>
+        <result property="price" column="price"/>
+        <result property="categoryName" column="category_name"/>
+    </resultMap>
+
+    <select id="getProductDTO" resultMap="productDTO">
+        SELECT
+            p.id AS product_id,
+            p.images,
+            p.info,
+            p.price,
+            c.name AS category_name
+        FROM
+            product p
+        LEFT JOIN
+            category c ON p.category_id = c.id
+        WHERE
+            p.title LIKE CONCAT('%', #{keyword}, '%')
+            LIMIT
+            #{offset}, #{pageSize}
+    </select>
+
+
 
 
 

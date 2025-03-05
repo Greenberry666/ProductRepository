@@ -49,5 +49,12 @@
         LIMIT #{offset}, #{pageSize}
     </select>
     -->
+<!--    <select id="getIds"-->
+<!--            resultType="com.example.multi.module.category.entity.Category">-->
+<!--        SELECT * FROM category-->
+<!--                 WHERE id in (#{tagIds})-->
+
+<!--    </select>-->
+
 
 </mapper>

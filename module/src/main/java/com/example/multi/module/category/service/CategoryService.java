@@ -44,7 +44,6 @@ public class CategoryService {
 
 
     public BigInteger edit(BigInteger id, String name, String image) {
-
         if (BaseUtils.isBlank(name)) {
             throw new IllegalArgumentException("产品名称不能为空");
         }
@@ -61,6 +60,7 @@ public class CategoryService {
         if (id == null) {
             category.setCreateTime(timestamp);
             insert(category);
+
             return category.getId();
         } else {
             Category oldcategory = mapper.getById(id);
@@ -71,30 +71,25 @@ public class CategoryService {
         }
         return id;
     }
-    //public List<Category> getCategories(String categoryName){ return  mapper.Categories(categoryName);}
 
-//    public List<Category> getCategory(Integer page, Integer pageSize, String categoryName) {
-//        int offset = (page - 1) * pageSize;
-//        return mapper.getCategoryName(offset, pageSize,categoryName);
-//    }
-public List<Category> getCategory(Integer page, Integer pageSize, String categoryName) {
-    List<Integer> categoryIds = mapper.selectParentId(categoryName);
-
-    StringBuilder idList = new StringBuilder();
-    for (int i = 0; i < categoryIds.size(); i++) {
-        idList.append(categoryIds.get(i));
-        if (i < categoryIds.size() - 1) {
-            idList.append(",");
-        }
+    public List<Category> getCategorys() {
+        return mapper.getParentCategorys();
     }
-    String ids = idList.toString();
 
-    int offset = (page - 1) * pageSize;
-    return mapper.getCategoryName(categoryName,ids,offset, pageSize);
-}
+    public List<Category> getChildrenCategorys() {
+        return mapper.getChildrenCategorys();
+    }
 
-public List<Category> getCategorys(){return  mapper.getParentCategorys();}
-    public List<Category> getChildrenCategorys(){return  mapper.getChildrenCategorys();}
+    public List<Category> getByIds(String tagIds) {
+        return mapper.getIds(tagIds);
+    }
+    public List<BigInteger> getAllCategory(){
+        return mapper.getCategoryAll();
+    }
+
+
+
+
 
 
 
