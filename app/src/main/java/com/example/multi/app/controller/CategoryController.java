@@ -21,7 +21,7 @@ public class CategoryController {
 
     @RequestMapping("/category/list")
     public CategoryGeneralListVO getCategory() {
-        List<Category> parentCategorys = service.getCategorys();
+        List<Category> parentCategorys = service.getParentCategorys();
         List<Category> childrenCategorys = service.getChildrenCategorys();
 
 

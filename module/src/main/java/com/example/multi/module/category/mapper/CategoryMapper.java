@@ -61,7 +61,7 @@ public interface CategoryMapper {
     List<Category> getIds(@Param("tagIds") String tagIds);
 
    @Select("select id from category where parent_id is not null and is_deleted = 0")
-    List<BigInteger> getCategoryAll();
+    List<BigInteger> getAllUsedCategory();
 
 
 

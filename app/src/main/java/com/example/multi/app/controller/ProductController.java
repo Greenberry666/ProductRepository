@@ -85,7 +85,7 @@ public class ProductController {
         }
 
         //List<Product> products = service.getPage(page, pageSize, keyword);
-        List<ProductDTO> productDTOS = service.getDTO(page, pageSize, keyword);
+        List<ProductDTO> productDTOS = service.getCategoryAndProductList(page, pageSize, keyword);
 
         List<ProductCellVO> productCellVOS = new ArrayList<>();
 

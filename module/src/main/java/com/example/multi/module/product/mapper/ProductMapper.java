@@ -23,17 +23,11 @@ public interface ProductMapper {
     @Update("update product set is_deleted = 1,update_time = #{time}  where id = #{id} limit 1")
     int delete(@Param("id") BigInteger id, @Param("time") Integer time);
 
-    @Select("select * from product where is_deleted = 0")
-    List<Product> getAllProduct();
 
     @Select("select count(*) from product  where is_deleted = 0 " +
             "and title like concat('%',#{keyword},'%')")
     int pageCount(@Param("keyword") String keyword);
 
-
-    List<Product> select(@Param("offset") Integer offset,
-                         @Param("pageSize") Integer pageSize,
-                         @Param("keyword") String keyword);
 
     @Select("select id from category where name LIKE CONCAT('%', #{keyword}, '%') and is_deleted = 0")
     List<BigInteger> getCategoryIds(@Param("keyword") String keyword);
@@ -44,19 +38,9 @@ public interface ProductMapper {
             @Param("offset") int offset,
             @Param("pageSize") int pageSize);
 
-    List<ProductDTO> getProductDTO(@Param("offset") Integer offset,
-                                   @Param("pageSize") Integer pageSize,
-                                   @Param("keyword") String keyword);
-
-
-
-
-
-
-
-
-
-
+    List<ProductDTO> getProductListAndCategory(@Param("offset") Integer offset,
+                                               @Param("pageSize") Integer pageSize,
+                                               @Param("keyword") String keyword);
 
 
 }

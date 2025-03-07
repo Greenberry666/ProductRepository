@@ -72,7 +72,7 @@ public class CategoryService {
         return id;
     }
 
-    public List<Category> getCategorys() {
+    public List<Category> getParentCategorys() {
         return mapper.getParentCategorys();
     }
 
@@ -84,7 +84,7 @@ public class CategoryService {
         return mapper.getIds(tagIds);
     }
     public List<BigInteger> getAllCategory(){
-        return mapper.getCategoryAll();
+        return mapper.getAllUsedCategory();
     }
 
 

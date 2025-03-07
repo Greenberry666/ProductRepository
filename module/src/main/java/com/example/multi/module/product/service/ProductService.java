@@ -109,20 +109,18 @@ public class ProductService {
         String ids = idList.toString();
 
         int offset = (page - 1) * pageSize;
-        return mapper.getProducts(keyword,ids,offset, pageSize);
+        return mapper.getProducts(keyword, ids, offset, pageSize);
     }
-
 
 
     public int pageCount(String keyword) {
         return mapper.pageCount(keyword);
     }
 
-        public List<ProductDTO> getDTO(Integer page, Integer pageSize, String keyword) {
+    public List<ProductDTO> getCategoryAndProductList(Integer page, Integer pageSize, String keyword) {
         int offset = (page - 1) * pageSize;
-        return mapper.getProductDTO(offset, pageSize, keyword);
+        return mapper.getProductListAndCategory(offset, pageSize, keyword);
     }
-
 
 
 }
