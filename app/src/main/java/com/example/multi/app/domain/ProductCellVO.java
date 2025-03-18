@@ -9,5 +9,6 @@ public class ProductCellVO {
     private String image;
     private String info;
     private Integer price;
+
     private String categoryName;
 }

@@ -9,4 +9,5 @@ public class ProductListVO {
     private List<ProductCellVO> list;
     private Boolean isEnd;
     private String wp;
+
 }

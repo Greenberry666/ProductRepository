@@ -41,7 +41,6 @@ public class CategoryController {
                     childrenVO.setCategoryImage(childrenCategory.getImage());
                     childrenList.add(childrenVO);
                 }
-
             }
             parentVO.setChildrenlist(childrenList);
             parentList.add(parentVO);

@@ -15,7 +15,6 @@ public class test {
         String decodedWpBase = new String(Base64.getDecoder().decode(base64Encoded),"UTF-8");
         // JSON 解码
         Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
-
         String keyword ;
         Integer page = decodedWpJSON.getPage();
         Integer pageSize = decodedWpJSON.getPageSize();

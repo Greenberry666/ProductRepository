@@ -9,4 +9,5 @@ public class CategoryListCellVO {
     private BigInteger categoryId;
     private  String categoryName;
     private  String categoryImage;
+
 }

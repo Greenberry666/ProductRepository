@@ -10,6 +10,7 @@ public class CategoryListVO {
     private List<CategoryListCellVO> Childrenlist;
     private BigInteger categoryId;
     private  String categoryName;
+
     private  String categoryImage;
 
 }

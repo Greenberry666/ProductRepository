@@ -18,7 +18,6 @@ public class TestController {
             list.add(1);
         }
     }
-
     @RequestMapping("/test/stringbuilder")
     public Integer stringbuilder(){
         StringBuilder builder = new StringBuilder();
