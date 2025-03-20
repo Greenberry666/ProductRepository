@@ -17,6 +17,8 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
@@ -128,15 +130,13 @@ public class UploadController {
 //
 //        return width + "x" + height;
         try (InputStream inputStream = file.getInputStream()) {
-            Metadata metadata = ImageMetadataReader.readMetadata(inputStream);
-            for (JpegDirectory directory : metadata.getDirectoriesOfType(JpegDirectory.class)) {
-                if (directory.containsTag(JpegDirectory.TAG_IMAGE_WIDTH) && directory.containsTag(JpegDirectory.TAG_IMAGE_HEIGHT)) {
-                    int width = directory.getInt(JpegDirectory.TAG_IMAGE_WIDTH);
-                    int height = directory.getInt(JpegDirectory.TAG_IMAGE_HEIGHT);
-                    return width + "x" + height;
-                }
+            BufferedImage image = ImageIO.read(inputStream);
+            if (image == null) {
+                throw new Exception("无法读取图片");
             }
-            return "120x60";
+            int width = image.getWidth();
+            int height = image.getHeight();
+            return width + "x" + height;
         }
     }
 }

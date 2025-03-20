@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @RestController
@@ -54,7 +56,13 @@ public class ProductController {
             productCellVO.setId(product.getId());
             String[] image = product.getImages().split("\\$");
             imageScaleVO.setImageURL(image[0]);
-            imageScaleVO.setAr(imageScaleVO.iamgeAR());
+            String regex = "(\\d+)x(\\d+)";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(image[0]);
+            double width = Integer.parseInt(matcher.group(1));
+            double height = Integer.parseInt(matcher.group(2));
+            Double ar = width / height;
+            imageScaleVO.setAr(ar);
             productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
@@ -101,7 +109,13 @@ public class ProductController {
             productCellVO.setId(productdto.getId());
             String[] image = productdto.getImages().split("\\$");
             imageScaleVO.setImageURL(image[0]);
-            imageScaleVO.setAr(imageScaleVO.iamgeAR());
+            String regex = "(\\d+)x(\\d+)";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(image[0]);
+            double width = Integer.parseInt(matcher.group(1));
+            double height = Integer.parseInt(matcher.group(2));
+            Double ar = width / height;
+            imageScaleVO.setAr(ar);
             productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(productdto.getInfo());
             productCellVO.setPrice(productdto.getPrice());
@@ -182,7 +196,13 @@ public class ProductController {
             productCellVO.setId(product.getId());
             String[] images = product.getImages().split("\\$");
             imageScaleVO.setImageURL(images[0]);
-            imageScaleVO.setAr(imageScaleVO.iamgeAR());
+            String regex = "(\\d+)x(\\d+)";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(images[0]);
+            double width = Integer.parseInt(matcher.group(1));
+            double height = Integer.parseInt(matcher.group(2));
+            Double ar = width / height;
+            imageScaleVO.setAr(ar);
             productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
