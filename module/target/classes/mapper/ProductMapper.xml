@@ -102,7 +102,7 @@
         <result property="categoryName" column="category_name"/>
     </resultMap>
 
-    <select id="getProductDTO" resultMap="productDTO">
+    <select id="getUpgradeProduct" resultMap="productDTO">
         SELECT
             p.id AS product_id,
             p.images,

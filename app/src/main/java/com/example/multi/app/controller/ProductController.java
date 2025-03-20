@@ -50,9 +50,12 @@ public class ProductController {
                 continue;
             }
             ProductCellVO productCellVO = new ProductCellVO();
+            ImageScaleVO imageScaleVO = new ImageScaleVO();
             productCellVO.setId(product.getId());
             String[] image = product.getImages().split("\\$");
-            productCellVO.setImage(image[0]);
+            imageScaleVO.setImageURL(image[0]);
+            imageScaleVO.setAr(imageScaleVO.iamgeAR());
+            productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
             productCellVO.setCategoryName(category.getName());
@@ -94,9 +97,12 @@ public class ProductController {
                 continue;
             }
             ProductCellVO productCellVO = new ProductCellVO();
+            ImageScaleVO imageScaleVO = new ImageScaleVO();
             productCellVO.setId(productdto.getId());
             String[] image = productdto.getImages().split("\\$");
-            productCellVO.setImage(image[0]);
+            imageScaleVO.setImageURL(image[0]);
+            imageScaleVO.setAr(imageScaleVO.iamgeAR());
+            productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(productdto.getInfo());
             productCellVO.setPrice(productdto.getPrice());
             productCellVO.setCategoryName(productdto.getCategoryName());
@@ -172,9 +178,12 @@ public class ProductController {
             }
 
             ProductCellVO productCellVO = new ProductCellVO();
+            ImageScaleVO imageScaleVO = new ImageScaleVO();
             productCellVO.setId(product.getId());
             String[] images = product.getImages().split("\\$");
-            productCellVO.setImage(images[0]);
+            imageScaleVO.setImageURL(images[0]);
+            imageScaleVO.setAr(imageScaleVO.iamgeAR());
+            productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
             productCellVO.setCategoryName(categoryName);
