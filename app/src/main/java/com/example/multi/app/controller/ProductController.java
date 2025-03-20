@@ -37,13 +37,14 @@ public class ProductController {
     @Autowired
     private CategoryService categoryservice;
 
+    @SneakyThrows
     @RequestMapping("/product/list")
     public ProductListVO productAll(@RequestParam("page") Integer page,
                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                     @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
 
-       List<Product> products = service.getPage(page, pageSize, keyword);
+        List<Product> products = service.getPage(page, pageSize, keyword);
 //        List<ProductDTO> productDTOS = service.getDTO(page, pageSize, keyword);
         List<ProductCellVO> productCellVOS = new ArrayList<>();
         for (Product product : products) {
@@ -55,14 +56,31 @@ public class ProductController {
             ImageScaleVO imageScaleVO = new ImageScaleVO();
             productCellVO.setId(product.getId());
             String[] image = product.getImages().split("\\$");
-            imageScaleVO.setImageURL(image[0]);
-            String regex = "(\\d+)x(\\d+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(image[0]);
-            double width = Integer.parseInt(matcher.group(1));
-            double height = Integer.parseInt(matcher.group(2));
-            Double ar = width / height;
-            imageScaleVO.setAr(ar);
+            //检测图片是否上传
+            if (image.length > 0) {
+                imageScaleVO.setImageURL(image[0]);
+                String regex = "(\\d+)x(\\d+)";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(image[0]);
+                //检测图片宽高
+                if (matcher.find()) {
+                    double width = Integer.parseInt(matcher.group(1));
+                    double height = Integer.parseInt(matcher.group(2));
+                    //检测图片高度
+                    if (height != 0) {
+                        Double ar = width / height;
+                        imageScaleVO.setAr(ar);
+                    } else {
+                        imageScaleVO.setAr(0.0);
+                    }
+                } else {
+                    imageScaleVO.setImageURL("0");
+                    imageScaleVO.setAr(0.0);
+                }
+            } else {
+                imageScaleVO.setImageURL("0");
+                imageScaleVO.setAr(0.0);
+            }
             productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
