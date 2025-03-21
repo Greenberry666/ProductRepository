@@ -101,7 +101,7 @@
         <result property="price" column="price"/>
         <result property="categoryName" column="category_name"/>
     </resultMap>
-
+    
     <select id="getUpgradeProduct" resultMap="productDTO">
         SELECT
             p.id AS product_id,

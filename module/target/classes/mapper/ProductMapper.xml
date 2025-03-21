@@ -93,7 +93,7 @@
         ORDER BY id ASC
         LIMIT #{offset}, #{pageSize}
     </select>
-
+    
     <resultMap id="productDTO" type="com.example.multi.module.dto.ProductDTO">
         <id property="id" column="product_id"/>
         <result property="images" column="images"/>
