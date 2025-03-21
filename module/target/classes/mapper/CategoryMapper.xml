@@ -36,25 +36,5 @@
         WHERE id = #{category.id}
     </update>
 
-    <!--<select id="getCategoryName"
-            resultType="com.example.multi.module.category.entity.Category">
-        SELECT * from category
-        where
-        <if test="categoryName != null and categoryName != ''">
-            name like concat("%",#{categoryName},"%")
-            and
-        </if>
-        is_deleted = 0
-        ORDER BY id ASC
-        LIMIT #{offset}, #{pageSize}
-    </select>
-    -->
-<!--    <select id="getIds"-->
-<!--            resultType="com.example.multi.module.category.entity.Category">-->
-<!--        SELECT * FROM category-->
-<!--                 WHERE id in (#{tagIds})-->
-
-<!--    </select>-->
-
 
 </mapper>
