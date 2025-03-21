@@ -29,9 +29,9 @@ import java.util.Date;
 public class UploadController {
     // 配置信息
     private static final String ENDPOINT = "oss-cn-beijing.aliyuncs.com";
+    private static final String ACCESS_KEY_ID = "LTAI5tBLoNvhtksEXmiBGqss";
     private static final String A = "A";
     private static final String B = "B";
-    private static final String BUCKET_NAME = "bucketproduct";
     // 保存到本地目录
     //private static final String UPLOAD_DIR = "uploads/";
 
