@@ -47,11 +47,11 @@ public class CategoryController {
                             grandchildVO.setCategoryId(grandchildCategory.getId());
                             grandchildVO.setCategoryName(grandchildCategory.getName());
                             grandchildVO.setCategoryImage(grandchildCategory.getImage());
-                            grandchildVO.setChildrenList(new ArrayList<>());
+                            grandchildVO.setChildrenlist(new ArrayList<>());
                             grandChildrenList.add(grandchildVO);
                         }
                     }
-                    childrenVO.setChildrenList(grandChildrenList);
+                    childrenVO.setChildrenlist(grandChildrenList);
                     childrenList.add(childrenVO);
                 }
             }

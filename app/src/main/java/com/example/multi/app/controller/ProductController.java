@@ -37,10 +37,10 @@ public class ProductController {
     private CategoryService categoryservice;
 
     @SneakyThrows
-    @RequestMapping("/product/list")
-    public ProductListVO productAll(@RequestParam("page") Integer page,
-                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                    @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    @RequestMapping("/product/originList")
+    public ProductListVO getProductAlllist(@RequestParam("page") Integer page,
+                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                           @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
 
         List<Product> products = service.getPage(page, pageSize, keyword);
@@ -57,8 +57,7 @@ public class ProductController {
                 continue;
             }
             ProductCellVO productCellVO = new ProductCellVO();
-            ImageScaleVO imageScaleVO = new ImageScaleVO();
-
+            ImageScaleVO imageScaleVO = defaultImageScaleVO;
             String[] imageArray = product.getImages().split("\\$");
             //检测图片是否上传
             if (imageArray.length > 0) {
@@ -74,14 +73,8 @@ public class ProductController {
                     if (height != 0) {
                         imageScaleVO.setImageURL(imageUrl);
                         imageScaleVO.setAr(width / height);
-                    } else {
-                        imageScaleVO = defaultImageScaleVO;
                     }
-                } else {
-                    imageScaleVO = defaultImageScaleVO;
                 }
-            } else {
-                imageScaleVO = defaultImageScaleVO;
             }
             productCellVO.setId(product.getId());
             productCellVO.setImage(imageScaleVO);
@@ -99,9 +92,9 @@ public class ProductController {
     }
 
     @SneakyThrows
-    @RequestMapping("/product/testlist")
-    public ProductListVO testproductAll(@RequestParam(value = "wp", defaultValue = "") String wp,
-                                        @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    @RequestMapping("/product/UpgradeList")
+    public ProductListVO getAllProductAndCategoryList(@RequestParam(value = "wp", defaultValue = "") String wp,
+                                                      @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
         Integer page = 1;
         Integer pageSize = 5;
@@ -119,6 +112,9 @@ public class ProductController {
         List<ProductDTO> productDTOS = service.getCategoryAndProductList(page, pageSize, keyword);
 
         List<ProductCellVO> productCellVOS = new ArrayList<>();
+        ImageScaleVO defaultImageScaleVO = new ImageScaleVO();
+        defaultImageScaleVO.setImageURL("0");
+        defaultImageScaleVO.setAr(0.0);
 
         for (ProductDTO productdto : productDTOS) {
             //Category category = categoryservice.getById(product.getCategoryId());
@@ -126,17 +122,26 @@ public class ProductController {
                 continue;
             }
             ProductCellVO productCellVO = new ProductCellVO();
-            ImageScaleVO imageScaleVO = new ImageScaleVO();
+            ImageScaleVO imageScaleVO = defaultImageScaleVO;
             productCellVO.setId(productdto.getId());
             String[] imageArray = productdto.getImages().split("\\$");
-            imageScaleVO.setImageURL(imageArray[0]);
-            String regex = "(\\d+)x(\\d+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(imageArray[0]);
-            double width = Integer.parseInt(matcher.group(1));
-            double height = Integer.parseInt(matcher.group(2));
-            Double ar = width / height;
-            imageScaleVO.setAr(ar);
+            //检测图片是否上传
+            if (imageArray.length > 0) {
+                String imageUrl = imageArray[0];
+                String regex = "(\\d+)x(\\d+)";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(imageArray[0]);
+                //检测图片宽高
+                if (matcher.find()) {
+                    double width = Integer.parseInt(matcher.group(1));
+                    double height = Integer.parseInt(matcher.group(2));
+                    //检测图片高度
+                    if (height != 0) {
+                        imageScaleVO.setImageURL(imageUrl);
+                        imageScaleVO.setAr(width / height);
+                    }
+                }
+            }
             productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(productdto.getInfo());
             productCellVO.setPrice(productdto.getPrice());
@@ -160,9 +165,9 @@ public class ProductController {
     }
 
     @SneakyThrows
-    @RequestMapping("/product/listTest")
-    public ProductListVO productAllTest(@RequestParam(value = "wp", defaultValue = "") String wp,
-                                        @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    @RequestMapping("/product/list")
+    public ProductListVO getAllProductAndCategoryIds(@RequestParam(value = "wp", defaultValue = "") String wp,
+                                                     @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
         Integer page = 1;
         Integer pageSize = 5;
@@ -180,6 +185,7 @@ public class ProductController {
         List<Product> products = service.getPage(page, pageSize, keyword);
 
 
+
         List<BigInteger> categoryIds = categoryservice.getAllCategory();
         StringBuilder idList = new StringBuilder();
         for (int i = 0; i < categoryIds.size(); i++) {
@@ -194,6 +200,10 @@ public class ProductController {
 
         List<Category> categories = categoryservice.getByIds(tagIds);
         System.out.println(categories);
+
+        ImageScaleVO defaultImageScaleVO = new ImageScaleVO();
+        defaultImageScaleVO.setImageURL("0");
+        defaultImageScaleVO.setAr(0.0);
 
 
         Map<BigInteger, String> categoryMap = new HashMap<>();
@@ -212,17 +222,26 @@ public class ProductController {
             }
 
             ProductCellVO productCellVO = new ProductCellVO();
-            ImageScaleVO imageScaleVO = new ImageScaleVO();
+            ImageScaleVO imageScaleVO = defaultImageScaleVO;
             productCellVO.setId(product.getId());
             String[] imageArray = product.getImages().split("\\$");
-            imageScaleVO.setImageURL(imageArray[0]);
-            String regex = "(\\d+)x(\\d+)";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(imageArray[0]);
-            double width = Integer.parseInt(matcher.group(1));
-            double height = Integer.parseInt(matcher.group(2));
-            Double ar = width / height;
-            imageScaleVO.setAr(ar);
+            //检测图片是否上传
+            if (imageArray.length > 0) {
+                String imageUrl = imageArray[0];
+                String regex = "(\\d+)x(\\d+)";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(imageArray[0]);
+                //检测图片宽高
+                if (matcher.find()) {
+                    double width = Integer.parseInt(matcher.group(1));
+                    double height = Integer.parseInt(matcher.group(2));
+                    //检测图片高度
+                    if (height != 0) {
+                        imageScaleVO.setImageURL(imageUrl);
+                        imageScaleVO.setAr(width / height);
+                    }
+                }
+            }
             productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
