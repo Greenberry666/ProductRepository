@@ -54,33 +54,26 @@ public class ProductController {
             }
             ProductCellVO productCellVO = new ProductCellVO();
             ImageScaleVO imageScaleVO = new ImageScaleVO();
-            productCellVO.setId(product.getId());
-            String[] image = product.getImages().split("\\$");
+
+            String[] imageArray = product.getImages().split("\\$");
             //检测图片是否上传
-            if (image.length > 0) {
-                imageScaleVO.setImageURL(image[0]);
+            if (imageArray.length > 0) {
+                String imageUrl = imageArray[0];
                 String regex = "(\\d+)x(\\d+)";
                 Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(image[0]);
+                Matcher matcher = pattern.matcher(imageArray[0]);
                 //检测图片宽高
                 if (matcher.find()) {
                     double width = Integer.parseInt(matcher.group(1));
                     double height = Integer.parseInt(matcher.group(2));
                     //检测图片高度
                     if (height != 0) {
-                        Double ar = width / height;
-                        imageScaleVO.setAr(ar);
-                    } else {
-                        imageScaleVO.setAr(0.0);
+                        imageScaleVO.setImageURL(imageUrl);
+                        imageScaleVO.setAr(width / height);
                     }
-                } else {
-                    imageScaleVO.setImageURL("0");
-                    imageScaleVO.setAr(0.0);
                 }
-            } else {
-                imageScaleVO.setImageURL("0");
-                imageScaleVO.setAr(0.0);
             }
+            productCellVO.setId(product.getId());
             productCellVO.setImage(imageScaleVO);
             productCellVO.setInfo(product.getInfo());
             productCellVO.setPrice(product.getPrice());
@@ -125,11 +118,11 @@ public class ProductController {
             ProductCellVO productCellVO = new ProductCellVO();
             ImageScaleVO imageScaleVO = new ImageScaleVO();
             productCellVO.setId(productdto.getId());
-            String[] image = productdto.getImages().split("\\$");
-            imageScaleVO.setImageURL(image[0]);
+            String[] imageArray = productdto.getImages().split("\\$");
+            imageScaleVO.setImageURL(imageArray[0]);
             String regex = "(\\d+)x(\\d+)";
             Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(image[0]);
+            Matcher matcher = pattern.matcher(imageArray[0]);
             double width = Integer.parseInt(matcher.group(1));
             double height = Integer.parseInt(matcher.group(2));
             Double ar = width / height;
@@ -145,7 +138,7 @@ public class ProductController {
         productListVO.setIsEnd(productCellVOS.size() < pageSize);
         productListVO.setList(productCellVOS);
         Wp codeByWp = new Wp();
-        codeByWp.setPage(page+1);
+        codeByWp.setPage(page + 1);
         codeByWp.setPageSize(pageSize);
         codeByWp.setKeyword(keyword);
         String jsonInput = JSON.toJSONString(codeByWp);
@@ -193,7 +186,6 @@ public class ProductController {
         System.out.println(categories);
 
 
-
         Map<BigInteger, String> categoryMap = new HashMap<>();
         for (Category category : categories) {
             categoryMap.put(category.getId(), category.getName());
@@ -212,11 +204,11 @@ public class ProductController {
             ProductCellVO productCellVO = new ProductCellVO();
             ImageScaleVO imageScaleVO = new ImageScaleVO();
             productCellVO.setId(product.getId());
-            String[] images = product.getImages().split("\\$");
-            imageScaleVO.setImageURL(images[0]);
+            String[] imageArray = product.getImages().split("\\$");
+            imageScaleVO.setImageURL(imageArray[0]);
             String regex = "(\\d+)x(\\d+)";
             Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(images[0]);
+            Matcher matcher = pattern.matcher(imageArray[0]);
             double width = Integer.parseInt(matcher.group(1));
             double height = Integer.parseInt(matcher.group(2));
             Double ar = width / height;
@@ -244,7 +236,6 @@ public class ProductController {
 
         return productListVO;
     }
-
 
 
     @RequestMapping("product/info")
