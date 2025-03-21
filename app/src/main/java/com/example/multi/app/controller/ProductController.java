@@ -47,6 +47,11 @@ public class ProductController {
         List<Product> products = service.getPage(page, pageSize, keyword);
 //        List<ProductDTO> productDTOS = service.getDTO(page, pageSize, keyword);
         List<ProductCellVO> productCellVOS = new ArrayList<>();
+
+        ImageScaleVO defaultImageScaleVO = new ImageScaleVO();
+        defaultImageScaleVO.setImageURL("0");
+        defaultImageScaleVO.setAr(0.0);
+
         for (Product product : products) {
             Category category = categoryservice.getById(product.getCategoryId());
             if (category == null) {
@@ -70,8 +75,14 @@ public class ProductController {
                     if (height != 0) {
                         imageScaleVO.setImageURL(imageUrl);
                         imageScaleVO.setAr(width / height);
+                    } else {
+                        imageScaleVO = defaultImageScaleVO;
                     }
+                } else {
+                    imageScaleVO = defaultImageScaleVO;
                 }
+            } else {
+                imageScaleVO = defaultImageScaleVO;
             }
             productCellVO.setId(product.getId());
             productCellVO.setImage(imageScaleVO);
