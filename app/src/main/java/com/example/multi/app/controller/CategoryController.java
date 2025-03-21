@@ -24,7 +24,6 @@ public class CategoryController {
         List<Category> parentCategorys = service.getParentCategorys();
         List<Category> childrenCategorys = service.getChildrenCategorys();
 
-
         List<CategoryListVO> parentList = new ArrayList<>();
         for (Category parentCategory : parentCategorys) {
             CategoryListVO parentVO = new CategoryListVO();
@@ -35,10 +34,24 @@ public class CategoryController {
             List<CategoryListCellVO> childrenList = new ArrayList<>();
             for (Category childrenCategory : childrenCategorys) {
                 CategoryListCellVO childrenVO = new CategoryListCellVO();
+
                 if (childrenCategory.getParentId().equals(parentCategory.getId())) {
                     childrenVO.setCategoryId(childrenCategory.getId());
                     childrenVO.setCategoryName(childrenCategory.getName());
                     childrenVO.setCategoryImage(childrenCategory.getImage());
+                    List<CategoryListCellVO> grandChildrenList = new ArrayList<>();
+                    List<Category> grandChildrenCategorys = service.getChildrenCategorys();
+                    for (Category grandchildCategory : grandChildrenCategorys) {
+                        if (grandchildCategory.getParentId().equals(childrenCategory.getId())) {
+                            CategoryListCellVO grandchildVO = new CategoryListCellVO();
+                            grandchildVO.setCategoryId(grandchildCategory.getId());
+                            grandchildVO.setCategoryName(grandchildCategory.getName());
+                            grandchildVO.setCategoryImage(grandchildCategory.getImage());
+                            grandchildVO.setChildrenList(new ArrayList<>());
+                            grandChildrenList.add(grandchildVO);
+                        }
+                    }
+                    childrenVO.setChildrenList(grandChildrenList);
                     childrenList.add(childrenVO);
                 }
             }

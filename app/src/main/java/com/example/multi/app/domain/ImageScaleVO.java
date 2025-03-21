@@ -7,5 +7,4 @@ import lombok.Data;
 public class ImageScaleVO {
     private String imageURL;
     private double ar;
-
 }

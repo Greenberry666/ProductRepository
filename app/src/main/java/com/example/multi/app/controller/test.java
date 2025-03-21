@@ -6,7 +6,6 @@ import com.example.multi.module.wp.Wp;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Base64;
-
 public class test {
     public static void main(String[] args) throws UnsupportedEncodingException {
         String jsonInput = "{page:1,pageSize:5,keyword:\"零\"}";
