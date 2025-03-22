@@ -29,9 +29,9 @@ import java.util.Date;
 public class UploadController {
     // 配置信息
     private static final String ENDPOINT = "oss-cn-beijing.aliyuncs.com";
-    private static final String ACCESS_KEY_ID = "LTAI5tBLoNvhtksEXmiBGqss";
     private static final String A = "A";
     private static final String B = "B";
+    private static final String BUCKET_NAME = "bucketproduct";
     // 保存到本地目录
     //private static final String UPLOAD_DIR = "uploads/";
 
@@ -45,7 +45,8 @@ public class UploadController {
         try {
 
             // 创建OSS客户端
-            OSS ossClient = new OSSClientBuilder().build(ENDPOINT, ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+            OSS ossClient = new OSSClientBuilder().build(ENDPOINT, A, B);
+
 
             // 设置OSS中的文件路径（可以根据需要自定义路径和文件名）
 //        String objectName = "uploads/" + file.getOriginalFilename();

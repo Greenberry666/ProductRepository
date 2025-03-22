@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ public class CategoryService {
 
     @Resource
     private CategoryMapper mapper;
+
 
     // 根据ID查询操作
     public Category getById(BigInteger id) {
@@ -88,9 +90,7 @@ public class CategoryService {
     }
 
 
-
-
-
+    //类⽬树
 
 
 }

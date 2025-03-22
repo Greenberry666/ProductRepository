@@ -1,3 +1,4 @@
+com\example\multi\console\domain\CategoryTreeVO.class
 com\example\multi\console\domain\ProductConCellVO.class
 com\example\multi\console\ConsoleApplication.class
 com\example\multi\console\domain\ConsoleUpdateVO.class
