@@ -3,6 +3,7 @@ package com.example.multi.console.controller;
 import com.example.multi.console.domain.*;
 import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.service.CategoryService;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,7 +74,6 @@ public class CategoryController {
         return categoryInfoVO;
 
     }
-
     @RequestMapping("/category/tree")
     public List<CategoryTreeVO> getCategoryTree() {
         List<CategoryTreeVO> categoryTreeVO = new ArrayList<>();
@@ -81,38 +81,93 @@ public class CategoryController {
 
         for (Category category : categoryList) {
             CategoryTreeVO categoryTree = new CategoryTreeVO();
+            categoryTree.setId(category.getId());
             categoryTree.setName(category.getName());
+            categoryTree.setImage(category.getImage());
             categoryTreeVO.add(categoryTree);
 
             // 获取当前类目的所有子类目
             List<Category> childrenCategory = categoryService.getChildrenCategorys();
-            if (childrenCategory != null) {
+
                 List<CategoryTreeVO> childrenList = new ArrayList<>();
                 for (Category childCategory : childrenCategory) {
-                    if (childCategory.getParentId().equals(category.getId())) { // 确保子类目属于当前父类目
+                    if (childCategory.getParentId().equals(category.getId())) {
                         CategoryTreeVO childTree = new CategoryTreeVO();
+                        childTree.setId(childCategory.getId());
                         childTree.setName(childCategory.getName());
+                        childTree.setImage(childCategory.getImage());
                         childrenList.add(childTree);
+                        categoryTree.setChildren(childrenList);
 
                         // 递归获取子类目的子类目
                         List<Category> subChildrenCategory = categoryService.getChildrenCategorys();
-                        if (subChildrenCategory != null) {
+
                             List<CategoryTreeVO> grandChildrenList = new ArrayList<>();
                             for (Category subChildCategory : subChildrenCategory) {
-                                if (subChildCategory.getParentId().equals(childCategory.getId())) { // 确保子类目属于当前父类目
+                                if (subChildCategory.getParentId().equals(childCategory.getId())) {
                                     CategoryTreeVO subChildTree = new CategoryTreeVO();
+                                    subChildTree.setId(subChildCategory.getId());
                                     subChildTree.setName(subChildCategory.getName());
-                                    subChildTree.setChildren(new ArrayList<>());
+                                    subChildTree.setImage(subChildCategory.getImage());
                                     grandChildrenList.add(subChildTree);
+                                    childTree.setChildren(grandChildrenList);
                                 }
                             }
-                            childTree.setChildren(grandChildrenList);
-                        }
                     }
                 }
-                categoryTree.setChildren(childrenList);
-            }
         }
         return categoryTreeVO;
     }
+//    @RequestMapping("/category/tree")
+//    public List<CategoryTreeVO> getCategoryTree() {
+//        List<CategoryTreeVO> categoryTreeVO = new ArrayList<>();
+//        List<Category> categoryList = categoryService.getParentCategorys();
+//
+//        for (Category category : categoryList) {
+//            CategoryTreeVO categoryTree = new CategoryTreeVO();
+//            categoryTree.setId(category.getId());
+//            categoryTree.setName(category.getName());
+//            categoryTree.setImage(category.getImage());
+//            categoryTreeVO.add(categoryTree);
+//
+//            // 获取当前类目的所有子类目
+//            List<Category> childrenCategory = categoryService.getChildrenCategorys();
+//            if (childrenCategory != null ) {
+//                List<CategoryTreeVO> childrenList = new ArrayList<>();
+//                for (Category childCategory : childrenCategory) {
+//                    if (childCategory.getParentId().equals(category.getId())) { // 确保子类目属于当前父类目
+//                        CategoryTreeVO childTree = new CategoryTreeVO();
+//                        childTree.setId(childCategory.getId());
+//                        childTree.setName(childCategory.getName());
+//                        childTree.setImage(childCategory.getImage());
+//                        childrenList.add(childTree);
+//                        categoryTree.setChildren(childrenList);
+//
+//
+//                        // 递归获取子类目的子类目
+//                        List<Category> subChildrenCategory = categoryService.getChildrenCategorys();
+//                        if (subChildrenCategory != null ) {
+//                            List<CategoryTreeVO> grandChildrenList = new ArrayList<>();
+//                            for (Category subChildCategory : subChildrenCategory) {
+//                                if (subChildCategory.getParentId().equals(childCategory.getId())) { // 确保子类目属于当前父类目
+//                                    CategoryTreeVO subChildTree = new CategoryTreeVO();
+//                                    subChildTree.setId(subChildCategory.getId());
+//                                    subChildTree.setName(subChildCategory.getName());
+//                                    subChildTree.setImage(subChildCategory.getImage());
+//                                    grandChildrenList.add(subChildTree);
+//                                    childTree.setChildren(grandChildrenList);
+//                                }
+//                            }
+//
+//                        }
+//
+//                    }
+//                }
+//
+//            }
+//
+//
+//        }
+//        return categoryTreeVO;
+//    }
 }

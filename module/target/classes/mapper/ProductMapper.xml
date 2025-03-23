@@ -103,16 +103,14 @@
     </resultMap>
     
     <select id="getProductListAndCategory" resultMap="productDTO">
-        SELECT
-            p.id AS product_id,
-            p.images,
-            p.info,
-            p.price,
-            c.name AS category_name
-        FROM
-            product p
-        LEFT JOIN
-            category c ON p.category_id = c.id
+        SELECT p.id   AS product_id,
+               p.images,
+               p.info,
+               p.price,
+               c.name AS category_name
+        FROM product p
+                 LEFT JOIN
+             category c ON p.category_id = c.id
         WHERE
             p.title LIKE CONCAT('%', #{keyword}, '%')
             LIMIT
