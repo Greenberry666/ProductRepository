@@ -111,11 +111,52 @@ public class CategoryController {
                                 subChildTree.setImage(subChildCategory.getImage());
                                 grandChildrenList.add(subChildTree);
                                 childTree.setChildren(grandChildrenList);
-                                }
                             }
+                        }
                     }
                 }
         }
         return categoryTreeVO;
     }
+//递归
+//    @RequestMapping("/category/tree")
+//    public List<CategoryTreeVO> getCategoryTree() {
+//        List<CategoryTreeVO> categoryTreeVO = new ArrayList<>();
+//        List<Category> categoryList = categoryService.getParentCategorys();
+//
+//        for (Category category : categoryList) {
+//            if (category == null) {
+//                continue;
+//            }
+//            CategoryTreeVO categoryTree = new CategoryTreeVO();
+//            categoryTree.setId(category.getId());
+//            categoryTree.setName(category.getName());
+//            categoryTree.setImage(category.getImage());
+//
+//            // 递归获取子类目
+//            categoryTree.setChildren(getChildren(category.getId()));
+//            categoryTreeVO.add(categoryTree);
+//        }
+//        return categoryTreeVO;
+//    }
+//
+//    private List<CategoryTreeVO> getChildren(BigInteger id) {
+//        List<CategoryTreeVO> childrenList = new ArrayList<>();
+//        List<Category> childrenCategory = categoryService.getChildrenCategoryById(id);
+//
+//        for (Category childCategory : childrenCategory) {
+//            if (childCategory == null) {
+//                continue;
+//            }
+//            CategoryTreeVO childTree = new CategoryTreeVO();
+//            childTree.setId(childCategory.getId());
+//            childTree.setName(childCategory.getName());
+//            childTree.setImage(childCategory.getImage());
+//
+//
+//            childTree.setChildren(getChildren(childCategory.getId()));
+//            childrenList.add(childTree);
+//        }
+//        return childrenList;
+//    }
 }
