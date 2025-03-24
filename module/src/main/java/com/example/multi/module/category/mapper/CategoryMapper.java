@@ -2,6 +2,7 @@
 package com.example.multi.module.category.mapper;
 
 import com.example.multi.module.category.entity.Category;
+import com.example.multi.module.product.entity.Product;
 import org.apache.ibatis.annotations.*;
 
 import java.math.BigInteger;
@@ -48,8 +49,8 @@ public interface CategoryMapper {
 //                         @Param("categoryName") String categoryName);
 //
 //
-    @Select("select * from category where is_deleted = 0")
-    List<Category> getCategorys();
+@Select("select * from category where is_deleted = 0")
+List<Category> getCategorys();
 
     @Select("select * from category where  parent_id is null and is_deleted = 0")
     List<Category> getParentCategorys();
@@ -57,13 +58,22 @@ public interface CategoryMapper {
     @Select("select * from category where parent_id is not null and is_deleted = 0")
     List<Category> getChildrenCategorys();
 
-   @Select("SELECT * FROM category WHERE id in (${tagIds})  ")
+    @Select("select * from category where parent_id = #{id} and is_deleted = 0")
+    List<Category> getChildrenCategoryById(@Param("id") BigInteger id);
+
+    @Select("select id from category where parent_id = #{id} and is_deleted = 0")
+    List<BigInteger> getChildrenCategoryIds(@Param("id") BigInteger id);
+
+    List<Product> getProductByCategoryId(@Param("categoryId") BigInteger categoryId);
+
+    @Select("SELECT * FROM category WHERE id in (${tagIds})  ")
     List<Category> getIds(@Param("tagIds") String tagIds);
 
-   @Select("select id from category where parent_id is not null and is_deleted = 0")
-    List<BigInteger> getAllUsedCategory();
+    @Select("SELECT * FROM product WHERE category_id in (${productByIds})  ")
+    List<Product> getProductIds(@Param("productByIds") String productByIds);
 
-
+    @Select("select id from category where parent_id is not null and is_deleted = 0")
+    List<BigInteger> getAssociatedWithIDByCategory();
 
 
 }

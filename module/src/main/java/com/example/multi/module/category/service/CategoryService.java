@@ -2,6 +2,7 @@ package com.example.multi.module.category.service;
 
 import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.mapper.CategoryMapper;
+import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.utils.BaseUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -82,11 +83,38 @@ public class CategoryService {
         return mapper.getChildrenCategorys();
     }
 
+    // 根据父类目ID获取子类目
+    public List<Category> getChildrenCategoryById(BigInteger id) {
+        return mapper.getChildrenCategoryById(id);
+    }
+
+    ;
+
+    // 根据父类目ID获取子类目的Ids
+    public List<BigInteger> getChildrenCategoryByIds(BigInteger id) {
+        return mapper.getChildrenCategoryIds(id);
+    }
+
+    ;
+
+    // 根据类目ID获取商品列表
+    public List<Product> getProductsByCategoryId(BigInteger Id) {
+        return mapper.getProductByCategoryId(Id);
+    }
+
+    ;
+
+
     public List<Category> getByIds(String tagIds) {
         return mapper.getIds(tagIds);
     }
-    public List<BigInteger> getAllCategory(){
-        return mapper.getAllUsedCategory();
+
+    public List<Product> getProductByIds(String productByIds) {
+        return mapper.getProductIds(productByIds);
+    }
+
+    public List<BigInteger> getAllCategory() {
+        return mapper.getAssociatedWithIDByCategory();
     }
 
 

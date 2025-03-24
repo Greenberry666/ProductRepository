@@ -28,33 +28,19 @@
     <update id="update" parameterType="com.example.multi.module.category.entity.Category">
         UPDATE category
         <trim prefix="set" suffixOverrides=",">
-                        <if test="category.name != null and category.name != ''">name = #{ category.name },</if>
-                        <if test="category.image != null and category.image != ''">image = #{ category.image },</if>
-                        <if test="category.createTime != null">create_time = #{ category.createTime },</if>
-                        <if test="category.updateTime != null">update_time = #{ category.updateTime },</if>
+            <if test="category.name != null and category.name != ''">name = #{ category.name },</if>
+            <if test="category.image != null and category.image != ''">image = #{ category.image },</if>
+            <if test="category.createTime != null">create_time = #{ category.createTime },</if>
+            <if test="category.updateTime != null">update_time = #{ category.updateTime },</if>
         </trim>
         WHERE id = #{category.id}
     </update>
 
-    <!--<select id="getCategoryName"
-            resultType="com.example.multi.module.category.entity.Category">
-        SELECT * from category
-        where
-        <if test="categoryName != null and categoryName != ''">
-            name like concat("%",#{categoryName},"%")
-            and
-        </if>
-        is_deleted = 0
-        ORDER BY id ASC
-        LIMIT #{offset}, #{pageSize}
+    <select id="getProductByCategoryId" parameterType="com.example.multi.module.product.entity.Product">
+        SELECT id, name, category_id, images, price
+        FROM product
+        WHERE category_id = #{categoryId}
     </select>
-    -->
-<!--    <select id="getIds"-->
-<!--            resultType="com.example.multi.module.category.entity.Category">-->
-<!--        SELECT * FROM category-->
-<!--                 WHERE id in (#{tagIds})-->
-
-<!--    </select>-->
 
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.example.multi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.math.BigInteger;

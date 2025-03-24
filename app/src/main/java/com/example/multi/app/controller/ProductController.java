@@ -94,8 +94,8 @@ public class ProductController {
 
     @SneakyThrows
     @RequestMapping("/product/upgrade_list")
-    public ProductListVO getAllProductDTO(@RequestParam(value = "wp", defaultValue = "") String wp,
-                                          @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    public ProductListVO getProductUpgradeList(@RequestParam(value = "wp", defaultValue = "") String wp,
+                                               @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
         Integer page = 1;
         Integer pageSize = 5;
@@ -167,8 +167,8 @@ public class ProductController {
 
     @SneakyThrows
     @RequestMapping("/product/list")
-    public ProductListVO getAllUpgradeProductDTO(@RequestParam(value = "wp", defaultValue = "") String wp,
-                                                 @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    public ProductListVO getProductList(@RequestParam(value = "wp", defaultValue = "") String wp,
+                                        @RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
         Integer page = 1;
         Integer pageSize = 5;
