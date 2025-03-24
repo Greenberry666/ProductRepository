@@ -28,10 +28,10 @@
     <update id="update" parameterType="com.example.multi.module.category.entity.Category">
         UPDATE category
         <trim prefix="set" suffixOverrides=",">
-                        <if test="category.name != null and category.name != ''">name = #{ category.name },</if>
-                        <if test="category.image != null and category.image != ''">image = #{ category.image },</if>
-                        <if test="category.createTime != null">create_time = #{ category.createTime },</if>
-                        <if test="category.updateTime != null">update_time = #{ category.updateTime },</if>
+            <if test="category.name != null and category.name != ''">name = #{ category.name },</if>
+            <if test="category.image != null and category.image != ''">image = #{ category.image },</if>
+            <if test="category.createTime != null">create_time = #{ category.createTime },</if>
+            <if test="category.updateTime != null">update_time = #{ category.updateTime },</if>
         </trim>
         WHERE id = #{category.id}
     </update>
@@ -41,7 +41,6 @@
         FROM product
         WHERE category_id = #{categoryId}
     </select>
-
 
 
 </mapper>

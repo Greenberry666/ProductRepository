@@ -87,7 +87,7 @@ public class CategoryController {
             categoryTreeVO.add(categoryTree);
 
             // 获取当前类目的所有子类目
-            List<Category> childrenCategory = categoryService.getChildrenCategorys();
+            List<Category> childrenCategory = categoryService.getChildrenCategoryById(category.getId());
 
                 List<CategoryTreeVO> childrenList = new ArrayList<>();
                 for (Category childCategory : childrenCategory) {
@@ -99,18 +99,18 @@ public class CategoryController {
                         childrenList.add(childTree);
                         categoryTree.setChildren(childrenList);
 
-                        // 递归获取子类目的子类目
-                        List<Category> subChildrenCategory = categoryService.getChildrenCategorys();
 
-                            List<CategoryTreeVO> grandChildrenList = new ArrayList<>();
-                            for (Category subChildCategory : subChildrenCategory) {
-                                if (subChildCategory.getParentId().equals(childCategory.getId())) {
-                                    CategoryTreeVO subChildTree = new CategoryTreeVO();
-                                    subChildTree.setId(subChildCategory.getId());
-                                    subChildTree.setName(subChildCategory.getName());
-                                    subChildTree.setImage(subChildCategory.getImage());
-                                    grandChildrenList.add(subChildTree);
-                                    childTree.setChildren(grandChildrenList);
+                        List<Category> subChildrenCategory = categoryService.getChildrenCategoryById(childCategory.getId());
+
+                        List<CategoryTreeVO> grandChildrenList = new ArrayList<>();
+                        for (Category subChildCategory : subChildrenCategory) {
+                            if (subChildCategory.getParentId().equals(childCategory.getId())) {
+                                CategoryTreeVO subChildTree = new CategoryTreeVO();
+                                subChildTree.setId(subChildCategory.getId());
+                                subChildTree.setName(subChildCategory.getName());
+                                subChildTree.setImage(subChildCategory.getImage());
+                                grandChildrenList.add(subChildTree);
+                                childTree.setChildren(grandChildrenList);
                                 }
                             }
                     }
@@ -118,56 +118,4 @@ public class CategoryController {
         }
         return categoryTreeVO;
     }
-//    @RequestMapping("/category/tree")
-//    public List<CategoryTreeVO> getCategoryTree() {
-//        List<CategoryTreeVO> categoryTreeVO = new ArrayList<>();
-//        List<Category> categoryList = categoryService.getParentCategorys();
-//
-//        for (Category category : categoryList) {
-//            CategoryTreeVO categoryTree = new CategoryTreeVO();
-//            categoryTree.setId(category.getId());
-//            categoryTree.setName(category.getName());
-//            categoryTree.setImage(category.getImage());
-//            categoryTreeVO.add(categoryTree);
-//
-//            // 获取当前类目的所有子类目
-//            List<Category> childrenCategory = categoryService.getChildrenCategorys();
-//            if (childrenCategory != null ) {
-//                List<CategoryTreeVO> childrenList = new ArrayList<>();
-//                for (Category childCategory : childrenCategory) {
-//                    if (childCategory.getParentId().equals(category.getId())) { // 确保子类目属于当前父类目
-//                        CategoryTreeVO childTree = new CategoryTreeVO();
-//                        childTree.setId(childCategory.getId());
-//                        childTree.setName(childCategory.getName());
-//                        childTree.setImage(childCategory.getImage());
-//                        childrenList.add(childTree);
-//                        categoryTree.setChildren(childrenList);
-//
-//
-//                        // 递归获取子类目的子类目
-//                        List<Category> subChildrenCategory = categoryService.getChildrenCategorys();
-//                        if (subChildrenCategory != null ) {
-//                            List<CategoryTreeVO> grandChildrenList = new ArrayList<>();
-//                            for (Category subChildCategory : subChildrenCategory) {
-//                                if (subChildCategory.getParentId().equals(childCategory.getId())) { // 确保子类目属于当前父类目
-//                                    CategoryTreeVO subChildTree = new CategoryTreeVO();
-//                                    subChildTree.setId(subChildCategory.getId());
-//                                    subChildTree.setName(subChildCategory.getName());
-//                                    subChildTree.setImage(subChildCategory.getImage());
-//                                    grandChildrenList.add(subChildTree);
-//                                    childTree.setChildren(grandChildrenList);
-//                                }
-//                            }
-//
-//                        }
-//
-//                    }
-//                }
-//
-//            }
-//
-//
-//        }
-//        return categoryTreeVO;
-//    }
 }
