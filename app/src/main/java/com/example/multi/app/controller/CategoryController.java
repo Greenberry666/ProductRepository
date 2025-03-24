@@ -188,7 +188,6 @@ public class CategoryController {
         childrenVO.setCategoryName(currentCategory.getName());
         childrenVO.setCategoryImage(currentCategory.getImage());
 
-        // 转换子类目为DTO
         List<CategoryListCellVO> childrenList = new ArrayList<>();
         for (Category childrenCategory : childrenCategorys) {
             CategoryListCellVO childVO = new CategoryListCellVO();
