@@ -150,6 +150,52 @@ public class CategoryController {
 //
 //        return childrenVO;
 //    }
+//    @GetMapping("/category/children")
+//    public CategoryChildrenVO getCategoryChildren(@RequestParam BigInteger id) {
+//        Category currentCategory = service.getById(id);
+//
+//        CategoryChildrenVO childrenVO = new CategoryChildrenVO();
+//        childrenVO.setCategoryId(id);
+//        childrenVO.setCategoryName(currentCategory.getName());
+//        childrenVO.setCategoryImage(currentCategory.getImage());
+//
+//        // 子类目列表/商品列表
+//        List<CategoryListCellVO> childrenList = new ArrayList<>();
+//
+//        List<Product> productList = new ArrayList<>();
+//
+//        // 取所有叶子节点id和对应的商品列表
+//        getLeafCategoryIdsAndProducts(id, childrenList, productList);
+//
+//
+//        childrenVO.setChildrenList(childrenList);
+//        childrenVO.setProductList(productList);
+//
+//        return childrenVO;
+//    }
+//
+//
+//    private void getLeafCategoryIdsAndProducts(BigInteger parentId, List<CategoryListCellVO> childrenList, List<Product> productList) {
+//        // 获取当前类目的子类目
+//        List<Category> children = service.getChildrenCategoryById(parentId);
+//
+//        if (children.isEmpty()) {
+//            // 如果没有子类目
+//            //获取当前节点下的商品
+//            List<Product> leafProducts = service.getProductsByCategoryId(parentId);
+//            productList.addAll(leafProducts);
+//        } else {
+//            // 如果有子类目
+//            for (Category child : children) {
+//                CategoryListCellVO childVO = new CategoryListCellVO();
+//                childVO.setCategoryId(child.getId());
+//                childVO.setCategoryName(child.getName());
+//                childVO.setCategoryImage(child.getImage());
+//                childrenList.add(childVO);
+//                getLeafCategoryIdsAndProducts(child.getId(), childrenList, productList);
+//            }
+//        }
+//    }
     @GetMapping("/category/children")
     public CategoryChildrenVO getCategoryChildren(@RequestParam BigInteger id) {
         Category currentCategory = service.getById(id);
@@ -159,39 +205,49 @@ public class CategoryController {
         childrenVO.setCategoryName(currentCategory.getName());
         childrenVO.setCategoryImage(currentCategory.getImage());
 
-        // 子类目列表/商品列表
+        // 子类目列表
         List<CategoryListCellVO> childrenList = new ArrayList<>();
-        List<Product> productList = new ArrayList<>();
+        // 获取所有叶子节点的 ID
+        List<BigInteger> leafCategoryIds = new ArrayList<>();
+        getLeafCategoryIdsAndChildren(id, leafCategoryIds, childrenList);
 
-        // 取所有叶子节点id和对应的商品列表
-        getLeafCategoryIdsAndProducts(id, childrenList, productList);
+        // 将叶子节点的 ID 转换为字符串，用于 SQL 查询
+        StringBuilder idList = new StringBuilder();
+        for (int i = 0; i < leafCategoryIds.size(); i++) {
+            idList.append(leafCategoryIds.get(i));
+            if (i < leafCategoryIds.size() - 1) {
+                idList.append(",");
+            }
+        }
 
+        String leafIds = idList.toString();
+        // 获取所有叶子节点对应的商品列表
+        List<Product> productList = service.getProductByIds(leafIds);
 
-        childrenVO.setChildrenlist(childrenList);
+        childrenVO.setChildrenList(childrenList);
         childrenVO.setProductList(productList);
 
         return childrenVO;
     }
 
-
-    private void getLeafCategoryIdsAndProducts(BigInteger parentId, List<CategoryListCellVO> childrenList, List<Product> productList) {
+    // 递归获取所有叶子节点的 ID 并填充子类目列表
+    private void getLeafCategoryIdsAndChildren(BigInteger parentId, List<BigInteger> leafCategoryIds, List<CategoryListCellVO> childrenList) {
         // 获取当前类目的子类目
         List<Category> children = service.getChildrenCategoryById(parentId);
 
         if (children.isEmpty()) {
-            // 如果没有子类目
-            //获取当前节点下的商品
-            List<Product> leafProducts = service.getProductsByCategoryId(parentId);
-            productList.addAll(leafProducts);
+            // 如果没有子类目，当前节点是叶子节点
+            leafCategoryIds.add(parentId);
         } else {
-            // 如果有子类目
+            // 如果有子类目，递归处理每个子类目
             for (Category child : children) {
                 CategoryListCellVO childVO = new CategoryListCellVO();
                 childVO.setCategoryId(child.getId());
                 childVO.setCategoryName(child.getName());
                 childVO.setCategoryImage(child.getImage());
                 childrenList.add(childVO);
-                getLeafCategoryIdsAndProducts(child.getId(), childrenList, productList);
+
+                getLeafCategoryIdsAndChildren(child.getId(), leafCategoryIds, childrenList);
             }
         }
     }

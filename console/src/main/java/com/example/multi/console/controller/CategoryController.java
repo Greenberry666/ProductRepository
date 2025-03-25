@@ -125,9 +125,6 @@ public class CategoryController {
         List<Category> categoryList = categoryService.getParentCategorys();
 
         for (Category category : categoryList) {
-            if (category == null) {
-                continue;
-            }
             CategoryTreeVO categoryTree = new CategoryTreeVO();
             categoryTree.setId(category.getId());
             categoryTree.setName(category.getName());
@@ -143,9 +140,6 @@ public class CategoryController {
         List<Category> childrenCategory = categoryService.getChildrenCategoryById(id);
 
         for (Category childCategory : childrenCategory) {
-            if (childCategory == null) {
-                continue;
-            }
             CategoryTreeVO childTree = new CategoryTreeVO();
             childTree.setId(childCategory.getId());
             childTree.setName(childCategory.getName());

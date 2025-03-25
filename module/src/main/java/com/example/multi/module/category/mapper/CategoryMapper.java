@@ -69,7 +69,7 @@ List<Category> getCategorys();
     @Select("SELECT * FROM category WHERE id in (${tagIds})  ")
     List<Category> getIds(@Param("tagIds") String tagIds);
 
-    @Select("SELECT * FROM product WHERE category_id in (${productByIds})  ")
+    @Select("SELECT id, title, name, images, info, price FROM product WHERE category_id in (${productByIds})  ")
     List<Product> getProductIds(@Param("productByIds") String productByIds);
 
     @Select("select id from category where parent_id is not null and is_deleted = 0")

@@ -13,7 +13,7 @@ public class CategoryChildrenVO {
     private BigInteger categoryId;
     private String categoryName;
     private String categoryImage;
-    private List<CategoryListCellVO> Childrenlist;
+    private List<CategoryListCellVO> ChildrenList;
     private List<Product> productList;
 
 }
