@@ -91,7 +91,7 @@ public class CategoryService {
     ;
 
     // 根据父类目ID获取子类目的Ids
-    public List<BigInteger> getChildrenCategoryByIds(BigInteger id) {
+    public List<BigInteger> getChildCategoryIds(BigInteger id) {
         return mapper.getChildrenCategoryIds(id);
     }
 
