@@ -1,13 +1,12 @@
 package com.example.multi.console.controller;
 
+import com.example.multi.console.annotation.RequireLogin;
 import com.example.multi.console.domain.*;
 import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.service.CategoryService;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
@@ -24,31 +23,32 @@ public class ProductController {
     @Autowired
     private CategoryService categoryservice;
 
+    @RequireLogin
     @RequestMapping("/product/list")
     public ProductConListVO page(@RequestParam("page") Integer page,
                                  @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize,
                                  @RequestParam(value = "keyword",defaultValue = "" ) String keyword){
 
 
-            List<Product> products = service.getPage(page   ,pageSize,keyword);
+        List<Product> products = service.getPage(page   ,pageSize,keyword);
 
-            List<ProductConCellVO>  productConOnlyVOS = new ArrayList<>();
-            for(Product product : products){
+        List<ProductConCellVO>  productConOnlyVOS = new ArrayList<>();
+        for(Product product : products){
 
-                ProductConCellVO productConOnlyVO = new ProductConCellVO();
-                productConOnlyVO.setId(product.getId());
-                productConOnlyVO.setTitle(product.getTitle());
-                String[]  image = product.getImages().split("\\$");
-                productConOnlyVO.setImage(image[0]);
-                productConOnlyVO.setInfo(product.getInfo());
-                productConOnlyVO.setPrice(product.getPrice());
-                productConOnlyVOS.add(productConOnlyVO);
-            }
-            ProductConListVO productConListVO = new ProductConListVO();
-            productConListVO.setTotal(service.pageCount(keyword));
-            productConListVO.setPageSize(pageSize);
-            productConListVO.setList(productConOnlyVOS);
-            return productConListVO;
+            ProductConCellVO productConOnlyVO = new ProductConCellVO();
+            productConOnlyVO.setId(product.getId());
+            productConOnlyVO.setTitle(product.getTitle());
+            String[]  image = product.getImages().split("\\$");
+            productConOnlyVO.setImage(image[0]);
+            productConOnlyVO.setInfo(product.getInfo());
+            productConOnlyVO.setPrice(product.getPrice());
+            productConOnlyVOS.add(productConOnlyVO);
+        }
+        ProductConListVO productConListVO = new ProductConListVO();
+        productConListVO.setTotal(service.pageCount(keyword));
+        productConListVO.setPageSize(pageSize);
+        productConListVO.setList(productConOnlyVOS);
+        return productConListVO;
     }
 
 
