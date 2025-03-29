@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ConsoleUserLoginVO {
-    private String tips; // 提示信息
+    private String tips;
     private String sign;
+    private String cookie;
 }

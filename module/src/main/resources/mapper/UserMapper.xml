@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.multi.module.user.mapper.UserMapper">
     <insert id="insert"
-            parameterType="com.example.multi.module.user.entity.User">
+            parameterType="com.example.multi.module.user.entity.User" useGeneratedKeys="true" keyProperty="id">
         insert into user
         <trim prefix="(" suffixOverrides=",">
             <if test="user.id != null">id,</if>
@@ -28,5 +28,18 @@
         </trim>
         )
     </insert>
+
+    <update id="update"
+            parameterType="com.example.multi.module.user.entity.User">
+        UPDATE product
+        <trim prefix="set" suffixOverrides=",">
+            update_time = #{user.updateTime},
+            <if test="user.phone != null ">title = #{user.phone},</if>
+            <if test="user.password != null ">name = #{user.password},</if>
+            <if test="user.name != null  ">images = #{user.name},</if>
+            <if test="user.avatar != null   ">info = #{user.avatar}</if>
+        </trim>
+        where id = #{user.id}
+    </update>
 
 </mapper>

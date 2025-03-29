@@ -45,13 +45,16 @@ public class LoginInterceptor implements HandlerInterceptor {
                     String signJson = new String(decodedBytes);
                     ObjectMapper objectMapper = new ObjectMapper();
                     Sign sign = objectMapper.readValue(signJson, Sign.class);
+                    int timestamp = (int) (System.currentTimeMillis() / 1000);
+                    //sign.getExpireTime()：签名的过期时间戳，表示签名在什么时间点之后不再有效。
+                    //currentTimestamp：当前时间的时间戳，表示当前的时间点。
 
-                    if (sign.getExpireTime().before(new Date())) {
+                    if (sign.getExpireTime() < timestamp) {
                         attributes.getResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED, "Sign expired");
                         return false;
                     }
 
-                    User user = userService.findById(sign.getUserId());
+                    User user = userService.findUserById(sign.getUserId());
                     if (user == null) {
                         attributes.getResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
                         return false;

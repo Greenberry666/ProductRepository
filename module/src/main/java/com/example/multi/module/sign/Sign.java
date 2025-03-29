@@ -8,5 +8,5 @@ import java.util.Date;
 @Data
 public class Sign {
     private BigInteger userId;
-    private Date expireTime;
+    private Integer expireTime;
 }
