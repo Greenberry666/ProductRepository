@@ -30,6 +30,4 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE phone = #{phone} AND is_deleted = 0")
     User findUserByPhone(@Param("phone") String phone);
 
-    @Select("SELECT * FROM user WHERE id = #{id} AND is_deleted = 0")
-    User findUserById(@Param("id") BigInteger id);
 }

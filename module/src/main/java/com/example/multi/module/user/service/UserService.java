@@ -100,7 +100,7 @@ public class UserService {
     }
 
     public User findUserById(BigInteger userId) {
-        return mapper.findUserById(userId);
+        return mapper.getById(userId);
     }
 
 
