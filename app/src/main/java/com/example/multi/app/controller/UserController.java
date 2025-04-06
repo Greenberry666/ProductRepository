@@ -54,9 +54,10 @@ public class UserController {
             userloginVO.setTips("登录成功");
             // 生成 Sign
             int timestamp = (int) (System.currentTimeMillis() / 1000);
+            int expireTime = timestamp + (60 * 60 * 24 * 7);
             Sign sign = new Sign();
             sign.setUserId(user.getId());
-            sign.setExpireTime(timestamp);
+            sign.setExpireTime(expireTime);
             // 将 Sign 转换为 JSON 字符串
             ObjectMapper objectMapper = new ObjectMapper();
             String signJson = objectMapper.writeValueAsString(sign);
