@@ -36,61 +36,6 @@ public class ProductController {
     @Autowired
     private CategoryService categoryservice;
 
-//    @SneakyThrows
-//    @RequestMapping("/product/origin_list")
-//    public ProductListVO getProductAllList(@RequestParam("page") Integer page,
-//                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-//                                           @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-//
-//
-//        List<Product> products = service.getPage(page, pageSize, keyword);
-////        List<ProductDTO> productDTOS = service.getDTO(page, pageSize, keyword);
-//        List<ProductCellVO> productCellVOS = new ArrayList<>();
-//
-//        ImageScaleVO defaultImageScaleVO = new ImageScaleVO();
-//        defaultImageScaleVO.setImageURL("0");
-//        defaultImageScaleVO.setAr(0.0);
-//
-//        for (Product product : products) {
-//            Category category = categoryservice.getById(product.getCategoryId());
-//            if (category == null) {
-//                continue;
-//            }
-//            ProductCellVO productCellVO = new ProductCellVO();
-//            ImageScaleVO imageScaleVO = defaultImageScaleVO;
-//            String[] imageArray = product.getImages().split("\\$");
-//            //检测图片是否上传
-//            if (imageArray.length > 0) {
-//                String imageUrl = imageArray[0];
-//                imageScaleVO.setImageURL(imageUrl);
-//                String regex = "(\\d+)x(\\d+)";
-//                Pattern pattern = Pattern.compile(regex);
-//                Matcher matcher = pattern.matcher(imageArray[0]);
-//                //检测图片宽高
-//                if (matcher.find()) {
-//                    double width = Integer.parseInt(matcher.group(1));
-//                    double height = Integer.parseInt(matcher.group(2));
-//                    //检测图片高度
-//                    if (height != 0) {
-//                        imageScaleVO.setAr(width / height);
-//                    }
-//                }
-//            }
-//
-//            productCellVO.setId(product.getId());
-//            productCellVO.setImage(imageScaleVO);
-//            productCellVO.setInfo(product.getInfo());
-//            productCellVO.setPrice(product.getPrice());
-//            productCellVO.setCategoryName(category.getName());
-//            productCellVOS.add(productCellVO);
-//
-//        }
-//        ProductListVO productListVO = new ProductListVO();
-//        productListVO.setList(productCellVOS);
-//        boolean result = productCellVOS.size() < pageSize;
-//        productListVO.setIsEnd(result);
-//        return productListVO;
-//    }
 
     @SneakyThrows
     @RequestMapping("/product/upgrade_list")

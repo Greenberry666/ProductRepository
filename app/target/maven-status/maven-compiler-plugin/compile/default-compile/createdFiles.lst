@@ -7,6 +7,7 @@ com\example\multi\app\domain\ImageScaleVO.class
 com\example\multi\app\domain\CategoryListVO.class
 com\example\multi\app\annotation\RequireLogin.class
 com\example\multi\app\domain\CategoryListCellVO.class
+com\example\multi\app\domain\EnhanceException.class
 com\example\multi\app\controller\CategoryController.class
 com\example\multi\app\config\SecurityConfig.class
 com\example\multi\app\DruidEncryptorUtils.class
