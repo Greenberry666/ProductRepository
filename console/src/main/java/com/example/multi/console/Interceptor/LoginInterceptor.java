@@ -14,6 +14,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import com.example.multi.module.utils.ResponseCode;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -35,13 +36,13 @@ public class LoginInterceptor implements HandlerInterceptor {
             if (requireLogin != null) {
                 ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
                 if (attributes == null) {
-                    sendErrorResponse(response, 4000, "No thread-bound request found");
+                    sendErrorResponse(response, 4003, ResponseCode.getMsg(4003));
                     return false;
                 }
 
                 String encodedSign = attributes.getRequest().getHeader("Sign");
                 if (encodedSign == null || encodedSign.trim().isEmpty()) {
-                    sendErrorResponse(response, 4003, "未授权");
+                    sendErrorResponse(response, 4003, ResponseCode.getMsg(4003));
                     return false;
                 }
 
@@ -53,23 +54,23 @@ public class LoginInterceptor implements HandlerInterceptor {
                     int timestamp = (int) (System.currentTimeMillis() / 1000);
 
                     if (sign.getExpireTime() < timestamp) {
-                        sendErrorResponse(response, 4001, "Sign已过期");
+                        sendErrorResponse(response, 4001, ResponseCode.getMsg(4001));
                         return false;
                     }
 
                     User user = userService.findUserById(sign.getUserId());
                     if (user == null) {
-                        sendErrorResponse(response, 4002, "User not found");
+                        sendErrorResponse(response, 4002, ResponseCode.getMsg(4002));
                         return false;
                     }
                 } catch (IllegalArgumentException e) {
-                    sendErrorResponse(response, 4001, "无效的Base64编码");
+                    sendErrorResponse(response, 4002, ResponseCode.getMsg(4002));
                     return false;
                 } catch (JsonProcessingException e) {
-                    sendErrorResponse(response, 4001, "无效的JSON格式");
+                    sendErrorResponse(response, 4001, ResponseCode.getMsg(4001));
                     return false;
                 } catch (Exception e) {
-                    sendErrorResponse(response, 4001, "无效的Sign");
+                    sendErrorResponse(response, 4001, ResponseCode.getMsg(4001));
                     return false;
                 }
             }

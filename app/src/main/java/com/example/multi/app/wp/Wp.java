@@ -1,4 +1,4 @@
-package com.example.multi.module.wp;
+package com.example.multi.app.wp;
 
 import lombok.Data;
 

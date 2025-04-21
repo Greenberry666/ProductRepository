@@ -16,7 +16,7 @@ import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.service.ProductService;
 import com.example.multi.module.utils.Response;
 import com.example.multi.module.utils.RichTextElement;
-import com.example.multi.module.wp.Wp;
+import com.example.multi.app.wp.Wp;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
