@@ -54,7 +54,7 @@ public class ProductService {
         if (categoryMapper.getById(categoryId) == null) {
             throw new IllegalArgumentException("产品分类 ID 无效，未找到对应的分类");
         }
-        int timestamp = (int) (System.currentTimeMillis() / 1000);
+        //int timestamp = (int) (System.currentTimeMillis() / 1000);
         Product product = new Product()
                 .setId(id)
                 .setName(name)
@@ -64,11 +64,11 @@ public class ProductService {
                 .setPrice(price)
                 .setDetailedTitle(detailedTitle)
                 .setDetailed(detailed)
-                .setUpdateTime(timestamp)
+                .setUpdateTime(BaseUtils.currentSeconds())
                 .setIsDeleted(0);
         product.setCategoryId(categoryId);
         if (id == null) {
-            product.setCreateTime(timestamp);
+            product.setCreateTime(BaseUtils.currentSeconds());
             insert(product);
             return product.getId();
         } else {
@@ -82,7 +82,7 @@ public class ProductService {
     }
 
     public int delete(BigInteger id) {
-        return mapper.delete(id, (int) (System.currentTimeMillis() / 1000));
+        return mapper.delete(id, BaseUtils.currentSeconds());
     }
 
 

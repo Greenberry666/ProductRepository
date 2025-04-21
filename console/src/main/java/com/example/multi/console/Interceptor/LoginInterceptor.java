@@ -1,10 +1,11 @@
 package com.example.multi.console.Interceptor;
 
 import com.example.multi.console.annotation.RequireLogin;
-import com.example.multi.module.response.entity.Response;
+import com.example.multi.module.utils.Response;
 import com.example.multi.module.sign.Sign;
 import com.example.multi.module.user.entity.User;
 import com.example.multi.module.user.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,60 +17,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Date;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-//@Component
-//public class LoginInterceptor implements HandlerInterceptor {
-//    @Autowired
-//    private UserService userService;
-//
-//    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        if (handler instanceof HandlerMethod) {
-//            HandlerMethod handlerMethod = (HandlerMethod) handler;
-//            RequireLogin requireLogin = handlerMethod.getMethodAnnotation(RequireLogin.class);
-//            if (requireLogin != null) {
-//                ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//                if (attributes == null) {
-//                    throw new IllegalStateException("No thread-bound request found");
-//                }
-//
-//                String encodedSign = attributes.getRequest().getHeader("Sign");
-//                if (encodedSign == null) {
-//                    attributes.getResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-//                    return false;
-//                }
-//
-//                try {
-//                    byte[] decodedBytes = Base64.getDecoder().decode(encodedSign);
-//                    String signJson = new String(decodedBytes);
-//                    ObjectMapper objectMapper = new ObjectMapper();
-//                    Sign sign = objectMapper.readValue(signJson, Sign.class);
-//                    int timestamp = (int) (System.currentTimeMillis() / 1000);
-//                    //sign.getExpireTime()：签名的过期时间戳，表示签名在什么时间点之后不再有效。
-//                    //currentTimestamp：当前时间的时间戳，表示当前的时间点。
-//
-//                    if (sign.getExpireTime() < timestamp) {
-//                        attributes.getResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED, "Sign expired");
-//                        return false;
-//                    }
-//
-//                    User user = userService.findUserById(sign.getUserId());
-//                    if (user == null) {
-//                        attributes.getResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
-//                        return false;
-//                    }
-//                } catch (Exception e) {
-//                    attributes.getResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Sign");
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
-//}
 
 
 @Component
@@ -85,11 +35,12 @@ public class LoginInterceptor implements HandlerInterceptor {
             if (requireLogin != null) {
                 ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
                 if (attributes == null) {
-                    throw new IllegalStateException("No thread-bound request found");
+                    sendErrorResponse(response, 4000, "No thread-bound request found");
+                    return false;
                 }
 
                 String encodedSign = attributes.getRequest().getHeader("Sign");
-                if (encodedSign == null) {
+                if (encodedSign == null || encodedSign.trim().isEmpty()) {
                     sendErrorResponse(response, 4003, "未授权");
                     return false;
                 }
@@ -111,6 +62,12 @@ public class LoginInterceptor implements HandlerInterceptor {
                         sendErrorResponse(response, 4002, "User not found");
                         return false;
                     }
+                } catch (IllegalArgumentException e) {
+                    sendErrorResponse(response, 4001, "无效的Base64编码");
+                    return false;
+                } catch (JsonProcessingException e) {
+                    sendErrorResponse(response, 4001, "无效的JSON格式");
+                    return false;
                 } catch (Exception e) {
                     sendErrorResponse(response, 4001, "无效的Sign");
                     return false;
@@ -123,7 +80,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     private void sendErrorResponse(HttpServletResponse response, int statusCode, String message) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(statusCode);
-        Response<String> responseObj = new Response<>(statusCode, message, null);
+        Response<String> responseObj = new Response<>(statusCode, message);
         response.getWriter().write(new ObjectMapper().writeValueAsString(responseObj));
     }
 }

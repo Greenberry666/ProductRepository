@@ -1,10 +1,15 @@
 package com.example.multi.console.controller;
 
-import com.example.multi.console.domain.*;
+import com.example.multi.console.annotation.RequireLogin;
+import com.example.multi.console.domain.category.CategoryCreateVO;
+import com.example.multi.console.domain.category.CategoryInfoVO;
+import com.example.multi.console.domain.category.CategoryTreeVO;
+import com.example.multi.console.domain.category.CategoryUpdateVO;
 import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.service.CategoryService;
-import com.example.multi.module.response.entity.Response;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.example.multi.module.user.entity.User;
+import com.example.multi.module.utils.BaseUtils;
+import com.example.multi.module.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,169 +20,90 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-//@RestController
-//public class CategoryController {
-//    @Autowired
-//    private CategoryService categoryService;
-//
-//    @RequestMapping("/category/create")
-//    public CategoryCreateVO categoryCreate(@RequestParam(name = "name") String name,
-//                                           @RequestParam(name = "image") String image) {
-//        CategoryCreateVO categoryCreateVO = new CategoryCreateVO();
-//        try {
-//            BigInteger result = categoryService.edit(null, name, image);
-//            categoryCreateVO.setTips(result != null ? "成功" : "失败");
-//            categoryCreateVO.setId(result);
-//        } catch (Exception exception) {
-//            categoryCreateVO.setTips(exception.getMessage());
-//        }
-//        return categoryCreateVO;
-//    }
-//
-//    @RequestMapping("/category/update")
-//    public CategoryUpdateVO categoryUpdate(
-//            @RequestParam(name = "id") BigInteger id,
-//            @RequestParam(name = "name") String name,
-//            @RequestParam(name = "image") String image) {
-//        CategoryUpdateVO categoryUpdateVO = new CategoryUpdateVO();
-//        try {
-//            BigInteger result = categoryService.edit(id, name, image);
-//            categoryUpdateVO.setTips(result != null ? "成功" : "失败");
-//            categoryUpdateVO.setId(result);
-//        } catch (Exception exception) {
-//            categoryUpdateVO.setTips(exception.getMessage());
-//        }
-//        return categoryUpdateVO;
-//    }
-//
-//    @RequestMapping("/category/delete")
-//    public CategoryDeleteVO categoryDeleted(@RequestParam(name = "id") BigInteger id) {
-//        int result = categoryService.delete(id);
-//        CategoryDeleteVO categoryDeleteVO = new CategoryDeleteVO();
-//        categoryDeleteVO.setTips(result == 1 ? "成功" : "失败");
-//        return categoryDeleteVO;
-//    }
-//
-//    @RequestMapping("/category/info")
-//    public CategoryInfoVO categoryInfoVO(@RequestParam(name = "id") BigInteger id) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        CategoryInfoVO categoryInfoVO = new CategoryInfoVO();
-//
-//        Category categoryInfo = categoryService.getById(id);
-//        if (categoryInfo == null) {
-//            categoryInfoVO.setName("未找到对应的分类信息");
-//            return categoryInfoVO;
-//        }
-//        categoryInfoVO.setName(categoryInfo.getName());
-//        categoryInfoVO.setImage(categoryInfo.getImage());
-//        categoryInfoVO.setCreateTime(dateFormat.format(categoryInfo.getCreateTime() * 1000l));
-//        categoryInfoVO.setUpdateTime(dateFormat.format(categoryInfo.getUpdateTime() * 1000l));
-//        return categoryInfoVO;
-//
-//    }
-//
-//    @RequestMapping("/category/tree")
-//    public List<CategoryTreeVO> getCategoryTree() {
-//        List<CategoryTreeVO> categoryTreeVO = new ArrayList<>();
-//        List<Category> categoryList = categoryService.getParentCategorys();
-//
-//        for (Category category : categoryList) {
-//            CategoryTreeVO categoryTree = new CategoryTreeVO();
-//            categoryTree.setId(category.getId());
-//            categoryTree.setName(category.getName());
-//            categoryTree.setImage(category.getImage());
-//            categoryTree.setChildren(getChildren(category.getId()));
-//            categoryTreeVO.add(categoryTree);
-//        }
-//        return categoryTreeVO;
-//    }
-//
-//    private List<CategoryTreeVO> getChildren(BigInteger id) {
-//        List<CategoryTreeVO> childrenList = new ArrayList<>();
-//        List<Category> childrenCategory = categoryService.getChildrenCategoryById(id);
-//
-//        for (Category childCategory : childrenCategory) {
-//            CategoryTreeVO childTree = new CategoryTreeVO();
-//            childTree.setId(childCategory.getId());
-//            childTree.setName(childCategory.getName());
-//            childTree.setImage(childCategory.getImage());
-//
-//
-//            childTree.setChildren(getChildren(childCategory.getId()));
-//            childrenList.add(childTree);
-//        }
-//        return childrenList;
-//    }
-//}
-
-
 @RestController
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
     @RequestMapping("/category/create")
-    public Response<CategoryCreateVO> categoryCreate(@RequestParam(name = "name") String name,
-                                                     @RequestParam(name = "image") String image) {
+    public Response categoryCreate(@RequireLogin User loginUser,
+                                   @RequestParam(name = "name") String name,
+                                   @RequestParam(name = "image") String image) {
+        if (BaseUtils.isEmpty(loginUser)) {
+            return new Response(1002);
+        }
         CategoryCreateVO categoryCreateVO = new CategoryCreateVO();
         try {
             BigInteger result = categoryService.edit(null, name, image);
             if (result != null) {
                 categoryCreateVO.setId(result);
-                return Response.success(categoryCreateVO);
+                return new Response(1001, categoryCreateVO);
             } else {
-                return Response.error(3001, "分类新增失败");
+                return new Response(3053);
             }
         } catch (Exception exception) {
-            return Response.error(4004, "网络繁忙：" + exception.getMessage());
+            return new Response(4004);
         }
     }
 
     @RequestMapping("/category/update")
-    public Response<CategoryUpdateVO> categoryUpdate(
-            @RequestParam(name = "id") BigInteger id,
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "image") String image) {
+    public Response categoryUpdate(@RequireLogin User loginUser,
+                                   @RequestParam(name = "id") BigInteger id,
+                                   @RequestParam(name = "name") String name,
+                                   @RequestParam(name = "image") String image) {
+        if (BaseUtils.isEmpty(loginUser)) {
+            return new Response(1002);
+        }
         CategoryUpdateVO categoryUpdateVO = new CategoryUpdateVO();
         try {
             BigInteger result = categoryService.edit(id, name, image);
             if (result != null) {
                 categoryUpdateVO.setId(result);
-                return Response.success(categoryUpdateVO);
+                return new Response(1001, categoryUpdateVO);
             } else {
-                return Response.error(3002, "分类更新失败");
+                return new Response(3053);
             }
         } catch (Exception exception) {
-            return Response.error(4004, "网络繁忙：" + exception.getMessage());
+            return new Response(4004);
         }
     }
 
     @RequestMapping("/category/delete")
-    public Response<CategoryDeleteVO> categoryDeleted(@RequestParam(name = "id") BigInteger id) {
+    public Response categoryDeleted(@RequireLogin User loginUser,
+                                    @RequestParam(name = "id") BigInteger id) {
+        if (BaseUtils.isEmpty(loginUser)) {
+            return new Response(1002);
+        }
         int result = categoryService.delete(id);
         if (result == 1) {
-            return Response.success(new CategoryDeleteVO());
+            return new Response(1001);
         } else {
-            return Response.error(3003, "分类删除失败");
+            return new Response(3053);
         }
     }
 
     @RequestMapping("/category/info")
-    public Response<CategoryInfoVO> categoryInfoVO(@RequestParam(name = "id") BigInteger id) {
+    public Response categoryInfoVO(@RequireLogin User loginUser, @RequestParam(name = "id") BigInteger id) {
+        if (BaseUtils.isEmpty(loginUser)) {
+            return new Response(1002);
+        }
         Category categoryInfo = categoryService.getById(id);
         if (categoryInfo == null) {
-            return Response.error(2001, "未找到对应的分类信息");
+            return new Response(3053);
         }
         CategoryInfoVO categoryInfoVO = new CategoryInfoVO();
         categoryInfoVO.setName(categoryInfo.getName());
         categoryInfoVO.setImage(categoryInfo.getImage());
         categoryInfoVO.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(categoryInfo.getCreateTime()));
         categoryInfoVO.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(categoryInfo.getUpdateTime()));
-        return Response.success(categoryInfoVO);
+        return new Response(1001, categoryInfoVO);
     }
 
     @RequestMapping("/category/tree")
-    public Response<List<CategoryTreeVO>> getCategoryTree() {
+    public Response getCategoryTree(@RequireLogin User loginUser) {
+        if (BaseUtils.isEmpty(loginUser)) {
+            return new Response(1002);
+        }
         List<CategoryTreeVO> categoryTreeVO = new ArrayList<>();
         List<Category> categoryList = categoryService.getParentCategorys();
         for (Category category : categoryList) {
@@ -188,7 +114,7 @@ public class CategoryController {
             categoryTree.setChildren(getChildren(category.getId()));
             categoryTreeVO.add(categoryTree);
         }
-        return Response.success(categoryTreeVO);
+        return new Response(1001, categoryTreeVO);
     }
 
     private List<CategoryTreeVO> getChildren(BigInteger id) {

@@ -41,7 +41,7 @@ public class CategoryService {
 
     // 删除操作
     public int delete(BigInteger id) {
-        return mapper.delete((int) (System.currentTimeMillis() / 1000), id);
+        return mapper.delete(BaseUtils.currentSeconds(), id);
     }
 
 
@@ -53,15 +53,15 @@ public class CategoryService {
         if (BaseUtils.isBlank(image)) {
             throw new IllegalArgumentException("产品样图至少上传一张");
         }
-        int timestamp = (int) (System.currentTimeMillis() / 1000);
+        //int timestamp = (int) (System.currentTimeMillis() / 1000);
         Category category = new Category()
                 .setId(id)
                 .setName(name)
                 .setImage(image)
-                .setUpdateTime(timestamp)
+                .setUpdateTime(BaseUtils.currentSeconds())
                 .setIsDeleted(0);
         if (id == null) {
-            category.setCreateTime(timestamp);
+            category.setCreateTime(BaseUtils.currentSeconds());
             insert(category);
 
             return category.getId();

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigInteger;
+import java.util.List;
 
 
 @Mapper
@@ -24,10 +25,37 @@ public interface UserMapper {
 
     int update(@Param("user") User user);
 
-    @Update("UPDATE user SET update_time = #{updateTime} , is_deleted = 1 WHERE id = #{id}")
-    Integer delete(@Param("updateTime") Integer updateTime, @Param("id") BigInteger id);
+    @Update("update user set is_deleted=1, update_time=#{time} where id=#{id} limit 1")
+    int delete(@Param("id") BigInteger id, @Param("time") Integer time);
 
     @Select("SELECT * FROM user WHERE phone = #{phone} AND is_deleted = 0")
     User findUserByPhone(@Param("phone") String phone);
+
+    @Select("select * from user WHERE id in (${ids}) and is_ban = 0 and is_deleted = 0")
+    List<User> getByIds(@Param("ids") String ids);
+
+    @Select("select * from user WHERE phone=#{phone} and country_code=#{countryCode} and is_ban = 0  and is_deleted = 0")
+    User getByPhone(@Param("phone") String phone, @Param("countryCode") String countryCode);
+
+    @Select("select * from user WHERE phone=#{phone} and country_code=#{countryCode}")
+    User extractByPhone(@Param("phone") String phone, @Param("countryCode") String countryCode);
+
+    @Select("select * from user WHERE email=#{email}")
+    User extractByEmail(@Param("email") String email);
+
+    @Select("select * from user WHERE username=#{username} and is_ban = 0 and is_deleted = 0")
+    User getByUsername(@Param("username") String username);
+
+    @Select("select * from user WHERE wechat_open_id=#{wechatOpenId}")
+    User extractUserByWxOpenId(@Param("wechatOpenId") String wechatOpenId);
+
+    @Select("select * from user where username like concat('%',#{username},'%') and is_ban = 0 and is_deleted = 0")
+    List<User> getUsersByUsername(@Param("username") String username);
+
+    List<User> getUsersForConsole(@Param("begin") int begin, @Param("size") int size, @Param("orderBy") String orderBy,
+                                  @Param("username") String username, @Param("phone") String phone);
+
+    int getUsersTotalForConsole(@Param("username") String username, @Param("phone") String phone);
+
 
 }
