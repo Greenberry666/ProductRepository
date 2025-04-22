@@ -70,8 +70,12 @@ public class UserController {
 
     @SneakyThrows
     @RequestMapping("/user/login")
-    public Response userLogin(@RequestParam(name = "phone") String phone,
+    public Response userLogin(@RequireLogin User loginUser,
+                              @RequestParam(name = "phone") String phone,
                               @RequestParam(name = "password") String password) {
+        if (!BaseUtils.isEmpty(loginUser)) {
+            return new Response(4004, "网络繁忙");
+        }
 
         UserLoginVO userLoginVO = new UserLoginVO();
         User user = service.getByPhone(phone, "86");

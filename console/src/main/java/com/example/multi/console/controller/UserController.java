@@ -35,15 +35,12 @@ public class UserController {
 
     @SneakyThrows
     @RequestMapping("/user/login")
-    public Response userLogin(@RequireLogin User loginUser,
-                              HttpServletResponse response,
-                              @RequestParam(name = "phone") String phone,
-                              @RequestParam(name = "password") String password,
-                              @RequestParam(name = "remember") boolean remember) {
+    public Response userLogin(
+            HttpServletResponse response,
+            @RequestParam(name = "phone") String phone,
+            @RequestParam(name = "password") String password,
+            @RequestParam(name = "remember") boolean remember) {
 
-        if (!BaseUtils.isEmpty(loginUser)) {
-            return new Response(4004, "网络繁忙");
-        }
 
         boolean result;
         if (remember) {
@@ -87,8 +84,8 @@ public class UserController {
         response.addCookie(cookie);
 
         // 获取当前请求的 HttpSession
-        HttpSession session = request.getSession();
-        session.setAttribute(SpringUtils.getProperty("application.session.key"), JSON.toJSONString(user));
+//        HttpSession session = request.getSession();
+//        session.setAttribute(SpringUtils.getProperty("application.session.key"), JSON.toJSONString(user));
 
         // 构造返回的用户信息
         UserInfoVO userInfo = new UserInfoVO();

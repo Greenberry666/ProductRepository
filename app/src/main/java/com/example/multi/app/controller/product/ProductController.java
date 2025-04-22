@@ -16,7 +16,7 @@ import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.service.ProductService;
 import com.example.multi.module.utils.Response;
 import com.example.multi.module.utils.RichTextElement;
-import com.example.multi.app.wp.Wp;
+import com.example.multi.app.domain.Base.BaseWpVO;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class ProductController {
             // Base64 解码
             String decodedWpBase = new String(Base64.getDecoder().decode(wp), "UTF-8");
             // JSON 解码
-            Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
+            BaseWpVO decodedWpJSON = JSON.parseObject(decodedWpBase, BaseWpVO.class);
             page = decodedWpJSON.getPage();
             //pageSize = decodedWpJSON.getPageSize();
             keyword = decodedWpJSON.getKeyword();
@@ -98,7 +98,7 @@ public class ProductController {
         ProductListVO productListVO = new ProductListVO();
         productListVO.setIsEnd(productCellVOS.size() < pageSize);
         productListVO.setList(productCellVOS);
-        Wp codeByWp = new Wp();
+        BaseWpVO codeByWp = new BaseWpVO();
         codeByWp.setPage(page + 1);
         codeByWp.setPageSize(pageSize);
         codeByWp.setKeyword(keyword);
@@ -123,7 +123,7 @@ public class ProductController {
             // Base64 解码
             String decodedWpBase = new String(Base64.getDecoder().decode(wp), "UTF-8");
             // JSON 解码
-            Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
+            BaseWpVO decodedWpJSON = JSON.parseObject(decodedWpBase, BaseWpVO.class);
             page = decodedWpJSON.getPage();
             keyword = decodedWpJSON.getKeyword();
         }
@@ -201,7 +201,7 @@ public class ProductController {
         productListVO.setList(productCellVOS);
 
 
-        Wp codeByWp = new Wp();
+        BaseWpVO codeByWp = new BaseWpVO();
         codeByWp.setPage(page + 1);
         codeByWp.setPageSize(pageSize);
         codeByWp.setKeyword(keyword);

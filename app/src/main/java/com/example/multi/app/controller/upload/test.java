@@ -1,7 +1,7 @@
 package com.example.multi.app.controller.upload;
 
 import com.alibaba.fastjson.JSON;
-import com.example.multi.app.wp.Wp;
+import com.example.multi.app.domain.Base.BaseWpVO;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,8 +13,8 @@ public class test {
 
         String decodedWpBase = new String(Base64.getDecoder().decode(base64Encoded),"UTF-8");
         // JSON 解码
-        Wp decodedWpJSON = JSON.parseObject(decodedWpBase, Wp.class);
-        String keyword ;
+        BaseWpVO decodedWpJSON = JSON.parseObject(decodedWpBase, BaseWpVO.class);
+        String keyword;
         Integer page = decodedWpJSON.getPage();
         Integer pageSize = decodedWpJSON.getPageSize();
         keyword = URLEncoder.encode( "水果","UTF-8");

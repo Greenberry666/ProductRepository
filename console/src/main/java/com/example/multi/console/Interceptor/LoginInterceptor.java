@@ -6,6 +6,7 @@ import com.example.multi.module.sign.Sign;
 import com.example.multi.module.user.entity.User;
 import com.example.multi.module.user.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
+            //HandlerMethod：表示当前请求对应的方法，通过它获取方法的注解信息
             HandlerMethod handlerMethod = (HandlerMethod) handler;
+            //如果方法被 @RequireLogin 注解标记，则需要进行登录验证。
             RequireLogin requireLogin = handlerMethod.getMethodAnnotation(RequireLogin.class);
             if (requireLogin != null) {
                 ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -40,11 +43,22 @@ public class LoginInterceptor implements HandlerInterceptor {
                     return false;
                 }
 
-                String encodedSign = attributes.getRequest().getHeader("Sign");
-                if (encodedSign == null || encodedSign.trim().isEmpty()) {
-                    sendErrorResponse(response, 4003, ResponseCode.getMsg(4003));
-                    return false;
+//                String encodedSign = attributes.getRequest().getHeader("sign");
+//                if (encodedSign == null || encodedSign.trim().isEmpty()) {
+//                    sendErrorResponse(response, 4003, ResponseCode.getMsg(4003));
+//                    return false;
+//                }
+                Cookie[] cookies = request.getCookies();
+                String encodedSign = null;
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        if ("sign".equals(cookie.getName())) {
+                            encodedSign = cookie.getValue();
+                            break;
+                        }
+                    }
                 }
+
 
                 try {
                     byte[] decodedBytes = Base64.getDecoder().decode(encodedSign);

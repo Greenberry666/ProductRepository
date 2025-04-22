@@ -15,7 +15,6 @@ com\example\multi\module\utils\HttpUtils.class
 com\example\multi\module\generator\CodeGenerator.class
 com\example\multi\module\user\service\BaseUserService.class
 com\example\multi\module\sign\Sign.class
-com\example\multi\module\wp\Wp.class
 com\example\multi\module\utils\DataUtils.class
 com\example\multi\module\user\service\UserService.class
 com\example\multi\module\utils\SpringUtils.class

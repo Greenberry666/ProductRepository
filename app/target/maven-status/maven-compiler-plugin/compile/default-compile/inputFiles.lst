@@ -2,6 +2,8 @@ C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\anno
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\AppApplication.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\config\CorsConfig.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\config\SecurityConfig.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\config\UserAuthorityResolver.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\config\WebConfig.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\error\EnhanceException.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\error\GlobalErrorController.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\product\CategoryController.java
@@ -10,6 +12,7 @@ C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\cont
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\upload\TestController.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\upload\UploadController.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\controller\user\UserController.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\Base\BaseWpVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\category\CategoryChildrenVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\category\CategoryGeneralListVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\category\CategoryListCellVO.java
