@@ -5,6 +5,7 @@ import com.example.multi.module.sign.Sign;
 import com.example.multi.module.user.entity.User;
 import com.example.multi.module.user.service.UserService;
 import com.example.multi.module.utils.Response;
+import com.example.multi.module.utils.ResponseCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
@@ -35,24 +36,14 @@ public class LoginInterceptor implements HandlerInterceptor {
             if (requireLogin != null) {
                 ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
                 if (attributes == null) {
-                    sendErrorResponse(response,4003);
+                    sendErrorResponse(response, 4003);
                     return false;
                 }
 
-//                String encodedSign = attributes.getRequest().getHeader("sign");
-//                if (encodedSign == null || encodedSign.trim().isEmpty()) {
-//                    sendErrorResponse(response, 4003, ResponseCode.getMsg(4003));
-//                    return false;
-//                }
-                Cookie[] cookies = request.getCookies();
-                String encodedSign = null;
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if ("sign".equals(cookie.getName())) {
-                            encodedSign = cookie.getValue();
-                            break;
-                        }
-                    }
+                String encodedSign = attributes.getRequest().getHeader("sign");
+                if (encodedSign == null || encodedSign.trim().isEmpty()) {
+                    sendErrorResponse(response, 4003);
+                    return false;
                 }
 
 
