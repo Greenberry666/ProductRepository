@@ -1,28 +1,24 @@
-package com.example.multi.console.Interceptor;
+package com.example.multi.app.Interceptor;
 
-import com.example.multi.console.annotation.RequireLogin;
-import com.example.multi.module.utils.Response;
+import com.example.multi.app.annotation.RequireLogin;
 import com.example.multi.module.sign.Sign;
 import com.example.multi.module.user.entity.User;
 import com.example.multi.module.user.service.UserService;
+import com.example.multi.module.utils.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import com.example.multi.module.utils.ResponseCode;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
 import java.util.Base64;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {

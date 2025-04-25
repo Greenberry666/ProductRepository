@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import java.net.URLEncoder;
 import java.util.*;
 
+import com.example.multi.app.annotation.RequireLogin;
 import com.example.multi.app.domain.product.ImageScaleVO;
 import com.example.multi.app.domain.product.ProductCellVO;
 import com.example.multi.app.domain.product.ProductInfoVO;
@@ -240,19 +241,8 @@ public class ProductController {
         productInfoVO.setInfo(product.getInfo());
         productInfoVO.setPrice(product.getPrice());
         productInfoVO.setDetailedTitle(product.getDetailedTitle());
-        //productInfoVO.setDetailed(product.getDetailed());
-        //productInfoVO.setDetailed(HtmlUtils.convertHtmlToText(product.getDetailed()));
         List<RichTextElement> richTextElements = JSON.parseArray(product.getDetailed(), RichTextElement.class);
-//        List<String> simplifiedContent = new ArrayList<>();
-//        for (RichTextElement element : richTextElements) {
-//            if ("图片".equals(element.getType())) {
-//                simplifiedContent.add(element.getSrc());
-//            } else {
-//                simplifiedContent.add(element.getText());
-//            }
-//        }
 
-        //productInfoVO.setDetailed(simplifiedContent);
         productInfoVO.setContent(richTextElements);
         return new Response(1001, productInfoVO);
     }
