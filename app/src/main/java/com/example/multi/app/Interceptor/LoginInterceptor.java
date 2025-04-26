@@ -40,7 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     return false;
                 }
 
-                String encodedSign = attributes.getRequest().getHeader("sign");
+                String encodedSign = request.getParameter("sign");
                 if (encodedSign == null || encodedSign.trim().isEmpty()) {
                     sendErrorResponse(response, 4003);
                     return false;

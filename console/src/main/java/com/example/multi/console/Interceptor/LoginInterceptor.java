@@ -43,11 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     return false;
                 }
 
-//                String encodedSign = attributes.getRequest().getHeader("sign");
-//                if (encodedSign == null || encodedSign.trim().isEmpty()) {
-//                    sendErrorResponse(response, 4003, ResponseCode.getMsg(4003));
-//                    return false;
-//                }
+
                 Cookie[] cookies = request.getCookies();
                 String encodedSign = null;
                 if (cookies != null) {
