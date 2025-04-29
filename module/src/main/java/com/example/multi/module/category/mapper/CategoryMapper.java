@@ -19,7 +19,7 @@ public interface CategoryMapper {
     @Select("SELECT * FROM category WHERE id = #{id}")
     Category extractById(BigInteger id);
 
-    // 插入操作ck
+    // 插入操作
     int insert(@Param("category") Category category);
 
     // 更新操作

@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = {"com.example.multi.module.product.mapper"})
 @MapperScan(basePackages = {"com.example.multi.module.category.mapper"})
 @MapperScan(basePackages = {"com.example.multi.module.user.mapper"})
+@MapperScan(basePackages = {"com.example.multi.module.tag.mapper"})
+@MapperScan(basePackages = {"com.example.multi.module.productTag.mapper"})
 public class ConsoleApplication {
     public static void main(String[] args){
 

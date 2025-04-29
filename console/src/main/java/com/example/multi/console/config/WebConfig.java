@@ -35,5 +35,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor())
+                // 拦截所有请求
+                .addPathPatterns("/**")
+                //放行路径
+                .excludePathPatterns("/user/login", "/user/register");
+    }
+
 
 }

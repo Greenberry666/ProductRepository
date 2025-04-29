@@ -2,6 +2,8 @@ package com.example.multi.module.product.service;
 
 import com.example.multi.module.category.mapper.CategoryMapper;
 import com.example.multi.module.dto.ProductDTO;
+import com.example.multi.module.tag.entity.Tag;
+import com.example.multi.module.tag.mapper.TagMapper;
 import com.example.multi.module.utils.BaseUtils;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.mapper.ProductMapper;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,6 +23,9 @@ public class ProductService {
     private ProductMapper mapper;
     @Resource
     private CategoryMapper categoryMapper;
+
+    @Resource
+    private TagMapper tagMapper;
 
     public Product getById(BigInteger id) {
         return mapper.getById(id);

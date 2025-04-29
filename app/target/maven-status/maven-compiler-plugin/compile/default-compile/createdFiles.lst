@@ -18,6 +18,7 @@ com\example\multi\app\controller\error\EnhanceException.class
 com\example\multi\app\controller\upload\UploadController.class
 com\example\multi\app\config\SecurityConfig.class
 com\example\multi\app\DruidEncryptorUtils.class
+com\example\multi\app\Interceptor\LoginInterceptor.class
 com\example\multi\app\AppApplication.class
 com\example\multi\app\controller\product\CategoryController.class
 com\example\multi\app\controller\user\UserController.class

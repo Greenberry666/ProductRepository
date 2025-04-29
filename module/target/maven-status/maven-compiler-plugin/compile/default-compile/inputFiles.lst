@@ -6,7 +6,13 @@ C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\modul
 C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\product\entity\Product.java
 C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\product\mapper\ProductMapper.java
 C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\product\service\ProductService.java
+C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\productTag\entity\ProductTag.java
+C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\productTag\mapper\ProductTagMapper.java
+C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\productTag\service\ProductTagService.java
 C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\sign\Sign.java
+C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\tag\entity\Tag.java
+C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\tag\mapper\TagMapper.java
+C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\tag\service\TagService.java
 C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\user\entity\User.java
 C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\user\entity\UserSign.java
 C:\Users\联想\IdeaProjects\multi1\module\src\main\java\com\example\multi\module\user\mapper\UserMapper.java
