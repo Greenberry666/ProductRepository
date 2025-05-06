@@ -29,6 +29,7 @@ public class ResponseCode {
         statusMap.put(4002, "解码 encodedSign出现问题");
         statusMap.put(4003, "没有权限");
         statusMap.put(4004, "网络繁忙");
+        statusMap.put(4005, "sign已过期");
     }
 
     public static String getMsg(Integer code) {

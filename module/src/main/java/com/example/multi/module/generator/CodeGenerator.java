@@ -31,11 +31,11 @@ public class CodeGenerator {
                 )
                 .packageConfig(builder ->
                         builder.parent("com.example.multi.app") // 设置父包名
-                                .moduleName("category") // 设置父包模块名
+                                .moduleName("test") // 设置父包模块名
                                 .pathInfo(Collections.singletonMap(OutputFile.xml, "C:\\Users\\联想\\IdeaProjects\\multi1\\app\\src\\main\\resources\\mapper")) // 设置mapperXml生成路径
                 )
                 .strategyConfig(builder ->
-                        builder.addInclude("category") // 设置需要生成的表名
+                        builder.addInclude("tag") // 设置需要生成的表名
                                 .controllerBuilder().disable()
                 )
                 .templateConfig(builder -> {

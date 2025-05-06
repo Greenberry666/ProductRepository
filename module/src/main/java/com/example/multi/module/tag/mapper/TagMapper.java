@@ -1,6 +1,5 @@
 package com.example.multi.module.tag.mapper;
 
-import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.tag.entity.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -8,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Mapper
 public interface TagMapper {
@@ -23,4 +23,10 @@ public interface TagMapper {
 
     @Update("update tag set is_deleted = 1,update_time = #{time}  where name = #{name} limit 1")
     int delete(@Param("name") BigInteger id, @Param("name") Integer time);
+
+//    @Select("SELECT name FROM tag WHERE id IN (${tagIds})")
+//    List<String> getTagNamesByIds(@Param("tagIds") String tagIds);
+
+    List<String> getTagNamesByIds(@Param("tagIds") List<BigInteger> tagIds);
+
 }

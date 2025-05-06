@@ -68,12 +68,13 @@ public class ProductController {
         return new Response(1001, productConListVO);
     }
 
+    @RequireLogin
     @RequestMapping("/product/info")
-    public Response getInfo(@RequireLogin User loginUser,
-                            @RequestParam(name = "id") BigInteger id) {
-        if (BaseUtils.isEmpty(loginUser)) {
-            return new Response(1002);
-        }
+    public Response getInfo(
+            @RequestParam(name = "id") BigInteger id) {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
         Product product = service.getById(id);
         if (product == null) {
             return new Response(3052);
@@ -198,11 +199,12 @@ public class ProductController {
     }
 
     @RequestMapping("/product/delete")
-    public Response deleted(@RequireLogin User loginUser,
-                            @RequestParam(name = "id") BigInteger id) {
-        if (BaseUtils.isEmpty(loginUser)) {
-            return new Response(1002);
-        }
+    public Response deleted(
+//            @RequireLogin User loginUser,
+            @RequestParam(name = "id") BigInteger id) {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
         int result = service.delete(id);
         if (result == 1) {
             return new Response(1001);

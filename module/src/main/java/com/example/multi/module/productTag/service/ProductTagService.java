@@ -37,4 +37,9 @@ public class ProductTagService {
 //        return mapper.delete(id, BaseUtils.currentSeconds());
 //    }
 
+    public List<BigInteger> getTagIdsByProductId(BigInteger productId) {
+        return mapper.findTagIdsByProductId(productId);
+    }
+
+
 }

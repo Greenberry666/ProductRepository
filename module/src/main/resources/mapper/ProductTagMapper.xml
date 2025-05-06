@@ -43,4 +43,14 @@
     <!--        WHERE id = #{productTag.id}-->
     <!--    </update>-->
 
+
+    <select id="findTagIdsByProductId"
+            resultType="java.math.BigInteger">
+        SELECT tag_id
+        FROM product_tag
+        where product_id = #{productId}
+          and is_deleted = 0
+    </select>
+
+
 </mapper>

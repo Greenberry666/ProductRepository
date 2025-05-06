@@ -15,6 +15,8 @@ import com.example.multi.module.category.service.CategoryService;
 import com.example.multi.module.dto.ProductDTO;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.service.ProductService;
+import com.example.multi.module.user.entity.User;
+import com.example.multi.module.utils.BaseUtils;
 import com.example.multi.module.utils.Response;
 import com.example.multi.module.utils.RichTextElement;
 import com.example.multi.app.domain.Base.BaseWpVO;
@@ -112,10 +114,14 @@ public class ProductController {
     }
 
     @SneakyThrows
+    //@RequireLogin
     @RequestMapping("/product/list")
     public Response getProductList(
             @RequestParam(value = "wp", defaultValue = "") String wp,
             @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
 
         Integer page = 1;
         Integer pageSize = 5;
@@ -215,6 +221,7 @@ public class ProductController {
     }
 
 
+    @RequireLogin
     @RequestMapping("product/info")
     public Response getInfo(@RequestParam(name = "id") BigInteger id) {
         ProductInfoVO productInfoVO = new ProductInfoVO();
@@ -244,6 +251,9 @@ public class ProductController {
         List<RichTextElement> richTextElements = JSON.parseArray(product.getDetailed(), RichTextElement.class);
 
         productInfoVO.setContent(richTextElements);
+
+        List<String> tagNames = service.getTagNamesByProductId(id);
+        productInfoVO.setTags(tagNames);
         return new Response(1001, productInfoVO);
     }
 }

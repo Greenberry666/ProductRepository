@@ -31,4 +31,7 @@ public interface ProductTagMapper {
 
     @Select("SELECT * FROM product_tag WHERE product_id = #{productId} AND tag_id = #{tagId} AND is_deleted = 1")
     ProductTag getDeletedProductTag(@Param("productId") BigInteger productId, @Param("tagId") BigInteger tagId);
+
+    //@Select("SELECT tag_id FROM product_tag WHERE  WHERE product_id = #{productId} AND is_deleted = 0")
+    List<BigInteger> findTagIdsByProductId(BigInteger productId);
 }

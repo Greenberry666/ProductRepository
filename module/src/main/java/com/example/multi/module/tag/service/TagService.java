@@ -1,6 +1,5 @@
 package com.example.multi.module.tag.service;
 
-import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.productTag.entity.ProductTag;
 import com.example.multi.module.productTag.mapper.ProductTagMapper;
 import com.example.multi.module.tag.entity.Tag;
@@ -135,5 +134,13 @@ public class TagService {
             }
         }
     }
+
+    //    public List<String> findTagNamesByIds(List<BigInteger> tagIds){
+//        return mapper.getTagNamesByIds(tagIds);
+//    }
+    public List<String> findTagNamesByIds(List<BigInteger> tagIds) {
+        return mapper.getTagNamesByIds(tagIds);
+    }
+
 
 }

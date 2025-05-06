@@ -26,3 +26,7 @@ C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\doma
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\domain\user\UserRegisterVO.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\DruidEncryptorUtils.java
 C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\Interceptor\LoginInterceptor.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\test\entity\Tag.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\test\mapper\TagMapper.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\test\service\impl\TagServiceImpl.java
+C:\Users\联想\IdeaProjects\multi1\app\src\main\java\com\example\multi\app\test\service\ITagService.java

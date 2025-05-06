@@ -17,6 +17,7 @@ import java.math.BigInteger;
 
 @Slf4j
 @Service
+
 public class UserService {
     @Resource
     private UserMapper mapper;

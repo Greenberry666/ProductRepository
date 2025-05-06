@@ -12,6 +12,7 @@ public class ProductInfoVO {
     private List<String> images;
     private String name;
     private String info;
+    private List<String> tags;
     private Integer price;
     private String detailedTitle;
     //private String detailed;

@@ -1,7 +1,9 @@
 package com.example.multi.module.product.service;
 
+import com.example.multi.module.category.entity.Category;
 import com.example.multi.module.category.mapper.CategoryMapper;
 import com.example.multi.module.dto.ProductDTO;
+import com.example.multi.module.productTag.service.ProductTagService;
 import com.example.multi.module.tag.entity.Tag;
 import com.example.multi.module.tag.mapper.TagMapper;
 import com.example.multi.module.utils.BaseUtils;
@@ -9,12 +11,14 @@ import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.mapper.ProductMapper;
 
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -26,6 +30,9 @@ public class ProductService {
 
     @Resource
     private TagMapper tagMapper;
+
+    @Resource
+    private ProductTagService productTagService;
 
     public Product getById(BigInteger id) {
         return mapper.getById(id);
@@ -127,6 +134,48 @@ public class ProductService {
         int offset = (page - 1) * pageSize;
         return mapper.getProductListAndCategory(offset, pageSize, keyword);
     }
+
+    //    public List<String> getTagNamesByProductId(BigInteger productId) {
+//        List<String> tagNames = new ArrayList<>();
+//        // 查询商品标签关系表，获取该商品的所有标签ID
+//        List<BigInteger> tagIds = productTagService.getTagIdsByProductId(productId);
+//        if (tagIds != null && !tagIds.isEmpty()) {
+//            // 将 List<BigInteger> 转换为逗号分隔的字符串
+//            String tagIdsStr = tagIds.stream()
+//                    .map(Object::toString)
+//                    .collect(Collectors.joining(","));
+//            // 根据标签ID查询标签表，获取标签名
+//            tagNames = tagMapper.getTagNamesByIds(tagIdsStr);
+//        }
+//        return tagNames;
+//    }
+    public List<String> getTagNamesByProductId(BigInteger productId) {
+        List<String> tagNames = new ArrayList<>();
+        List<BigInteger> tagIds = productTagService.getTagIdsByProductId(productId);
+        if (tagIds != null && !tagIds.isEmpty()) {
+            tagNames = tagMapper.getTagNamesByIds(tagIds);
+        }
+        return tagNames;
+    }
+
+
+    //权威方法
+//public List<String> getTagNamesByProductId(BigInteger productId) {
+//    List<String> tagNames = new ArrayList<>();
+//    List<BigInteger> tagIds = productTagService.getTagIdsByProductId(productId);
+//    if (tagIds != null && !tagIds.isEmpty()) {
+//        StringBuilder idList = new StringBuilder();
+//        for (int i = 0; i < tagIds.size(); i++) {
+//            idList.append(tagIds.get(i));
+//            if (i < tagIds.size() - 1) {
+//                idList.append(",");
+//            }
+//        }
+//        String tagIdsStr = idList.toString();
+//        tagNames = tagMapper.getTagNamesByIds(tagIdsStr);
+//    }
+//    return tagNames;
+//}
 
 
 }

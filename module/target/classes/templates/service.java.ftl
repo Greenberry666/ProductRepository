@@ -1,5 +1,6 @@
 <#-- 导入必要的包和定义变量 -->
 <#assign className = table.serviceName>
+<#assign entityLower = entity?lower_case>  <!-- 将实体类名转换为小写 -->
 
 <#-- 生成 Java 文件内容 -->
 package ${package.Service};
@@ -28,18 +29,18 @@ return mapper.extractById(id);
 }
 
 // 插入操作
-public int insert(${entity} product) {
-return mapper.insert(product);
+public int insert(${entity} ${entityLower}) {
+return mapper.insert(${entityLower});
 }
 
 // 更新操作
-public int update(${entity} product) {
-return mapper.update(product);
+public int update(${entity} ${entityLower}) {
+return mapper.update(${entityLower});
 }
 
 // 删除操作
 public int delete(BigInteger id) {
-return mapper.delete(id);
+return mapper.delete(id, BaseUtils.currentSeconds());
 }
 
 }

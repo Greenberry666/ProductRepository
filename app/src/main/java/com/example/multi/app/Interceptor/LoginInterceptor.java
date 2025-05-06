@@ -7,6 +7,7 @@ import com.example.multi.module.user.service.UserService;
 import com.example.multi.module.utils.Response;
 import com.example.multi.module.utils.ResponseCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Base64;
 
 @Component
@@ -41,37 +44,39 @@ public class LoginInterceptor implements HandlerInterceptor {
                 }
 
                 String encodedSign = request.getParameter("sign");
+
                 if (encodedSign == null || encodedSign.trim().isEmpty()) {
-                    sendErrorResponse(response, 4003);
+                    sendErrorResponse(response, 4002);
                     return false;
                 }
 
 
                 try {
                     byte[] decodedBytes = Base64.getDecoder().decode(encodedSign);
+                    //byte[] decodedBytes = Base64.getUrlDecoder().decode(encodedSign);
                     String signJson = new String(decodedBytes);
                     ObjectMapper objectMapper = new ObjectMapper();
                     Sign sign = objectMapper.readValue(signJson, Sign.class);
                     int timestamp = (int) (System.currentTimeMillis() / 1000);
 
                     if (sign.getExpireTime() < timestamp) {
-                        sendErrorResponse(response, 4001);
+                        sendErrorResponse(response, 4005);
                         return false;
                     }
 
                     User user = userService.findUserById(sign.getUserId());
                     if (user == null) {
-                        sendErrorResponse(response, 4002);
+                        sendErrorResponse(response, 4001);
                         return false;
                     }
                 } catch (IllegalArgumentException e) {
                     sendErrorResponse(response, 4002);
                     return false;
                 } catch (JsonProcessingException e) {
-                    sendErrorResponse(response, 4001);
+                    sendErrorResponse(response, 4002);
                     return false;
                 } catch (Exception e) {
-                    sendErrorResponse(response, 4001);
+                    sendErrorResponse(response, 4004);
                     return false;
                 }
             }
@@ -79,10 +84,13 @@ public class LoginInterceptor implements HandlerInterceptor {
         return true;
     }
 
+
+    //int statusCode
     private void sendErrorResponse(HttpServletResponse response, int statusCode) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(statusCode);
         Response<String> responseObj = new Response<>(statusCode);
         response.getWriter().write(new ObjectMapper().writeValueAsString(responseObj));
+
     }
 }

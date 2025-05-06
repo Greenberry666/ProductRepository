@@ -26,12 +26,12 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @RequestMapping("/category/create")
-    public Response categoryCreate(@RequireLogin User loginUser,
-                                   @RequestParam(name = "name") String name,
-                                   @RequestParam(name = "image") String image) {
-        if (BaseUtils.isEmpty(loginUser)) {
-            return new Response(1002);
-        }
+    public Response categoryCreate(
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "image") String image) {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
         CategoryCreateVO categoryCreateVO = new CategoryCreateVO();
         try {
             BigInteger result = categoryService.edit(null, name, image);
@@ -47,13 +47,13 @@ public class CategoryController {
     }
 
     @RequestMapping("/category/update")
-    public Response categoryUpdate(@RequireLogin User loginUser,
-                                   @RequestParam(name = "id") BigInteger id,
-                                   @RequestParam(name = "name") String name,
-                                   @RequestParam(name = "image") String image) {
-        if (BaseUtils.isEmpty(loginUser)) {
-            return new Response(1002);
-        }
+    public Response categoryUpdate(
+            @RequestParam(name = "id") BigInteger id,
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "image") String image) {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
         CategoryUpdateVO categoryUpdateVO = new CategoryUpdateVO();
         try {
             BigInteger result = categoryService.edit(id, name, image);
@@ -69,11 +69,11 @@ public class CategoryController {
     }
 
     @RequestMapping("/category/delete")
-    public Response categoryDeleted(@RequireLogin User loginUser,
-                                    @RequestParam(name = "id") BigInteger id) {
-        if (BaseUtils.isEmpty(loginUser)) {
-            return new Response(1002);
-        }
+    public Response categoryDeleted(
+            @RequestParam(name = "id") BigInteger id) {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
         int result = categoryService.delete(id);
         if (result == 1) {
             return new Response(1001);
@@ -83,10 +83,10 @@ public class CategoryController {
     }
 
     @RequestMapping("/category/info")
-    public Response categoryInfoVO(@RequireLogin User loginUser, @RequestParam(name = "id") BigInteger id) {
-        if (BaseUtils.isEmpty(loginUser)) {
-            return new Response(1002);
-        }
+    public Response categoryInfoVO(@RequestParam(name = "id") BigInteger id) {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
         Category categoryInfo = categoryService.getById(id);
         if (categoryInfo == null) {
             return new Response(3053);
@@ -100,10 +100,10 @@ public class CategoryController {
     }
 
     @RequestMapping("/category/tree")
-    public Response getCategoryTree(@RequireLogin User loginUser) {
-        if (BaseUtils.isEmpty(loginUser)) {
-            return new Response(1002);
-        }
+    public Response getCategoryTree() {
+//        if (BaseUtils.isEmpty(loginUser)) {
+//            return new Response(1002);
+//        }
         List<CategoryTreeVO> categoryTreeVO = new ArrayList<>();
         List<Category> categoryList = categoryService.getParentCategorys();
         for (Category category : categoryList) {

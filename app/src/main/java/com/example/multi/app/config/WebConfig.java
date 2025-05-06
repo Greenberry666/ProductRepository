@@ -16,10 +16,34 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
     private final ApplicationArguments appArguments;
 
-    public WebConfig(ApplicationArguments appArguments) {
-        this.appArguments = appArguments;
-        log.info("WebConfig initialized with ApplicationArguments: {}", appArguments);
-    }
+//    public WebConfig(ApplicationArguments appArguments) {
+//        this.appArguments = appArguments;
+//        log.info("WebConfig initialized with ApplicationArguments: {}", appArguments);
+//    }
+//
+//    @Override
+//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+//        resolvers.add(newUserAuthResolver());
+//    }
+//
+//    @Bean
+//    public UserAuthorityResolver newUserAuthResolver() {
+//        return new UserAuthorityResolver(appArguments);
+//
+//
+//    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginInterceptor())
+//                // 拦截所有请求
+//                .addPathPatterns("/**")
+//                //放行路径
+//                .excludePathPatterns("/user/login", "/user/register");
+//    }
+public WebConfig(ApplicationArguments appArguments) {
+    this.appArguments = appArguments;
+    log.info("WebConfig initialized with ApplicationArguments: {}", appArguments);
+}
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
@@ -29,16 +53,19 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public UserAuthorityResolver newUserAuthResolver() {
         return new UserAuthorityResolver(appArguments);
-
-
     }
+
+    @Bean
+    public LoginInterceptor loginInterceptor() {
+        return new LoginInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
-                // 拦截所有请求
+        registry.addInterceptor(loginInterceptor())
                 .addPathPatterns("/**")
-                //放行路径
                 .excludePathPatterns("/user/login", "/user/register");
     }
+
 
 }
