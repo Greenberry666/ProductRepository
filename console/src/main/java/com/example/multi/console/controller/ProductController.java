@@ -43,9 +43,6 @@ public class ProductController {
             @RequestParam("page") Integer page,
             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
             @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-//        if (BaseUtils.isEmpty(loginUser)) {
-//            return new Response(1002);
-//        }
         List<Product> products = service.getPage(page, pageSize, keyword);
 
         List<ProductConCellVO> productConOnlyVOS = new ArrayList<>();
@@ -72,9 +69,6 @@ public class ProductController {
     @RequestMapping("/product/info")
     public Response getInfo(
             @RequestParam(name = "id") BigInteger id) {
-//        if (BaseUtils.isEmpty(loginUser)) {
-//            return new Response(1002);
-//        }
         Product product = service.getById(id);
         if (product == null) {
             return new Response(3052);
@@ -101,7 +95,7 @@ public class ProductController {
         return new Response(1001, productConInfoVO);
     }
 
-    @Transactional
+
     @RequestMapping("/product/create")
     public Response productCreate(
             @RequestParam(name = "name") String name,
@@ -113,33 +107,19 @@ public class ProductController {
             @RequestParam(name = "detailed") String detailed,
             @RequestParam(name = "categoryId") BigInteger categoryId,
             @RequestParam(name = "tags", defaultValue = "") String tags) {
-//        if (BaseUtils.isEmpty(loginUser)) {
-//            return new Response(1002);
-//        }
         ConsoleCreateVO consoleCreateVO = new ConsoleCreateVO();
-//        try {
-//            List<BigInteger> tagIds = tagService.editToTags(tags);
-//
-//            BigInteger result = service.edit(null, name, title, images, info, price, detailedTitle, detailed, categoryId);
-//            if (result != null) {
-//                consoleCreateVO.setId(result);
-//                return new Response(1001, consoleCreateVO);
-//            } else {
-//                return new Response(3001);
-//            }
+
         try {
             // 1. 处理标签
             List<BigInteger> tagIds = tagService.editToTags(tags);
 
             // 2. 创建商品
-            BigInteger productId = service.edit(null, name, title, images, info, price, detailedTitle, detailed, categoryId);
+            BigInteger productId = service.edit(null, name, title, images, info, price, detailedTitle, detailed, categoryId, tagIds);
             if (productId == null) {
                 return new Response(3001); // 商品创建失败
             }
-
             // 3. 建立商品与标签的关系
-            tagService.manageTags(productId, tagIds);
-
+            //tagService.manageTags(productId, tagIds);
             // 4. 返回响应
             consoleCreateVO.setId(productId);
             return new Response(1001, consoleCreateVO); // 商品创建成功
@@ -149,7 +129,7 @@ public class ProductController {
     }
 
 
-    @Transactional
+
     @RequestMapping("/product/update")
     public Response update(
             @RequestParam(name = "id") BigInteger id,
@@ -166,29 +146,19 @@ public class ProductController {
 //            return new Response(1002);
 //        }
         ConsoleUpdateVO consoleUpdateVO = new ConsoleUpdateVO();
-//        try {
-//            BigInteger result = service.edit(id, name, title, images, info, price, detailedTitle, detailed, categoryId);
-//            if (result != null) {
-//                consoleUpdateVO.setId(id);
-//                return new Response(1001, consoleUpdateVO);
-//            } else {
-//                return new Response(3002);
-//            }
-//        } catch (Exception exception) {
-//            return new Response(3051, exception.getMessage());
-//        }
+
         try {
             // 1. 处理标签
             List<BigInteger> tagIds = tagService.editToTags(tags);
 
             // 2. 更新商品
-            BigInteger result = service.edit(id, name, title, images, info, price, detailedTitle, detailed, categoryId);
+            BigInteger result = service.edit(id, name, title, images, info, price, detailedTitle, detailed, categoryId, tagIds);
             if (result == null) {
                 return new Response(3002); // 商品更新失败
             }
 
             // 3. 更新商品与标签的关系
-            tagService.manageTags(id, tagIds);
+            //tagService.manageTags(id, tagIds);
 
             // 4. 返回响应
             consoleUpdateVO.setId(id);
@@ -198,13 +168,11 @@ public class ProductController {
         }
     }
 
+    @RequireLogin
     @RequestMapping("/product/delete")
     public Response deleted(
-//            @RequireLogin User loginUser,
             @RequestParam(name = "id") BigInteger id) {
-//        if (BaseUtils.isEmpty(loginUser)) {
-//            return new Response(1002);
-//        }
+
         int result = service.delete(id);
         if (result == 1) {
             return new Response(1001);

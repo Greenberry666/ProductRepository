@@ -40,7 +40,7 @@ return mapper.update(${entityLower});
 
 // 删除操作
 public int delete(BigInteger id) {
-return mapper.delete(id, BaseUtils.currentSeconds());
+return mapper.delete(BaseUtils.currentSeconds(),id);
 }
 
 }

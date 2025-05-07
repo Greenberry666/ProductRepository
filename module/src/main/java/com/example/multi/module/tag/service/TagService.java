@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TagService {
@@ -68,58 +70,28 @@ public class TagService {
         }
         return tagIds;
     }
-
     public void manageTags(BigInteger productId, List<BigInteger> tagIds) {
         // 1. 获取当前商品的所有标签关系
         List<ProductTag> existingProductTags = productTagMapper.getById(productId);
 
-        // 2. 删除不再需要的标签关系
-        List<ProductTag> toDelete = new ArrayList<>();
+        // 2. 使用 Map 存储现有的标签关系，键为 tagId，值为 ProductTag 对象
+        Map<BigInteger, ProductTag> existingTagsMap = new HashMap<>();
         for (ProductTag pt : existingProductTags) {
-            boolean found = false;
-            for (BigInteger tagId : tagIds) {
-                if (pt.getTagId().equals(tagId)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                toDelete.add(pt);
-            }
+            existingTagsMap.put(pt.getTagId(), pt);
         }
 
-        for (ProductTag pt : toDelete) {
-            productTagMapper.delete(pt.getId(), BaseUtils.currentSeconds());
-        }
-
-        // 3. 添加新的标签关系
+        // 3. 遍历新的标签列表，处理需要添加或恢复的标签
         for (BigInteger tagId : tagIds) {
-            boolean found = false;
-            for (ProductTag pt : existingProductTags) {
-                if (pt.getTagId().equals(tagId)) {
-                    found = true;
-                    break;
-                }
-            }
-
-//            if (!found) {
-//                ProductTag productTag = new ProductTag();
-//                productTag.setProductId(productId);
-//                productTag.setTagId(tagId);
-//                productTag.setCreateTime(BaseUtils.currentSeconds());
-//                productTag.setUpdateTime(BaseUtils.currentSeconds());
-//                productTag.setIsDeleted(0);
-//                productTagMapper.insert(productTag);
-//            }
-
-            if (!found) {
-
+            if (existingTagsMap.containsKey(tagId)) {
+                // 如果标签已存在，从 Map 中移除，避免后续删除
+                existingTagsMap.remove(tagId);
+            } else {
+                // 如果标签不存在，插入新记录或恢复已删除的记录
                 ProductTag existingTag = productTagMapper.getDeletedProductTag(productId, tagId);
                 if (existingTag != null) {
                     // 恢复记录
                     existingTag.setIsDeleted(0);
                     existingTag.setUpdateTime(BaseUtils.currentSeconds());
-
                     productTagMapper.update(existingTag);
                 } else {
                     // 插入新记录
@@ -133,7 +105,67 @@ public class TagService {
                 }
             }
         }
+
+        // 4. 删除剩余的标签关系
+        for (ProductTag pt : existingTagsMap.values()) {
+            productTagMapper.delete(pt.getId(), BaseUtils.currentSeconds());
+        }
     }
+
+//    public void manageTags(BigInteger productId, List<BigInteger> tagIds) {
+//        // 1. 获取当前商品的所有标签关系
+//        List<ProductTag> existingProductTags = productTagMapper.getById(productId);
+//
+//        // 2. 删除不再需要的标签关系
+//        List<ProductTag> toDelete = new ArrayList<>();
+//        for (ProductTag pt : existingProductTags) {
+//            boolean found = false;
+//            for (BigInteger tagId : tagIds) {
+//                if (pt.getTagId().equals(tagId)) {
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            if (!found) {
+//                toDelete.add(pt);
+//            }
+//        }
+//
+//        for (ProductTag pt : toDelete) {
+//            productTagMapper.delete(pt.getId(), BaseUtils.currentSeconds());
+//        }
+//
+//        // 3. 添加新的标签关系
+//        for (BigInteger tagId : tagIds) {
+//            boolean found = false;
+//            for (ProductTag pt : existingProductTags) {
+//                if (pt.getTagId().equals(tagId)) {
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            if (!found) {
+//
+//                ProductTag existingTag = productTagMapper.getDeletedProductTag(productId, tagId);
+//                if (existingTag != null) {
+//                    // 恢复记录
+//                    existingTag.setIsDeleted(0);
+//                    existingTag.setUpdateTime(BaseUtils.currentSeconds());
+//
+//                    productTagMapper.update(existingTag);
+//                } else {
+//                    // 插入新记录
+//                    ProductTag newTag = new ProductTag();
+//                    newTag.setProductId(productId);
+//                    newTag.setTagId(tagId);
+//                    newTag.setCreateTime(BaseUtils.currentSeconds());
+//                    newTag.setUpdateTime(BaseUtils.currentSeconds());
+//                    newTag.setIsDeleted(0);
+//                    productTagMapper.insert(newTag);
+//                }
+//            }
+//        }
+//    }
 
     //    public List<String> findTagNamesByIds(List<BigInteger> tagIds){
 //        return mapper.getTagNamesByIds(tagIds);

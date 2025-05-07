@@ -6,6 +6,7 @@ import com.example.multi.module.dto.ProductDTO;
 import com.example.multi.module.productTag.service.ProductTagService;
 import com.example.multi.module.tag.entity.Tag;
 import com.example.multi.module.tag.mapper.TagMapper;
+import com.example.multi.module.tag.service.TagService;
 import com.example.multi.module.utils.BaseUtils;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.product.mapper.ProductMapper;
@@ -33,6 +34,8 @@ public class ProductService {
 
     @Resource
     private ProductTagService productTagService;
+    @Resource
+    private TagService tagService;
 
     public Product getById(BigInteger id) {
         return mapper.getById(id);
@@ -51,7 +54,7 @@ public class ProductService {
     }
 
     public BigInteger edit(BigInteger id, String name, String title, String images, String info,
-                           Integer price, String detailedTitle, String detailed, BigInteger categoryId) {
+                           Integer price, String detailedTitle, String detailed, BigInteger categoryId, List<BigInteger> tagIds) {
         if (BaseUtils.isBlank(title) || title.matches("^[a-zA-Z0-9_]+$")) {
             throw new IllegalArgumentException("产品标题不能为空,且只能包含汉字/字母、数字和下划线");
         }
@@ -80,16 +83,22 @@ public class ProductService {
                 .setUpdateTime(BaseUtils.currentSeconds())
                 .setIsDeleted(0);
         product.setCategoryId(categoryId);
+        BigInteger productId;
         if (id == null) {
             product.setCreateTime(BaseUtils.currentSeconds());
             insert(product);
-            return product.getId();
+            productId = product.getId();
+            return productId;
         } else {
             Product oldProduct = getById(id);
             if (oldProduct == null) {
                 throw new RuntimeException("产品更新错误!");
             }
             update(product);
+            productId = id;
+        }
+        if (tagIds != null && !tagIds.isEmpty()) {
+            tagService.manageTags(productId, tagIds);
         }
         return id;
     }
