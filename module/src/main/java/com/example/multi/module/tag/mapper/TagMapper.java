@@ -24,9 +24,9 @@ public interface TagMapper {
     @Update("update tag set is_deleted = 1,update_time = #{time}  where name = #{name} limit 1")
     int delete(@Param("name") BigInteger id, @Param("name") Integer time);
 
-//    @Select("SELECT name FROM tag WHERE id IN (${tagIds})")
-//    List<String> getTagNamesByIds(@Param("tagIds") String tagIds);
+    @Select("SELECT name FROM tag WHERE id IN (${tagIds})")
+    List<String> getTagNamesByIds(@Param("tagIds") String tagIds);
 
-    List<String> getTagNamesByIds(@Param("tagIds") List<BigInteger> tagIds);
+//    List<String> getTagNamesByIds(@Param("tagIds") List<BigInteger> tagIds);
 
 }

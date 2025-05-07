@@ -1,5 +1,6 @@
 package com.example.multi.console.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.multi.console.annotation.RequireLogin;
 import com.example.multi.console.domain.category.ConsoleCreateVO;
 import com.example.multi.console.domain.category.ConsoleUpdateVO;
@@ -15,6 +16,7 @@ import com.example.multi.module.tag.service.TagService;
 import com.example.multi.module.user.entity.User;
 import com.example.multi.module.utils.BaseUtils;
 import com.example.multi.module.utils.Response;
+import com.example.multi.module.utils.RichTextElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -87,7 +89,10 @@ public class ProductController {
         productConInfoVO.setInfo(product.getInfo());
         productConInfoVO.setPrice(product.getPrice());
         productConInfoVO.setDetailedTitle(product.getDetailedTitle());
-        productConInfoVO.setDetailed(product.getDetailed());
+        //productConInfoVO.setDetailed(product.getDetailed());
+
+        List<RichTextElement> richTextElements = JSON.parseArray(product.getDetailed(), RichTextElement.class);
+        productConInfoVO.setContent(richTextElements);
         productConInfoVO.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(product.getCreateTime()));
         productConInfoVO.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(product.getUpdateTime()));
         productConInfoVO.setCategoryId(product.getCategoryId());

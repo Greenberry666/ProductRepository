@@ -158,33 +158,33 @@ public class ProductService {
 //        }
 //        return tagNames;
 //    }
+//    public List<String> getTagNamesByProductId(BigInteger productId) {
+//        List<String> tagNames = new ArrayList<>();
+//        List<BigInteger> tagIds = productTagService.getTagIdsByProductId(productId);
+//        if (tagIds != null && !tagIds.isEmpty()) {
+//            tagNames = tagMapper.getTagNamesByIds(tagIds);
+//        }
+//        return tagNames;
+//    }
+
+
+    //权威方法
     public List<String> getTagNamesByProductId(BigInteger productId) {
         List<String> tagNames = new ArrayList<>();
         List<BigInteger> tagIds = productTagService.getTagIdsByProductId(productId);
         if (tagIds != null && !tagIds.isEmpty()) {
-            tagNames = tagMapper.getTagNamesByIds(tagIds);
+            StringBuilder idList = new StringBuilder();
+            for (int i = 0; i < tagIds.size(); i++) {
+                idList.append(tagIds.get(i));
+                if (i < tagIds.size() - 1) {
+                    idList.append(",");
+                }
+            }
+            String tagIdsStr = idList.toString();
+            tagNames = tagMapper.getTagNamesByIds(tagIdsStr);
         }
         return tagNames;
     }
-
-
-    //权威方法
-//public List<String> getTagNamesByProductId(BigInteger productId) {
-//    List<String> tagNames = new ArrayList<>();
-//    List<BigInteger> tagIds = productTagService.getTagIdsByProductId(productId);
-//    if (tagIds != null && !tagIds.isEmpty()) {
-//        StringBuilder idList = new StringBuilder();
-//        for (int i = 0; i < tagIds.size(); i++) {
-//            idList.append(tagIds.get(i));
-//            if (i < tagIds.size() - 1) {
-//                idList.append(",");
-//            }
-//        }
-//        String tagIdsStr = idList.toString();
-//        tagNames = tagMapper.getTagNamesByIds(tagIdsStr);
-//    }
-//    return tagNames;
-//}
 
 
 }

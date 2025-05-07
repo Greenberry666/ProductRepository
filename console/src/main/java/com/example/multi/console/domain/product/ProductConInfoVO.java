@@ -1,5 +1,6 @@
 package com.example.multi.console.domain.product;
 
+import com.example.multi.module.utils.RichTextElement;
 import lombok.Data;
 
 import java.math.BigInteger;
@@ -17,4 +18,5 @@ public class ProductConInfoVO {
     private String createTime;
     private String updateTime;
     private BigInteger categoryId;
+    private List<RichTextElement> content;
 }

@@ -167,12 +167,12 @@ public class TagService {
 //        }
 //    }
 
-    //    public List<String> findTagNamesByIds(List<BigInteger> tagIds){
-//        return mapper.getTagNamesByIds(tagIds);
-//    }
-    public List<String> findTagNamesByIds(List<BigInteger> tagIds) {
+    public List<String> findTagNamesByIds(String tagIds) {
         return mapper.getTagNamesByIds(tagIds);
     }
+//    public List<String> findTagNamesByIds(List<BigInteger> tagIds) {
+//        return mapper.getTagNamesByIds(tagIds);
+//    }
 
 
 }
