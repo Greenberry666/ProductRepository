@@ -172,6 +172,7 @@ public class ProductService {
     public List<String> getTagNamesByProductId(BigInteger productId) {
         List<String> tagNames = new ArrayList<>();
         List<BigInteger> tagIds = productTagService.getTagIdsByProductId(productId);
+        //System.out.println("tagisd:"+tagIds);
         if (tagIds != null && !tagIds.isEmpty()) {
             StringBuilder idList = new StringBuilder();
             for (int i = 0; i < tagIds.size(); i++) {
