@@ -9,7 +9,7 @@ public class ResponseCode {
     static {
         //登录
         statusMap.put(1001, "OK");
-        statusMap.put(1002, "需要登录");
+        statusMap.put(1002, "需要登录#");
         statusMap.put(1003, "账号被禁用或已删除");
         statusMap.put(1010, "账号密码不匹配或账号不存在");
         //注册'
