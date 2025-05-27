@@ -23,6 +23,7 @@ import com.example.multi.app.domain.Base.BaseWpVO;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -114,15 +115,11 @@ public class ProductController {
     }
 
     @SneakyThrows
-    //@RequireLogin
     @RequestMapping("/product/list")
+    @Cacheable(value = "categoryListCache", key = "#page + '-' + #keyword", unless = "#result == null")
     public Response getProductList(
             @RequestParam(value = "wp", defaultValue = "") String wp,
             @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-//        if (BaseUtils.isEmpty(loginUser)) {
-//            return new Response(1002);
-//        }
-
         Integer page = 1;
         Integer pageSize = 5;
 
@@ -134,7 +131,6 @@ public class ProductController {
             page = decodedWpJSON.getPage();
             keyword = decodedWpJSON.getKeyword();
         }
-
 
         List<Product> products = service.getPage(page, pageSize, keyword);
 
@@ -225,6 +221,7 @@ public class ProductController {
     @RequestMapping("product/info")
     public Response getInfo(@RequestParam(name = "id") BigInteger id) {
         ProductInfoVO productInfoVO = new ProductInfoVO();
+
 
         Product product = service.getById(id);
         if (product == null) {

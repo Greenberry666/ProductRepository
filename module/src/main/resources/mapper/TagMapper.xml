@@ -33,12 +33,12 @@
         WHERE name = #{tag.name}
     </update>
 
-    <select id="getTagNamesByIds" parameterType="java.util.List" resultType="java.lang.String">
-        SELECT name FROM tag
-        WHERE id IN
-        <foreach item="id" collection="tagIds" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </select>
+    <!--    <select id="getTagNamesByIds" parameterType="java.util.List" resultType="java.lang.String">-->
+    <!--        SELECT name FROM tag-->
+    <!--        WHERE id IN-->
+    <!--        <foreach item="id" collection="tagIds" open="(" separator="," close=")">-->
+    <!--            #{id}-->
+    <!--        </foreach>-->
+    <!--    </select>-->
 
 </mapper>

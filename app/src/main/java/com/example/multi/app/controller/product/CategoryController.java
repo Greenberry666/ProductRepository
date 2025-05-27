@@ -9,6 +9,7 @@ import com.example.multi.module.category.service.CategoryService;
 import com.example.multi.module.product.entity.Product;
 import com.example.multi.module.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class CategoryController {
     private CategoryService service;
 
     @GetMapping("/category/list")
+
     public Response getCategoryList() {
         //一级类目
         List<Category> parentCategorys = service.getParentCategorys();
