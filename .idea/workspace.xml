@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20aa622f-f658-4af9-8eae-e7c134a149d2" name="Changes" comment="删除无用东西">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="20aa622f-f658-4af9-8eae-e7c134a149d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/utils/ResponseCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/utils/ResponseCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/module/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +40,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/IdeaProjects/ProductRepository/.idea",
+    "last_opened_file_path": "D:/IdeaProjects/ProductRepository/module/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,10 +57,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\ProductRepository\module\src\main\resources" />
+      <recent name="D:\IdeaProjects\ProductRepository\app\src\main\java\com\example\multi\app\controller" />
+      <recent name="D:\IdeaProjects\ProductRepository\module\src\main\java\com\example\multi\module" />
+      <recent name="D:\IdeaProjects\ProductRepository\module\src\main\java\com\example\multi\module\textMessage" />
       <recent name="D:\IdeaProjects\ProductRepository\.idea" />
-      <recent name="D:\IdeaProjects\ProductRepository" />
-      <recent name="D:\IdeaProjects\ProductRepository\module" />
-      <recent name="D:\IdeaProjects\ProductRepository\console" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.multi.module.utils" />
+      <recent name="com.example.multi.module.textMessage.entity" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.AppApplication">
@@ -93,7 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1750412795775</updated>
       <workItem from="1750412796857" duration="554000" />
-      <workItem from="1750413364625" duration="942000" />
+      <workItem from="1750413364625" duration="1627000" />
     </task>
     <task id="LOCAL-00001" summary="删除无用东西">
       <created>1750412857373</created>
@@ -116,16 +116,34 @@
       <option name="project" value="LOCAL" />
       <updated>1750413286578</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="删除无用东西">
+      <created>1750414596679</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750414596679</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="删除无用东西" />
     <MESSAGE value="代码内容优化，删除乱码内容" />
-    <option name="LAST_COMMIT_MESSAGE" value="代码内容优化，删除乱码内容" />
+    <MESSAGE value="删除无用东西" />
+    <option name="LAST_COMMIT_MESSAGE" value="删除无用东西" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
