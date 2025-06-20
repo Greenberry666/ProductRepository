@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -12,28 +11,12 @@
         <module name="module" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="api" target="17" />
-      <module name="Codetest" target="21" />
-      <module name="com" target="21" />
-      <module name="entity" target="17" />
-      <module name="mapper" target="17" />
-      <module name="service" target="17" />
-      <module name="testcode" target="21" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Codetest" options="-parameters" />
-      <module name="api" options="-parameters" />
       <module name="app" options="-parameters" />
-      <module name="com" options="-parameters" />
       <module name="console" options="-parameters" />
-      <module name="entity" options="-parameters" />
-      <module name="mapper" options="-parameters" />
       <module name="module" options="-parameters" />
-      <module name="service" options="-parameters" />
-      <module name="testcode" options="-parameters" />
     </option>
   </component>
 </project>
