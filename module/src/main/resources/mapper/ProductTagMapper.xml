@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.multi.module.productTag.mapper.ProductTagMapper">
+    <insert id="insert"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            parameterType="com.example.multi.module.productTag.entity.ProductTag">
+        insert into product_tag
+        <trim prefix="(" suffixOverrides=",">
+            <if test=" productTag.productId  != null and productTag.productId  != ''">`product_id` ,</if>
+            <if test=" productTag.tagId  != null and productTag.tagId != ''">`tag_id` ,</if>
+            <if test=" productTag.createTime  != null">`create_time` ,</if>
+            <if test=" productTag.updateTime  != null">`update_time` ,</if>
+            is_deleted
+        </trim>
+        <trim prefix=")values(" suffixOverrides=",">
+            <if test="productTag.productId != null and productTag.productId!= ''">#{productTag.productId},</if>
+            <if test="productTag.tagId != null and productTag.tagId!= ''">#{productTag.tagId},</if>
+            <if test="productTag.createTime != null">#{productTag.createTime},</if>
+            <if test="productTag.updateTime != null">#{productTag.updateTime},</if>
+            #{productTag.isDeleted}
+        </trim>
+        )
+    </insert>
+
+    <!-- 更新操作 -->
+    <update id="update" parameterType="com.example.multi.module.productTag.entity.ProductTag">
+        UPDATE product_tag
+        <trim prefix="set" suffixOverrides=",">
+            <if test="productTag.isDeleted != null and productTag.isDeleted  != ''">is_deleted =
+                #{productTag.isDeleted },
+            </if>
+            <if test="productTag.updateTime != null">update_time = #{ productTag.updateTime },</if>
+        </trim>
+        WHERE id = #{productTag.id}
+    </update>
+    <!--    <update id="updateByProductId" parameterType="com.example.multi.module.productTag.entity.ProductTag">-->
+    <!--        UPDATE product_tag-->
+    <!--        <trim prefix="set" suffixOverrides=",">-->
+    <!--            <if test="productTag.isDeleted != null and productTag.isDeleted  != ''">is_deleted = #{productTag.isDeleted },</if>-->
+    <!--            <if test="productTag.updateTime != null">update_time = #{ productTag.updateTime },</if>-->
+    <!--        </trim>-->
+    <!--        WHERE id = #{productTag.id}-->
+    <!--    </update>-->
+
+
+    <select id="findTagIdsByProductId"
+            resultType="java.math.BigInteger">
+        SELECT tag_id
+        FROM product_tag
+        where product_id = #{productId}
+          and is_deleted = 0
+    </select>
+
+
+</mapper>

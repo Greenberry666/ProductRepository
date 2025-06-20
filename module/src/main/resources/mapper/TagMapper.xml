@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.multi.module.tag.mapper.TagMapper">
+
+    <insert id="insert"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            parameterType="com.example.multi.module.tag.entity.Tag">
+        insert into tag
+        <trim prefix="(" suffixOverrides=",">
+            <if test=" tag.name  != null and tag.name != ''">`name` ,</if>
+            <if test=" tag.createTime  != null">`create_time` ,</if>
+            <if test=" tag.updateTime  != null">`update_time` ,</if>
+            is_deleted
+        </trim>
+        <trim prefix=")values(" suffixOverrides=",">
+            <if test="tag.name != null and tag.name!= ''">#{tag.name},</if>
+            <if test="tag.createTime != null">#{tag.createTime},</if>
+            <if test="tag.updateTime != null">#{tag.updateTime},</if>
+            #{tag.isDeleted}
+        </trim>
+        )
+    </insert>
+
+    <!-- 更新操作 -->
+    <update id="update" parameterType="com.example.multi.module.tag.entity.Tag">
+        UPDATE tag
+        <trim prefix="set" suffixOverrides=",">
+            <if test="tag.name != null and tag.name != ''">name = #{ tag.name },</if>
+            <if test="tag.createTime != null">create_time = #{ tag.createTime },</if>
+            <if test="tag.updateTime != null">update_time = #{ tag.updateTime },</if>
+        </trim>
+        WHERE name = #{tag.name}
+    </update>
+
+    <!--    <select id="getTagNamesByIds" parameterType="java.util.List" resultType="java.lang.String">-->
+    <!--        SELECT name FROM tag-->
+    <!--        WHERE id IN-->
+    <!--        <foreach item="id" collection="tagIds" open="(" separator="," close=")">-->
+    <!--            #{id}-->
+    <!--        </foreach>-->
+    <!--    </select>-->
+
+</mapper>

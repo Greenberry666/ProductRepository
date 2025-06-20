@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.multi.module.textMessageTask.mapper.TextMessageTaskMapper">
+
+
+    <insert id="insert" parameterType="com.example.multi.module.textMessageTask.entity.TextMessageTask">
+        INSERT INTO text_message_task (phone, code, status, create_time, update_time, is_deleted)
+        VALUES (#{phone}, #{code}, #{status}, #{createTime}, #{updateTime}, #{isDeleted})
+    </insert>
+
+
+    <!--    <select id="findPendingTasks" resultType="com.example.multi.module.textMessageTask.entity.TextMessageTask">-->
+    <!--        SELECT * FROM text_message_task-->
+    <!--        WHERE status = 'PENDING' AND is_deleted = 0-->
+    <!--    </select>-->
+
+
+    <update id="update" parameterType="com.example.multi.module.textMessageTask.entity.TextMessageTask">
+        UPDATE text_message_task
+        SET status      = #{status},
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+</mapper>

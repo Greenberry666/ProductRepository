@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.multi.module.textMessage.mapper.TextMessageMapper">
+    <insert id="insert" parameterType="com.example.multi.module.textMessage.entity.TextMessage">
+        INSERT INTO text_message (phone, code, status, create_time, update_time, is_deleted)
+        VALUES (#{phone}, #{code}, #{status}, #{createTime}, #{updateTime}, #{isDeleted})
+    </insert>
+
+</mapper>
