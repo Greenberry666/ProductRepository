@@ -25,21 +25,16 @@ public class TextMessageService {
 
     @Resource
     private TextMessageMapper textMessageMapper;
-    @Resource
-    private TextMessageTaskMapper textMessageTaskMapper;
+
+//    @Resource
+//    private IAcsClient client;
 
 
-    private static final String Id = "A";
-    private static final String Secret = "B";
-    private static final String REGION_ID = "cn-hangzhou";
+    private static final String Id = "A"; // 替换为你的 AccessKeyId
+    private static final String Secret = "B"; // 替换为你的 AccessKeySecret
+    private static final String REGION_ID = "cn-hangzhou"; // 替换为你的 RegionId
 
-    private final IAcsClient client;
-
-    public TextMessageService() {
-        IClientProfile profile = DefaultProfile.getProfile(REGION_ID, Id, Secret);
-        this.client = new DefaultAcsClient(profile);
-    }
-
+    private  IAcsClient client;
     public String sendSms(String phone) {
         try {
             // 发送短信逻辑（调用阿里云SDK）
@@ -83,41 +78,19 @@ public class TextMessageService {
         return "短信发送任务已接收";
     }
 
-    // 定时任务
-    // 定时任务：扫描未发送的任务并发送短信
-    @Scheduled(fixedRate = 60000) // 每分钟执行一次
-    public void sendPendingMessages() {
-        List<TextMessageTask> tasks = textMessageTaskMapper.findPendingTasks();
-        for (TextMessageTask task : tasks) {
-            try {
-                // 发送短信
-                SendSmsRequest request = new SendSmsRequest();
-                request.setPhoneNumbers(task.getPhone());
-                //request.setSignName(signName);
-                //request.setTemplateCode(templateCode);
-                request.setTemplateParam("{\"code\":\"" + task.getCode() + "\"}");
-                SendSmsResponse response = client.getAcsResponse(request);
 
-                // 更新任务状态
-                task.setStatus(response.getCode());
-                task.setUpdateTime(BaseUtils.currentSeconds());
-                textMessageTaskMapper.update(task);
+//    public void recordMessage(String phone, String code, String status) {
+//        TextMessage message = new TextMessage();
+//        message.setPhone(phone);
+//        message.setCode(code);
+//        message.setStatus(status);
+//        message.setSendTime(BaseUtils.currentSeconds());
+//        message.setCreateTime(BaseUtils.currentSeconds());
+//        message.setUpdateTime(BaseUtils.currentSeconds());
+//        message.setIsDeleted(0);
+//        textMessageMapper.insert(message);
+//    }
 
-                // 记录发送情况
-                TextMessage message = new TextMessage();
-                message.setPhone(task.getPhone());
-                message.setCode(task.getCode());
-                message.setStatus(response.getCode());
-                message.setCreateTime(BaseUtils.currentSeconds());
-                message.setUpdateTime(BaseUtils.currentSeconds());
-                textMessageMapper.insert(message);
-            } catch (Exception e) {
-                task.setStatus("FAILED");
-                task.setUpdateTime(BaseUtils.currentSeconds());
-                textMessageTaskMapper.update(task);
-            }
-        }
-    }
 
 }
 

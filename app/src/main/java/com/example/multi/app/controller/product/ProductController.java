@@ -3,6 +3,7 @@ package com.example.multi.app.controller.product;
 import com.alibaba.fastjson.JSON;
 
 import java.net.URLEncoder;
+import java.time.Duration;
 import java.util.*;
 
 import com.example.multi.app.annotation.RequireLogin;
@@ -24,6 +25,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.Duration;
+
 
 @Slf4j
 @RestController
@@ -39,6 +43,8 @@ public class ProductController {
     private ProductService service;
     @Autowired
     private CategoryService categoryservice;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
 
     @SneakyThrows
@@ -116,7 +122,7 @@ public class ProductController {
 
     @SneakyThrows
     @RequestMapping("/product/list")
-    @Cacheable(value = "categoryListCache", key = "#page + '-' + #keyword", unless = "#result == null")
+    //@Cacheable(value = "categoryListCache", key = "#page + '-' + #keyword", unless = "#result == null")
     public Response getProductList(
             @RequestParam(value = "wp", defaultValue = "") String wp,
             @RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -131,7 +137,12 @@ public class ProductController {
             page = decodedWpJSON.getPage();
             keyword = decodedWpJSON.getKeyword();
         }
+        // 生成缓存key
+        String cacheKey = "list_" + page + "_" + keyword;
 
+        // 从Redis中获取缓存数据
+        ProductListVO productListVO = (ProductListVO) redisTemplate.opsForValue().get(cacheKey);
+        if (productListVO == null) {
         List<Product> products = service.getPage(page, pageSize, keyword);
 
 
@@ -199,7 +210,7 @@ public class ProductController {
         }
 
 
-        ProductListVO productListVO = new ProductListVO();
+        //ProductListVO productListVO = new ProductListVO();
         productListVO.setIsEnd(productCellVOS.size() < pageSize);
         productListVO.setList(productCellVOS);
 
@@ -211,10 +222,13 @@ public class ProductController {
         String jsonInput = JSON.toJSONString(codeByWp);
         String base64Encoded = URLEncoder.encode(Base64.getEncoder().encodeToString(jsonInput.getBytes()));
         productListVO.setWp(base64Encoded);
-
+        // 存入Redis缓存，并设置过期时间为60秒
+        redisTemplate.opsForValue().set(cacheKey, productListVO,  Duration.ofSeconds(60));
+        }
         //return productListVO;
         return new Response(1001, productListVO);
     }
+
 
 
     @RequireLogin

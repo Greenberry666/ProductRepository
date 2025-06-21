@@ -5,14 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20aa622f-f658-4af9-8eae-e7c134a149d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/AppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/AppApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/phone/ReceiveMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/phone/ReceiveMessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/product/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/product/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/console/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/module/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,6 +54,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
@@ -45,16 +66,22 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "spring.configuration.checksum": "21db79f217a0ebf975f8fa34e5ff8a4a",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "spring.configuration.checksum": "32201510abb7ce0e706a100fc75ade4f",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "ChangesTree.GroupingKeys": [
       "directory"
+    ],
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\IdeaProjects\ProductRepository\module\src\main\resources" />
@@ -93,7 +120,9 @@
       <option name="presentableId" value="Default" />
       <updated>1750412795775</updated>
       <workItem from="1750412796857" duration="554000" />
-      <workItem from="1750413364625" duration="1627000" />
+      <workItem from="1750413364625" duration="2830000" />
+      <workItem from="1750477740781" duration="2853000" />
+      <workItem from="1750480617185" duration="3965000" />
     </task>
     <task id="LOCAL-00001" summary="删除无用东西">
       <created>1750412857373</created>
@@ -123,7 +152,21 @@
       <option name="project" value="LOCAL" />
       <updated>1750414596679</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="添加module的阿里云短信依赖">
+      <created>1750415034149</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1750415034149</updated>
+    </task>
+    <task id="LOCAL-00006" summary="本地完整代码">
+      <created>1750415332562</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1750415332562</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +186,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="代码内容优化，删除乱码内容" />
     <MESSAGE value="删除无用东西" />
-    <option name="LAST_COMMIT_MESSAGE" value="删除无用东西" />
+    <MESSAGE value="添加module的阿里云短信依赖" />
+    <MESSAGE value="本地完整代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="本地完整代码" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
