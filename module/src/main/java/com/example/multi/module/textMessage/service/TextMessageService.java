@@ -67,19 +67,29 @@ public class TextMessageService {
         }
     }
 
+    //executor.submit 方法
+    //executor.submit 是 ExecutorService 接口中的一个方法，用于提交一个任务到线程池中执行。这个方法接受一个 Callable 或 Runnable 类型的参数。
+    //Runnable：一个没有返回值的任务。
+    //Callable：一个有返回值的任务，通常返回 Future 对象。
+    //Lambda 表达式
+//    () -> {
+//    sendSms(phone); // 调用同步发送方法
+//}
     public String sendSmsBatch(List<String> phones) {
         ExecutorService executor = Executors.newFixedThreadPool(10); // 创建线程池
+        //线程池中最多可以同时运行 10 个线程。
         for (String phone : phones) {
-            executor.submit(() -> {
+            //executor.submit：ExecutorService 接口的一个方法，用于提交一个任务到线程池中执行。
+            //() -> { sendSms(phone); }：这是一个 Lambda 表达式，表示一个实现了 Runnable 接口的匿名内部类。
+            executor.submit(() -> {// 提交任务到线程池
                 sendSms(phone); // 调用同步发送方法
             });
         }
-        executor.shutdown();
+        executor.shutdown();// 关闭线程池
         return "多线程发送任务已启动";
     }
 
     public String sendSmsAsync(String phone) {
-
         return "短信发送任务已接收";
     }
 
