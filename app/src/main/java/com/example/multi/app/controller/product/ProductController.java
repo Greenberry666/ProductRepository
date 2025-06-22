@@ -122,7 +122,7 @@ public class ProductController {
 
     @SneakyThrows
     @RequestMapping("/product/list")
-    //@Cacheable(value = "categoryListCache", key = "#page + '-' + #keyword", unless = "#result == null")
+//    @Cacheable(value = "categoryListCache", key = "#page + '-' + #keyword", unless = "#result == null")
     public Response getProductList(
             @RequestParam(value = "wp", defaultValue = "") String wp,
             @RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -210,7 +210,7 @@ public class ProductController {
         }
 
 
-        //ProductListVO productListVO = new ProductListVO();
+         productListVO = new ProductListVO();
         productListVO.setIsEnd(productCellVOS.size() < pageSize);
         productListVO.setList(productCellVOS);
 

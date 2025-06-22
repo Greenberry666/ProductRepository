@@ -34,7 +34,12 @@ public class TextMessageService {
     private static final String Secret = "B"; // 替换为你的 AccessKeySecret
     private static final String REGION_ID = "cn-hangzhou"; // 替换为你的 RegionId
 
-    private  IAcsClient client;
+    private  final IAcsClient client;
+
+    public TextMessageService() {
+        IClientProfile profile = DefaultProfile.getProfile(REGION_ID, Id, Secret);
+        this.client = new DefaultAcsClient(profile);
+    }
     public String sendSms(String phone) {
         try {
             // 发送短信逻辑（调用阿里云SDK）

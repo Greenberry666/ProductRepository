@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20aa622f-f658-4af9-8eae-e7c134a149d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/AppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/AppApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/phone/ReceiveMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/phone/ReceiveMessageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/product/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/product/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/console/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/module/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,33 +42,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/IdeaProjects/ProductRepository/module/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
-    "spring.configuration.checksum": "32201510abb7ce0e706a100fc75ade4f",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/IdeaProjects/ProductRepository/module/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;32201510abb7ce0e706a100fc75ade4f&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
     ],
-    "DatabaseDriversLRU": [
-      "mysql"
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;,
+      &quot;redis&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -94,6 +87,26 @@
       <recent name="com.example.multi.module.utils" />
       <recent name="com.example.multi.module.textMessage.entity" />
     </key>
+  </component>
+  <component name="RedisHelper">
+    <option name="connections">
+      <list>
+        <ConnectionInfo>
+          <option name="global" value="false" />
+          <option name="id" value="c9cbac72-171e-4beb-ba2b-6ff3fdebdfa1" />
+          <option name="name" value="text" />
+          <option name="port" value="6379" />
+          <option name="url" value="127.0.0.1" />
+        </ConnectionInfo>
+      </list>
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
   </component>
   <component name="RunManager" selected="Spring Boot.AppApplication">
     <configuration name="AppApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -122,7 +135,17 @@
       <workItem from="1750412796857" duration="554000" />
       <workItem from="1750413364625" duration="2830000" />
       <workItem from="1750477740781" duration="2853000" />
-      <workItem from="1750480617185" duration="3965000" />
+      <workItem from="1750480617185" duration="6138000" />
+      <workItem from="1750577107230" duration="1076000" />
+      <workItem from="1750578203249" duration="9000" />
+      <workItem from="1750578221543" duration="182000" />
+      <workItem from="1750578411431" duration="242000" />
+      <workItem from="1750578660576" duration="377000" />
+      <workItem from="1750579046489" duration="366000" />
+      <workItem from="1750579422062" duration="27000" />
+      <workItem from="1750579457797" duration="219000" />
+      <workItem from="1750579686270" duration="2148000" />
+      <workItem from="1750581852705" duration="4156000" />
     </task>
     <task id="LOCAL-00001" summary="删除无用东西">
       <created>1750412857373</created>
@@ -166,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1750415332562</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="增加了Redis缓存&#10;定时任务单独存放app&#10;controller取消了用@SneakyThrows，">
+      <created>1750484698517</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1750484698517</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +218,8 @@
     <MESSAGE value="删除无用东西" />
     <MESSAGE value="添加module的阿里云短信依赖" />
     <MESSAGE value="本地完整代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="本地完整代码" />
+    <MESSAGE value="增加了Redis缓存&#10;定时任务单独存放app&#10;controller取消了用@SneakyThrows，" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加了Redis缓存&#10;定时任务单独存放app&#10;controller取消了用@SneakyThrows，" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
