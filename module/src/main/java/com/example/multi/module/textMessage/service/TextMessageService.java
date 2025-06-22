@@ -12,19 +12,45 @@ import com.example.multi.module.textMessageTask.entity.TextMessageTask;
 import com.example.multi.module.textMessageTask.mapper.TextMessageTaskMapper;
 import com.example.multi.module.utils.BaseUtils;
 import jakarta.annotation.Resource;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
 public class TextMessageService {
 
-
     @Resource
-    private TextMessageMapper textMessageMapper;
+    public TextMessageMapper textMessageMapper;
+
+    public TextMessage getById(BigInteger id) {
+        return textMessageMapper.getById(id);
+    }
+
+    public TextMessage extractById(BigInteger id) {
+        return textMessageMapper.extractById(id);
+    }
+
+    public int insert(TextMessage textMessage) {
+        return textMessageMapper.insert(textMessage);
+    }
+
+    public int update(TextMessage textMessage) {
+        return textMessageMapper.update(textMessage);
+    }
+
+    public int delete(BigInteger id) {
+        return textMessageMapper.delete(id, BaseUtils.currentSeconds());
+    }
+
+
+
 
 //    @Resource
 //    private IAcsClient client;
@@ -37,9 +63,10 @@ public class TextMessageService {
     private  final IAcsClient client;
 
     public TextMessageService() {
-        IClientProfile profile = DefaultProfile.getProfile(REGION_ID, Id, Secret);
+        IClientProfile profile = DefaultProfile.getProfile(REGION_ID, Id , Secret);
         this.client = new DefaultAcsClient(profile);
     }
+
     public String sendSms(String phone) {
         try {
             // 发送短信逻辑（调用阿里云SDK）
@@ -54,7 +81,7 @@ public class TextMessageService {
             TextMessage message = new TextMessage();
             message.setPhone(phone);
             message.setCode("12345");
-            message.setStatus(response.getCode());
+            message.setStatus(mapResponseCodeToStatus(response.getCode()));
             message.setSendTime(BaseUtils.currentSeconds());
             message.setCreateTime(BaseUtils.currentSeconds());
             message.setUpdateTime(BaseUtils.currentSeconds());
@@ -89,22 +116,42 @@ public class TextMessageService {
         return "多线程发送任务已启动";
     }
 
-    public String sendSmsAsync(String phone) {
-        return "短信发送任务已接收";
+    @Async
+    public CompletableFuture<String> sendSmsAsync(String phone) {
+        try {
+
+            SendSmsRequest request = new SendSmsRequest();
+            request.setPhoneNumbers(phone);
+            request.setSignName("签名名称");
+            request.setTemplateCode("模板ID");
+            request.setTemplateParam("{\"code\":\"12345\"}");
+            SendSmsResponse response = client.getAcsResponse(request);
+
+
+            TextMessage message = new TextMessage();
+            message.setPhone(phone);
+            message.setCode("12345");
+            message.setStatus(mapResponseCodeToStatus(response.getCode()));
+            message.setSendTime(BaseUtils.currentSeconds());
+            message.setCreateTime(BaseUtils.currentSeconds());
+            message.setUpdateTime(BaseUtils.currentSeconds());
+            message.setIsDeleted(0);
+            textMessageMapper.insert(message);
+
+            return CompletableFuture.completedFuture("发送成功");
+        } catch (Exception e) {
+            return CompletableFuture.completedFuture("发送失败: " + e.getMessage());
+        }
     }
 
 
-//    public void recordMessage(String phone, String code, String status) {
-//        TextMessage message = new TextMessage();
-//        message.setPhone(phone);
-//        message.setCode(code);
-//        message.setStatus(status);
-//        message.setSendTime(BaseUtils.currentSeconds());
-//        message.setCreateTime(BaseUtils.currentSeconds());
-//        message.setUpdateTime(BaseUtils.currentSeconds());
-//        message.setIsDeleted(0);
-//        textMessageMapper.insert(message);
-//    }
+    private int mapResponseCodeToStatus(String responseCode) {
+        if ("OK".equals(responseCode)) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
 
 
 }

@@ -19,7 +19,7 @@ public interface TextMessageMapper {
 
     int update(@Param("message") TextMessage message);
 
-    int insert(TextMessage message);
+    int insert(@Param("message") TextMessage message);
 
     @Update("update text_message set is_deleted = 1,update_time = #{time}  where id = #{id} limit 1")
     int delete(@Param("id") BigInteger id, @Param("time") Integer time);

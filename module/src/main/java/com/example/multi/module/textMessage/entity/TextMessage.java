@@ -10,7 +10,7 @@ public class TextMessage {
     private String phone;
     private String code;
     private Integer sendTime;
-    private String status;
+    private Integer status;
     private Integer createTime;
     private Integer updateTime;
     private Integer isDeleted;

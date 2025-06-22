@@ -25,7 +25,7 @@ public interface TextMessageTaskMapper {
     @Update("update text_message_task set is_deleted = 1,update_time = #{time}  where id = #{id} limit 1")
     int delete(@Param("id") BigInteger id, @Param("time") Integer time);
 
-    @Select("SELECT * FROM text_message_task WHERE status = 'PENDING' AND is_deleted = 0")
-    List<TextMessageTask> findPendingTasks();
+    @Select("SELECT * FROM text_message_task WHERE status = 0 AND is_deleted = 0")
+    List<TextMessageTask> findPendingTask();
 
 }

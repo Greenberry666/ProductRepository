@@ -3,7 +3,7 @@
 <mapper namespace="com.example.multi.module.textMessage.mapper.TextMessageMapper">
     <insert id="insert" parameterType="com.example.multi.module.textMessage.entity.TextMessage">
         INSERT INTO text_message (phone, code, status, create_time, update_time, is_deleted)
-        VALUES (#{phone}, #{code}, #{status}, #{createTime}, #{updateTime}, #{isDeleted})
+        VALUES (#{message.phone}, #{message.code}, #{message.status}, #{message.createTime}, #{message.updateTime}, #{message.isDeleted})
     </insert>
 
 </mapper>

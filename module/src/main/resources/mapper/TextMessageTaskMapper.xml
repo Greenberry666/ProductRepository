@@ -17,8 +17,8 @@
 
     <update id="update" parameterType="com.example.multi.module.textMessageTask.entity.TextMessageTask">
         UPDATE text_message_task
-        SET status      = #{status},
-            update_time = #{updateTime}
-        WHERE id = #{id}
+        SET status = #{messageTask.status},
+            update_time = #{messageTask.updateTime}
+        WHERE id = #{messageTask.id}
     </update>
 </mapper>

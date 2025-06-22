@@ -9,7 +9,7 @@ public class TextMessageTask {
     private BigInteger id;
     private String phone;
     private String code;
-    private String status;
+    private Integer status;
     private Integer createTime;
     private Integer updateTime;
     private Integer isDeleted;

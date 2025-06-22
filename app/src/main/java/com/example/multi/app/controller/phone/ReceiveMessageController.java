@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class ReceiveMessageController {
@@ -27,8 +28,9 @@ public class ReceiveMessageController {
     }
 
     // 异步发送
+    // 异步发送
     @GetMapping("/receive/async")
-    public String sendSmsAsync(@RequestParam(name = "phone") String phone) {
+    public CompletableFuture<String> sendSmsAsync(@RequestParam(name = "phone") String phone) {
         return messageService.sendSmsAsync(phone);
     }
 

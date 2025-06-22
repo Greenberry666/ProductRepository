@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = "com.example.multi")
 @MapperScan(basePackages = {"com.example.multi.module.product.mapper"})
@@ -15,6 +17,8 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = {"com.example.multi.module.textMessage.mapper"})
 @MapperScan(basePackages = {"com.example.multi.module.textMessageTask.mapper"})
 @ConfigurationProperties(prefix = "spring.datasource")
+@EnableScheduling
+@EnableAsync
 public class AppApplication {
     public static void main(String[] args){
 
