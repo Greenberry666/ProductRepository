@@ -5,7 +5,7 @@
 
     <insert id="insert" parameterType="com.example.multi.module.textMessageTask.entity.TextMessageTask">
         INSERT INTO text_message_task (phone, code, status, create_time, update_time, is_deleted)
-        VALUES (#{phone}, #{code}, #{status}, #{createTime}, #{updateTime}, #{isDeleted})
+        VALUES (#{messageTask.phone}, #{messageTask.code}, #{messageTask.status}, #{messageTask.createTime}, #{messageTask.updateTime}, #{messageTask.isDeleted})
     </insert>
 
 

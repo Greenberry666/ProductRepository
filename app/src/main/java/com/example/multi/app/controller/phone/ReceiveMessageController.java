@@ -27,7 +27,7 @@ public class ReceiveMessageController {
         return messageService.sendSmsBatch(phones);
     }
 
-    // 异步发送
+
     // 异步发送
     @GetMapping("/receive/async")
     public CompletableFuture<String> sendSmsAsync(@RequestParam(name = "phone") String phone) {

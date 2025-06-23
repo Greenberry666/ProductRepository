@@ -6,15 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="20aa622f-f658-4af9-8eae-e7c134a149d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/AppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/AppApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/phone/ReceiveMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/controller/phone/ReceiveMessageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/task/TimedTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/multi/app/task/TimedTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/entity/TextMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/entity/TextMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/mapper/TextMessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/mapper/TextMessageMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/module/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessage/service/TextMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessageTask/entity/TextMessageTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessageTask/entity/TextMessageTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessageTask/mapper/TextMessageTaskMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/java/com/example/multi/module/textMessageTask/mapper/TextMessageTaskMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/src/main/resources/mapper/TextMessageMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/resources/mapper/TextMessageMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/src/main/resources/mapper/TextMessageTaskMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/module/src/main/resources/mapper/TextMessageTaskMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +150,8 @@
       <workItem from="1750579457797" duration="219000" />
       <workItem from="1750579686270" duration="2148000" />
       <workItem from="1750581852705" duration="4156000" />
-      <workItem from="1750598267640" duration="6226000" />
+      <workItem from="1750598267640" duration="6658000" />
+      <workItem from="1750682696423" duration="7134000" />
     </task>
     <task id="LOCAL-00001" summary="删除无用东西">
       <created>1750412857373</created>
@@ -219,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1750595835136</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="修改了status 类型&#10;修改了TimedTask@Resource">
+      <created>1750604895818</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750604895818</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,7 +247,8 @@
     <MESSAGE value="本地完整代码" />
     <MESSAGE value="增加了Redis缓存&#10;定时任务单独存放app&#10;controller取消了用@SneakyThrows，" />
     <MESSAGE value="单独创建定时任务" />
-    <option name="LAST_COMMIT_MESSAGE" value="单独创建定时任务" />
+    <MESSAGE value="修改了status 类型&#10;修改了TimedTask@Resource" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改了status 类型&#10;修改了TimedTask@Resource" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

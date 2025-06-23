@@ -10,10 +10,14 @@ import com.example.multi.module.textMessageTask.mapper.TextMessageTaskMapper;
 import com.example.multi.module.textMessageTask.service.TextMessageTaskService;
 import com.example.multi.module.utils.BaseUtils;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
+
+@Slf4j
 @Component
 public class TimedTask {
     @Resource
