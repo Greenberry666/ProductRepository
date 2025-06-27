@@ -121,6 +121,11 @@
 			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
 			<version>2.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>3.3.2</version>
+		</dependency>
 
 
 
