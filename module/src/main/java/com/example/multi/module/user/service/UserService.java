@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -147,6 +148,7 @@ public class UserService {
     public User extractByPhone(String phone, String countryCode) {
         return mapper.extractByPhone(phone, countryCode);
     }
+    public List<User> getUsersToExcel(){return  mapper.getUserToExcel();}
 
 
 }

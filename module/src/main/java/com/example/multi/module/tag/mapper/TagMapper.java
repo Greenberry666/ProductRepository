@@ -29,4 +29,7 @@ public interface TagMapper {
 
 //    List<String> getTagNamesByIds(@Param("tagIds") List<BigInteger> tagIds);
 
+    @Select("select * from tag where is_deleted = 0")
+    List<Tag> getTagToExcel();
+
 }

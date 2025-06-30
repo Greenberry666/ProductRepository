@@ -119,6 +119,10 @@ public class CategoryService {
 
 
     //类⽬树
+    // 获取所有分类数据
+    public List<Category> getCategorysToExcel() {
+        return mapper.getCategorys();
+    }
 
 
 }

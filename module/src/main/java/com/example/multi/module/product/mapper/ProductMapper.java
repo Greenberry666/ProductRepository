@@ -43,4 +43,8 @@ public interface ProductMapper {
                                                @Param("keyword") String keyword);
 
 
+    @Select("select * from product where is_deleted = 0")
+    List<Product> getProductToExcel();
+
+
 }

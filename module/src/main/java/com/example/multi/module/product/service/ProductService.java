@@ -186,6 +186,9 @@ public class ProductService {
         }
         return tagNames;
     }
+    public List<Product> getProductsToExcel() {
+        return mapper.getProductToExcel();
+    }
 
 
 }

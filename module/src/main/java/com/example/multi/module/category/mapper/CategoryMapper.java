@@ -49,8 +49,8 @@ public interface CategoryMapper {
 //                         @Param("categoryName") String categoryName);
 //
 //
-@Select("select * from category where is_deleted = 0")
-List<Category> getCategorys();
+    @Select("select * from category where is_deleted = 0")
+    List<Category> getCategorys();
 
     @Select("select * from category where  parent_id is null and is_deleted = 0")
     List<Category> getParentCategorys();

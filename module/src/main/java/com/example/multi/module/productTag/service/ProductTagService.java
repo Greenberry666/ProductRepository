@@ -25,21 +25,11 @@ public class ProductTagService {
         return mapper.extractById(productId);
     }
 
-//    public int insert(Tag tag) {
-//        return mapper.insert(tag);
-//    }
-//
-//    public int update(Tag tag) {
-//        return mapper.update(tag);
-//    }
-//
-//    public int delete(BigInteger id) {
-//        return mapper.delete(id, BaseUtils.currentSeconds());
-//    }
-
     public List<BigInteger> getTagIdsByProductId(BigInteger productId) {
         return mapper.findTagIdsByProductId(productId);
     }
+
+    public List<ProductTag> getProductTagsToExcel(){return mapper.getProductTagToExcel();}
 
 
 }

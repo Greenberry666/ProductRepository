@@ -21,8 +21,6 @@ public interface ProductTagMapper {
 
     int update(@Param("productTag") ProductTag ProductTag);
 
-//    int updateByProductId(@Param("productTag")ProductTag productTag);
-
     int insert(@Param("productTag") ProductTag productTag);
 
     @Update("update product_tag set is_deleted = 1,update_time = #{time}  where id = #{id} limit 1")
@@ -34,4 +32,7 @@ public interface ProductTagMapper {
 
     //@Select("SELECT tag_id FROM product_tag WHERE  WHERE product_id = #{productId} AND is_deleted = 0")
     List<BigInteger> findTagIdsByProductId(BigInteger productId);
+
+    @Select("select * from product_tag where is_deleted = 0")
+    List<ProductTag> getProductTagToExcel();
 }

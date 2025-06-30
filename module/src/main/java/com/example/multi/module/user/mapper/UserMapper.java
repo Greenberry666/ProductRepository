@@ -57,5 +57,8 @@ public interface UserMapper {
 
     int getUsersTotalForConsole(@Param("username") String username, @Param("phone") String phone);
 
+    @Select("select * from user where is_deleted = 0")
+    List<User> getUserToExcel();
+
 
 }

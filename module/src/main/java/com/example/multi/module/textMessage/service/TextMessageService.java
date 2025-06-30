@@ -136,6 +136,8 @@ public class TextMessageService {
         }
     }
 
+    public List<TextMessage> getTextMessagesToExcel(){return textMessageMapper.getTextMessageToExcel();}
+
 
 }
 //executor.submit 方法
@@ -147,86 +149,5 @@ public class TextMessageService {
 //    sendSms(phone); // 调用同步发送方法
 //}
 
-// public String sendSms(String phone) {
-//        try {
-//            // 发送短信逻辑（调用阿里云SDK）
-//            SendSmsRequest request = new SendSmsRequest();
-//            request.setPhoneNumbers(phone);
-//            request.setSignName("签名名称");
-//            request.setTemplateCode("模板ID");
-//            request.setTemplateParam("{\"code\":\"12345\"}");
-//            SendSmsResponse response = client.getAcsResponse(request);
-//
-//            // 记录发送情况
-//            TextMessage message = new TextMessage();
-//            message.setPhone(phone);
-//            message.setCode("12345");
-//            message.setStatus(mapResponseCodeToStatus(response.getCode()));
-//            System.out.println("message.setStatus(mapResponseCodeToStatus(response.getCode()))的:response.getCode()"+"="+response.getCode());
-//            //isv.SMS_TEMPLATE_ILLEGAL
-//            System.out.println("message.setStatus(mapResponseCodeToStatus(response.getCode()))的:mapResponseCodeToStatus(response.getCode())"+"="+mapResponseCodeToStatus(response.getCode()));
-//            //2
-//            message.setSendTime(BaseUtils.currentSeconds());
-//            message.setCreateTime(BaseUtils.currentSeconds());
-//            message.setUpdateTime(BaseUtils.currentSeconds());
-//            message.setIsDeleted(0);
-//            textMessageMapper.insert(message);
-//
-//            //return "发送成功";
-//            return response.getCode();
-//        } catch (Exception e) {
-//            // 记录发送失败的信息
-//            TextMessage message = new TextMessage();
-//            message.setPhone(phone);
-//            message.setCode("12345");
-//            message.setStatus(2); // 状态为 2 表示发送失败
-//            message.setSendTime(BaseUtils.currentSeconds());
-//            message.setCreateTime(BaseUtils.currentSeconds());
-//            message.setUpdateTime(BaseUtils.currentSeconds());
-//            message.setIsDeleted(0);
-//            textMessageMapper.insert(message);
-//            return "发送失败: " + e.getMessage();
-//        }
-//    }
 
-// public String sendSms(String phone) {
-//        try {
-//            // 发送短信逻辑（调用阿里云SDK）
-//            SendSmsRequest request = new SendSmsRequest();
-//            request.setPhoneNumbers(phone);
-//            request.setSignName("签名名称");
-//            request.setTemplateCode("模板ID");
-//            request.setTemplateParam("{\"code\":\"12345\"}");
-//            SendSmsResponse response = client.getAcsResponse(request);
-//
-//            // 记录发送情况
-//            TextMessage message = new TextMessage();
-//            message.setPhone(phone);
-//            message.setCode("12345");
-//            message.setStatus(mapResponseCodeToStatus(response.getCode()));
-//            System.out.println("message.setStatus(mapResponseCodeToStatus(response.getCode()))的:response.getCode()"+"="+response.getCode());
-//            //isv.SMS_TEMPLATE_ILLEGAL
-//            System.out.println("message.setStatus(mapResponseCodeToStatus(response.getCode()))的:mapResponseCodeToStatus(response.getCode())"+"="+mapResponseCodeToStatus(response.getCode()));
-//            //2
-//            message.setSendTime(BaseUtils.currentSeconds());
-//            message.setCreateTime(BaseUtils.currentSeconds());
-//            message.setUpdateTime(BaseUtils.currentSeconds());
-//            message.setIsDeleted(0);
-//            textMessageMapper.insert(message);
-//
-//            //return "发送成功";
-//            return response.getCode();
-//        } catch (Exception e) {
-//            // 记录发送失败的信息
-//            TextMessage message = new TextMessage();
-//            message.setPhone(phone);
-//            message.setCode("12345");
-//            message.setStatus(2); // 状态为 2 表示发送失败
-//            message.setSendTime(BaseUtils.currentSeconds());
-//            message.setCreateTime(BaseUtils.currentSeconds());
-//            message.setUpdateTime(BaseUtils.currentSeconds());
-//            message.setIsDeleted(0);
-//            textMessageMapper.insert(message);
-//            return "发送失败: " + e.getMessage();
-//        }
-//    }
+

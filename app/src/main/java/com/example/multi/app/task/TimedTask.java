@@ -26,7 +26,7 @@ public class TimedTask {
     private TextMessageTaskService textMessageTaskService;
 
     // 定时任务：扫描未发送的任务并发送短信
-    @Scheduled(fixedRate = 60000) // 每分钟执行一次
+    //@Scheduled(fixedRate = 60000) // 每分钟执行一次
     public void sendPendingMessages() {
         List<TextMessageTask> tasks = textMessageTaskService.findPendingTasks();
         for (TextMessageTask task : tasks) {

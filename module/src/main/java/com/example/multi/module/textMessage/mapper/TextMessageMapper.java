@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Mapper
 public interface TextMessageMapper {
@@ -23,6 +24,9 @@ public interface TextMessageMapper {
 
     @Update("update text_message set is_deleted = 1,update_time = #{time}  where id = #{id} limit 1")
     int delete(@Param("id") BigInteger id, @Param("time") Integer time);
+
+    @Select("select * from text_message where is_deleted = 0")
+    List<TextMessage> getTextMessageToExcel();
 
 
 }

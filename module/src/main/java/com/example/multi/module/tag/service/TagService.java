@@ -112,60 +112,7 @@ public class TagService {
         }
     }
 
-//    public void manageTags(BigInteger productId, List<BigInteger> tagIds) {
-//        // 1. 获取当前商品的所有标签关系
-//        List<ProductTag> existingProductTags = productTagMapper.getById(productId);
-//
-//        // 2. 删除不再需要的标签关系
-//        List<ProductTag> toDelete = new ArrayList<>();
-//        for (ProductTag pt : existingProductTags) {
-//            boolean found = false;
-//            for (BigInteger tagId : tagIds) {
-//                if (pt.getTagId().equals(tagId)) {
-//                    found = true;
-//                    break;
-//                }
-//            }
-//            if (!found) {
-//                toDelete.add(pt);
-//            }
-//        }
-//
-//        for (ProductTag pt : toDelete) {
-//            productTagMapper.delete(pt.getId(), BaseUtils.currentSeconds());
-//        }
-//
-//        // 3. 添加新的标签关系
-//        for (BigInteger tagId : tagIds) {
-//            boolean found = false;
-//            for (ProductTag pt : existingProductTags) {
-//                if (pt.getTagId().equals(tagId)) {
-//                    found = true;
-//                    break;
-//                }
-//            }
-//            if (!found) {
-//
-//                ProductTag existingTag = productTagMapper.getDeletedProductTag(productId, tagId);
-//                if (existingTag != null) {
-//                    // 恢复记录
-//                    existingTag.setIsDeleted(0);
-//                    existingTag.setUpdateTime(BaseUtils.currentSeconds());
-//
-//                    productTagMapper.update(existingTag);
-//                } else {
-//                    // 插入新记录
-//                    ProductTag newTag = new ProductTag();
-//                    newTag.setProductId(productId);
-//                    newTag.setTagId(tagId);
-//                    newTag.setCreateTime(BaseUtils.currentSeconds());
-//                    newTag.setUpdateTime(BaseUtils.currentSeconds());
-//                    newTag.setIsDeleted(0);
-//                    productTagMapper.insert(newTag);
-//                }
-//            }
-//        }
-//    }
+
 
     public List<String> findTagNamesByIds(String tagIds) {
         return mapper.getTagNamesByIds(tagIds);
@@ -173,6 +120,8 @@ public class TagService {
 //    public List<String> findTagNamesByIds(List<BigInteger> tagIds) {
 //        return mapper.getTagNamesByIds(tagIds);
 //    }
+
+    public List<Tag> getTagsToExcel(){return mapper.getTagToExcel();}
 
 
 }

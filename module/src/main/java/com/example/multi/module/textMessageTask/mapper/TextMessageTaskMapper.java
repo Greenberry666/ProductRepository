@@ -28,4 +28,8 @@ public interface TextMessageTaskMapper {
     @Select("SELECT * FROM text_message_task WHERE status = 0 AND is_deleted = 0")
     List<TextMessageTask> findPendingTask();
 
+    @Select("select * from text_message_task where  is_deleted = 0")
+    List<TextMessageTask> getTextMessageTaskToExcel();
+
+
 }
